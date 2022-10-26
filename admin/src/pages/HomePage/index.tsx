@@ -22,6 +22,7 @@ import VideoView from "../../components/Videos";
 import settingsRequests from "../../api/settings";
 import SetupNeeded from "../../components/SetupNeeded";
 import { Loader } from "@strapi/design-system/Loader";
+import EmptyState from "../../components/EmptyState";
 
 const HomePage = () => {
   const [isLoadingData, setIsLoadingData] = useState(true);
@@ -63,15 +64,17 @@ const HomePage = () => {
       />
       <ContentLayout>
         {/* <h1>{pluginId}&apos;s HomePage</h1> */}
-
         {isConfigurated ? (
-          <GridBroadcast>
-            {assets.length > 0 &&
-              assets?.map((video) => {
+          !isLoadingData && assets?.length > 0 ? (
+            <GridBroadcast>
+              {assets?.map((video) => {
                 const { videoId } = video;
                 return <VideoView video={video} key={videoId} />;
               })}
-          </GridBroadcast>
+            </GridBroadcast>
+          ) : (
+            <EmptyState />
+          )
         ) : (
           <SetupNeeded />
         )}
