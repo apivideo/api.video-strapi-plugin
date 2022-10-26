@@ -25,7 +25,7 @@ const Settings = () => {
   const notification = useNotification();
 
   const getConfig = async () => {
-    const currentApiKey = await settingsRequests.saveConfig();
+    const currentApiKey = await settingsRequests.getConfig();
     console.log(currentApiKey, "currentApiKey");
     setApikey(currentApiKey);
   };

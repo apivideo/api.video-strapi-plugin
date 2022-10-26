@@ -1,5 +1,6 @@
 import { Strapi } from "@strapi/strapi";
 import ApiVideoClient from "@api.video/nodejs-client";
+import settings from "./settings";
 
 export default ({ strapi }: { strapi: Strapi }) => ({
   getWelcomeMessage() {

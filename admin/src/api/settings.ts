@@ -1,7 +1,7 @@
 import { request } from "@strapi/helper-plugin";
 
 const settingsRequests = {
-  saveConfig: async () => {
+  getConfig: async () => {
     return await request("/api-video-uploader/settings", {
       method: "GET",
     });
