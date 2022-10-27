@@ -1,7 +1,7 @@
-import myService from "./my-service";
+import assets from "./assets";
 import settings from "./settings";
 
 export default {
-  myService,
+  assets,
   settings,
 };

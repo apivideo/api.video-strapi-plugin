@@ -1,12 +1,5 @@
 export default [
-  {
-    method: "GET",
-    path: "/",
-    handler: "myController.index",
-    config: {
-      policies: [],
-    },
-  },
+  // Settings
   {
     method: "GET",
     path: "/settings",
@@ -25,8 +18,43 @@ export default [
       auth: false,
     },
   },
-
-  // End Settings
+  // Assets
+  {
+    method: "GET",
+    path: "/videos",
+    handler: "assets.find",
+    config: {
+      policies: [],
+      auth: false,
+    },
+  },
+  {
+    method: "POST",
+    path: "/video",
+    handler: "assets.create",
+    config: {
+      policies: [],
+      auth: false,
+    },
+  },
+  {
+    method: "PUT",
+    path: "/video/:id",
+    handler: "assets.update",
+    config: {
+      policies: [],
+      auth: false,
+    },
+  },
+  {
+    method: "DELETE",
+    path: "/video/:id",
+    handler: "assets.delete",
+    config: {
+      policies: [],
+      auth: false,
+    },
+  },
   {
     method: "GET",
     path: "/videos/list",
@@ -39,7 +67,7 @@ export default [
   {
     method: "POST",
     path: "/videos/create",
-    handler: "assets.create",
+    handler: "assets.createVideoId",
     config: {
       policies: [],
       auth: false,
