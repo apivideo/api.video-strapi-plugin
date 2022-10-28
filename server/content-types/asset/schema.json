@@ -27,6 +27,14 @@
       "type": "string",
       "required": true,
       "maxLength": 255
+    },
+    "mp4": {
+      "type": "string",
+      "required": true
+    },
+    "thumbnail": {
+      "type": "string",
+      "required": true
     }
   }
 }

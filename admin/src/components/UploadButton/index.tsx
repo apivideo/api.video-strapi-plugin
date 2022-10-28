@@ -34,8 +34,14 @@ const UploadButton: FC<IUploadButtonProps> = ({ currentFile }): JSX.Element => {
           setProgress(Math.round((e.uploadedBytes * 100) / e.totalBytes))
         );
 
-        const res: VideoUploadResponse = await uploader.upload();
-        const body = { title: res.title, videoId: res.videoId };
+        // const res: VideoUploadResponse = await uploader.upload();
+        const res: any = await uploader.upload();
+        const body = {
+          title: res.title,
+          videoId: res.videoId,
+          mp4: res?.assets?.mp4,
+          thumbnail: res?.assets?.thumbnail,
+        };
         const data = await assetRequest.create(body);
 
         console.log(data, "data");
