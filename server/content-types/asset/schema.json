@@ -19,9 +19,14 @@
     "comment": ""
   },
   "attributes": {
-    "Title": {
+    "title": {
       "type": "string",
       "required": true
+    },
+    "videoId": {
+      "type": "string",
+      "required": true,
+      "maxLength": 255
     }
   }
 }

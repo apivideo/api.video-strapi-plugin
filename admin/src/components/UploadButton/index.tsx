@@ -8,34 +8,25 @@ import { ProgressBar } from "@strapi/design-system/ProgressBar";
 import Plus from "@strapi/icons/Plus";
 
 export interface IUploadButtonProps {
-  updateData: () => void;
+  currentFile: File | undefined;
 }
 
-const UploadButton: FC<IUploadButtonProps> = ({ updateData }): JSX.Element => {
+const UploadButton: FC<IUploadButtonProps> = ({ currentFile }): JSX.Element => {
   const [progress, setProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
 
   const [video, setVideo] = useState<VideoUploadResponse | undefined>(
     undefined
   );
-  const [status, setStatus] = useState({ ingested: false, encoded: false });
 
-  // CONSTANTS
-  const inputFile = useRef<HTMLInputElement | null>(null);
-  // HANDLERS
-  const openFilePicker = () => {
-    setVideo(undefined);
-    !isUploading && inputFile && inputFile?.current?.click();
-  };
-
-  const fileInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { files } = e.target;
+  const fileInputChange = async () => {
     const { newVideo, token } = await assetRequest.createVideoId();
-    if (files?.length) {
+    if (currentFile) {
       setIsUploading(true);
       const uploader = new VideoUploader({
-        file: files[0],
+        file: currentFile,
         accessToken: token.accessToken,
+        refreshToken: token.refreshToken,
         videoId: newVideo.videoId,
       });
       try {
@@ -44,13 +35,12 @@ const UploadButton: FC<IUploadButtonProps> = ({ updateData }): JSX.Element => {
         );
 
         const res: VideoUploadResponse = await uploader.upload();
+        const body = { title: res.title, videoId: res.videoId };
+        const data = await assetRequest.create(body);
+
+        console.log(data, "data");
         setVideo(res);
-        setStatus({
-          ingested: true,
-          encoded: false,
-        });
         setIsUploading(false);
-        updateData();
       } catch (e) {
         console.error(e);
       }
@@ -58,19 +48,13 @@ const UploadButton: FC<IUploadButtonProps> = ({ updateData }): JSX.Element => {
   };
 
   return (
-    <div onClick={openFilePicker}>
-      <Button startIcon={<Plus />} loading={isUploading}>
-        {isUploading ? `Upload a video ${progress}%` : `Upload a video`}
-      </Button>
-      <input
-        type="file"
-        id="upload"
-        ref={inputFile}
-        name="upload"
-        onChange={(e) => fileInputChange(e)}
-        style={{ display: "none" }}
-      />
-    </div>
+    <Button
+      startIcon={<Plus />}
+      loading={isUploading}
+      onClick={fileInputChange}
+    >
+      {isUploading ? `Upload a video ${progress}%` : `Upload a video`}
+    </Button>
   );
 };
 

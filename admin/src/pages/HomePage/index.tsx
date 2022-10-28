@@ -32,7 +32,8 @@ const HomePage = () => {
 
   const fetchData = async () => {
     if (isLoadingData === false) setIsLoadingData(true);
-    const { data } = await assetRequest.getAllvideos();
+
+    const data = await assetRequest.getAllvideos();
     console.table(data);
     setIsLoadingData(false);
     setAssets(data);
@@ -60,10 +61,11 @@ const HomePage = () => {
         title="Api.Video Uploader"
         subtitle="Build web or in-app video, faster."
         as="h2"
-        primaryAction={<UploadButton updateData={fetchData} />}
+        // primaryAction={<UploadButton updateData={fetchData} />}
       />
-      <ContentLayout>
-        {/* <h1>{pluginId}&apos;s HomePage</h1> */}
+      <EmptyState />
+
+      {/* <ContentLayout>
         {isConfigurated ? (
           !isLoadingData && assets?.length > 0 ? (
             <GridBroadcast>
@@ -78,7 +80,7 @@ const HomePage = () => {
         ) : (
           <SetupNeeded />
         )}
-      </ContentLayout>
+      </ContentLayout> */}
     </Layout>
   );
 };

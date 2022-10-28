@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState, useRef, ChangeEvent } from "react";
 import {
   ModalLayout,
   ModalBody,
@@ -7,21 +7,64 @@ import {
 } from "@strapi/design-system/ModalLayout";
 import { Button } from "@strapi/design-system/Button";
 import { Typography } from "@strapi/design-system/Typography";
+import FieldComp from "../../FieldComp/Fields";
+import UploadButton from "../../UploadButton";
 
 interface IAddVideoModalProps {
   close?: () => void;
 }
 
 const AddVideoModal: FC<IAddVideoModalProps> = ({ close }): JSX.Element => {
+  const [title, setTitle] = useState("");
+  const [file, setFile] = useState<File | undefined>();
+
+  // CONSTANTS
+  const inputFile = useRef<HTMLInputElement | null>(null);
+
+  const openFilePicker = () => {
+    if (file) {
+      setFile(undefined);
+    }
+    inputFile && inputFile?.current?.click();
+  };
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
+  };
+
+  const fileInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { files } = e.target;
+    if (files?.length) {
+      setFile(files[0]);
+    }
+  };
+
   return (
     <ModalLayout onClose={close} labelledBy="title">
       <ModalHeader>
         <Typography fontWeight="bold" textColor="neutral800" as="h2" id="title">
-          Title
+          Upload a video
         </Typography>
       </ModalHeader>
       <ModalBody>
-        <p>add video</p>
+        <FieldComp
+          name="title"
+          label="Title"
+          value={title}
+          placeholder="Enter your title"
+          onChange={handleChange}
+        />
+        <Button variant="secondary" onClick={openFilePicker}>
+          import
+        </Button>
+        <input
+          type="file"
+          id="upload"
+          ref={inputFile}
+          name="upload"
+          onChange={(e) => fileInputChange(e)}
+          style={{ display: "none" }}
+        />
       </ModalBody>
       <ModalFooter
         startActions={
@@ -31,8 +74,8 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({ close }): JSX.Element => {
         }
         endActions={
           <>
-            <Button variant="secondary">Add new stuff</Button>
-            <Button onClick={close}>Finish</Button>
+            <UploadButton currentFile={file} />
+            {/* <Button onClick={close}>Upload</Button> */}
           </>
         }
       />

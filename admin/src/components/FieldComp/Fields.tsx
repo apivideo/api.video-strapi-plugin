@@ -18,7 +18,7 @@ import { Tooltip } from "@strapi/design-system/Tooltip";
 
 import getTrad from "../../utils/getTrad";
 
-interface ISettingsFieldProps {
+interface IFieldProps {
   name: string;
   label?: string;
   value: string;
@@ -43,7 +43,7 @@ const TooltipButtonStyled = styled.button`
   background: transparent;
 `;
 
-const SettingsField: FC<ISettingsFieldProps> = ({
+const FieldComp: FC<IFieldProps> = ({
   name,
   label,
   value,
@@ -100,4 +100,4 @@ const SettingsField: FC<ISettingsFieldProps> = ({
   );
 };
 
-export default SettingsField;
+export default FieldComp;

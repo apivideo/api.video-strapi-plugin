@@ -16,8 +16,8 @@ import { HeaderLayout, ContentLayout } from "@strapi/design-system/Layout";
 import { Main } from "@strapi/design-system/Main";
 import { Stack } from "@strapi/design-system/Stack";
 import { Typography } from "@strapi/design-system/Typography";
-import SettingsField from "./Fields";
 import settingsRequests from "../../api/settings";
+import FieldComp from "../../components/FieldComp/Fields";
 
 const Settings = () => {
   const [apiKey, setApikey] = useState("");
@@ -89,13 +89,14 @@ const Settings = () => {
             </Typography>
             <Grid gap={6}>
               <GridItem col={6} s={12}>
-                <SettingsField
+                <FieldComp
                   name="apiKey"
                   label="apiKey"
                   value={apiKey}
                   placeholder="Enter your Api Key"
                   description="Generated in the Api.video Dashboard and used for authenticating API calls against Api.Video"
                   detailsLink="https://docs.api.video/docs/upload-a-video-regular-upload"
+                  isPassword
                   // error={errors && errors.access_token}
                   onChange={handleChange}
                 />
