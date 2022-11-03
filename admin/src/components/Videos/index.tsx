@@ -1,5 +1,4 @@
 import React, { useState, useEffect, FC } from "react";
-import Video from "@api.video/nodejs-client/lib/model/Video";
 import {
   Wrapper,
   Thumbnail,
@@ -11,21 +10,30 @@ import {
   SubTitle,
   CustomVideos,
 } from "./styles";
+import { CustomVideo } from "../../../../types";
+import assetRequest from "../../api/assets";
 
 export interface IVideosProps {
-  video: Video;
+  video: CustomVideo;
+  updateData: () => void;
 }
 
-const VideoView: FC<IVideosProps> = ({ video }): JSX.Element => {
-  const { assets, videoId, title, createdAt } = video;
+const VideoView: FC<IVideosProps> = ({ video, updateData }): JSX.Element => {
+  const { id, videoId, title, thumbnail, mp4 } = video;
+  console.log(video, "video");
+
+  const deleteVideo = async () => {
+    const data = await assetRequest.delete(id);
+    updateData();
+  };
 
   return (
     <>
       <Wrapper>
-        <Thumbnail src={assets?.thumbnail} alt={"thumbnail"}></Thumbnail>
+        <Thumbnail src={thumbnail} alt={"thumbnail"}></Thumbnail>
 
         <CustomVideos autoPlay muted loop preload="auto">
-          <source src={assets?.mp4} type="video/mp4" />
+          <source src={mp4} type="video/mp4" />
         </CustomVideos>
         <SubInformationsWrapper>
           <Avatar>
@@ -37,6 +45,7 @@ const VideoView: FC<IVideosProps> = ({ video }): JSX.Element => {
               <p>API Video</p>
             </SubTitle>
           </TitleWrapper>
+          <button onClick={deleteVideo}>delete</button>
         </SubInformationsWrapper>
       </Wrapper>
     </>

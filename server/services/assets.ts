@@ -1,6 +1,7 @@
 import { Strapi } from "@strapi/strapi";
 import ApiVideoClient from "@api.video/nodejs-client";
 import pluginId from "../../admin/src/pluginId";
+import { getConfig } from "../utils/config";
 
 const model = `plugin::${pluginId}.asset`;
 
@@ -16,15 +17,13 @@ export default ({ strapi }: { strapi: Strapi }) => ({
   //   return result;
   // },
 
-  async createVideoId(ctx: any) {
-    const defaultApiKey = process.env.API_KEY;
-
+  async createVideoId(data: any) {
+    const defaultApiKey = await getConfig();
     const client = new ApiVideoClient({
       apiKey: defaultApiKey,
     });
-
     const newVideo = await client.videos.create({
-      title: "Hello World",
+      title: data["title"],
     });
     const token = await client.getAccessToken();
     return { newVideo, token };
@@ -34,8 +33,9 @@ export default ({ strapi }: { strapi: Strapi }) => ({
     return await strapi.entityService.findMany(model, query);
   },
 
-  async delete(id: string) {
-    return await strapi.entityService.delete(model, id);
+  async delete(id: string): Promise<boolean> {
+    await strapi.entityService.delete(model, id);
+    return true;
   },
 
   async create(data: any) {

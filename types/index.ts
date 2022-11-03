@@ -1,4 +1,3 @@
-
 export interface MuxAsset extends MuxAssetUpdate {
   upload_id: string;
   asset_id: string | null;
@@ -21,4 +20,14 @@ export interface MuxAssetUpdate {
 export interface GetMuxAssetsResponse {
   items: MuxAsset[];
   totalCount: number;
+}
+
+export interface CustomVideo {
+  createdAt: Date;
+  id: number;
+  mp4: string;
+  thumbnail: string;
+  title: string;
+  updatedAt: Date;
+  videoId: string;
 }

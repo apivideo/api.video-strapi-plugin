@@ -74,7 +74,7 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({ close }): JSX.Element => {
         }
         endActions={
           <>
-            <UploadButton currentFile={file} />
+            <UploadButton currentFile={file} title={title} />
             {/* <Button onClick={close}>Upload</Button> */}
           </>
         }

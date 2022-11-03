@@ -23,16 +23,17 @@ import settingsRequests from "../../api/settings";
 import SetupNeeded from "../../components/SetupNeeded";
 import { Loader } from "@strapi/design-system/Loader";
 import EmptyState from "../../components/EmptyState";
+import { CustomVideo } from "../../../../types";
+import AddButton from "../../components/Button/AddButton";
 
 const HomePage = () => {
   const [isLoadingData, setIsLoadingData] = useState(true);
   const [isLoadingConfiguration, setIsLoadingConfiguration] = useState(false);
   const [isConfigurated, setIsConfigurated] = useState(false);
-  const [assets, setAssets] = useState<Video[]>([]);
+  const [assets, setAssets] = useState<CustomVideo[]>([]);
 
   const fetchData = async () => {
     if (isLoadingData === false) setIsLoadingData(true);
-
     const data = await assetRequest.getAllvideos();
     console.table(data);
     setIsLoadingData(false);
@@ -42,7 +43,6 @@ const HomePage = () => {
   const getConfig = async () => {
     setIsLoadingConfiguration(true);
     const currentApiKey = await settingsRequests.getConfig();
-    console.log(currentApiKey);
     setIsConfigurated(currentApiKey?.length > 0);
     setIsLoadingConfiguration(false);
   };
@@ -61,17 +61,21 @@ const HomePage = () => {
         title="Api.Video Uploader"
         subtitle="Build web or in-app video, faster."
         as="h2"
-        // primaryAction={<UploadButton updateData={fetchData} />}
+        primaryAction={<AddButton />}
       />
-      <EmptyState />
-
-      {/* <ContentLayout>
+      <ContentLayout>
         {isConfigurated ? (
           !isLoadingData && assets?.length > 0 ? (
             <GridBroadcast>
               {assets?.map((video) => {
                 const { videoId } = video;
-                return <VideoView video={video} key={videoId} />;
+                return (
+                  <VideoView
+                    video={video}
+                    key={videoId}
+                    updateData={fetchData}
+                  />
+                );
               })}
             </GridBroadcast>
           ) : (
@@ -80,7 +84,7 @@ const HomePage = () => {
         ) : (
           <SetupNeeded />
         )}
-      </ContentLayout> */}
+      </ContentLayout>
     </Layout>
   );
 };

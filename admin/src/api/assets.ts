@@ -1,20 +1,27 @@
 import { request } from "@strapi/helper-plugin";
+import pluginId from "../pluginId";
 
 const assetRequest = {
   getAllvideos: async () => {
-    return await request("/api-video-uploader/videos", {
+    return await request(`/${pluginId}/videos`, {
       method: "GET",
     });
   },
-  createVideoId: async () => {
-    return await request("/api-video-uploader/videos/create", {
+  createVideoId: async (body: Object) => {
+    return await request(`/${pluginId}/videos/create`, {
       method: "POST",
+      body,
     });
   },
   create: async (body: Object) => {
-    return await request("/api-video-uploader/video", {
+    return await request(`/${pluginId}/video`, {
       method: "POST",
       body,
+    });
+  },
+  delete: async (id: number) => {
+    return await request(`/${pluginId}/video/${id}`, {
+      method: "DELETE",
     });
   },
 };

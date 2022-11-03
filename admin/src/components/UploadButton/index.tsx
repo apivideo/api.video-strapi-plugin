@@ -9,9 +9,13 @@ import Plus from "@strapi/icons/Plus";
 
 export interface IUploadButtonProps {
   currentFile: File | undefined;
+  title: string;
 }
 
-const UploadButton: FC<IUploadButtonProps> = ({ currentFile }): JSX.Element => {
+const UploadButton: FC<IUploadButtonProps> = ({
+  currentFile,
+  title,
+}): JSX.Element => {
   const [progress, setProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
 
@@ -20,7 +24,8 @@ const UploadButton: FC<IUploadButtonProps> = ({ currentFile }): JSX.Element => {
   );
 
   const fileInputChange = async () => {
-    const { newVideo, token } = await assetRequest.createVideoId();
+    const body = { title: title };
+    const { newVideo, token } = await assetRequest.createVideoId(body);
     if (currentFile) {
       setIsUploading(true);
       const uploader = new VideoUploader({
