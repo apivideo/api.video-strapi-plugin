@@ -11,10 +11,14 @@ import FieldComp from "../../FieldComp/Fields";
 import UploadButton from "../../UploadButton";
 
 interface IAddVideoModalProps {
-  close?: () => void;
+  close: () => void;
+  update: () => void;
 }
 
-const AddVideoModal: FC<IAddVideoModalProps> = ({ close }): JSX.Element => {
+const AddVideoModal: FC<IAddVideoModalProps> = ({
+  update,
+  close,
+}): JSX.Element => {
   const [title, setTitle] = useState("");
   const [file, setFile] = useState<File | undefined>();
 
@@ -74,8 +78,12 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({ close }): JSX.Element => {
         }
         endActions={
           <>
-            <UploadButton currentFile={file} title={title} />
-            {/* <Button onClick={close}>Upload</Button> */}
+            <UploadButton
+              currentFile={file}
+              title={title}
+              update={update}
+              close={close}
+            />
           </>
         }
       />

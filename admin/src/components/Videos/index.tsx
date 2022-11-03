@@ -20,10 +20,9 @@ export interface IVideosProps {
 
 const VideoView: FC<IVideosProps> = ({ video, updateData }): JSX.Element => {
   const { id, videoId, title, thumbnail, mp4 } = video;
-  console.log(video, "video");
 
   const deleteVideo = async () => {
-    const data = await assetRequest.delete(id);
+    const data = await assetRequest.delete(id, videoId);
     updateData();
   };
 

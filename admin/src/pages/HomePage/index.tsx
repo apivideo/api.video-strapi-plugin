@@ -13,11 +13,8 @@ import {
   BaseHeaderLayout,
 } from "@strapi/design-system/Layout";
 
-import Video from "@api.video/nodejs-client/lib/model/Video";
-
 import { GridBroadcast } from "../../components/Videos/styles";
 import assetRequest from "../../api/assets";
-import UploadButton from "../../components/UploadButton";
 import VideoView from "../../components/Videos";
 import settingsRequests from "../../api/settings";
 import SetupNeeded from "../../components/SetupNeeded";
@@ -61,7 +58,7 @@ const HomePage = () => {
         title="Api.Video Uploader"
         subtitle="Build web or in-app video, faster."
         as="h2"
-        primaryAction={<AddButton />}
+        primaryAction={<AddButton update={fetchData} />}
       />
       <ContentLayout>
         {isConfigurated ? (

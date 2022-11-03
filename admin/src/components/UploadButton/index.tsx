@@ -4,24 +4,27 @@ import { VideoUploader, VideoUploadResponse } from "@api.video/video-uploader";
 import assetRequest from "../../api/assets";
 import { Button } from "@strapi/design-system/Button";
 import { ProgressBar } from "@strapi/design-system/ProgressBar";
+import { useNotification } from "@strapi/helper-plugin";
 
-import Plus from "@strapi/icons/Plus";
+import CloudUpload from "@strapi/icons/CloudUpload";
 
 export interface IUploadButtonProps {
   currentFile: File | undefined;
   title: string;
+  update: () => void;
+  close: () => void;
 }
 
 const UploadButton: FC<IUploadButtonProps> = ({
   currentFile,
   title,
+  update,
+  close,
 }): JSX.Element => {
   const [progress, setProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
 
-  const [video, setVideo] = useState<VideoUploadResponse | undefined>(
-    undefined
-  );
+  const notification = useNotification();
 
   const fileInputChange = async () => {
     const body = { title: title };
@@ -48,10 +51,16 @@ const UploadButton: FC<IUploadButtonProps> = ({
           thumbnail: res?.assets?.thumbnail,
         };
         const data = await assetRequest.create(body);
-
-        console.log(data, "data");
-        setVideo(res);
-        setIsUploading(false);
+        if (data) {
+          setIsUploading(false);
+          update();
+          close();
+        } else {
+          notification({
+            type: "warning",
+            message: "Error while creating video",
+          });
+        }
       } catch (e) {
         console.error(e);
       }
@@ -60,11 +69,12 @@ const UploadButton: FC<IUploadButtonProps> = ({
 
   return (
     <Button
-      startIcon={<Plus />}
+      endIcon={<CloudUpload />}
       loading={isUploading}
       onClick={fileInputChange}
+      disabled={currentFile === undefined}
     >
-      {isUploading ? `Upload a video ${progress}%` : `Upload a video`}
+      {isUploading ? `Uploading ${progress}%` : `Upload`}
     </Button>
   );
 };

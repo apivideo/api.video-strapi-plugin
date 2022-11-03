@@ -33,21 +33,28 @@ export default ({ strapi }: { strapi: Strapi }) => ({
     return await strapi.entityService.findMany(model, query);
   },
 
-  async delete(id: string): Promise<boolean> {
-    await strapi.entityService.delete(model, id);
-    return true;
+  async delete(id: string, videoId: string): Promise<boolean> {
+    const defaultApiKey = await getConfig();
+    const client = new ApiVideoClient({
+      apiKey: defaultApiKey,
+    });
+    console.log(videoId, "videoId");
+    try {
+      await client.videos.delete(videoId);
+      await strapi.entityService.delete(model, id);
+      return true;
+    } catch (error) {
+      return false;
+    }
   },
 
   async create(data: any) {
-    // return await strapi.entityService.create(model, data);
-    return await strapi.entityService.create(model, { data: data });
-    // console.log(data);
-    // return await strapi.entityService.create(model, {
-    //   data: {
-    //     title: "My Article",
-    //     videoId: "videoId",
-    //   },
-    // });
+    try {
+      await strapi.entityService.create(model, { data: data });
+      return true;
+    } catch (error) {
+      return false;
+    }
   },
 
   async update(id: string, data: any) {

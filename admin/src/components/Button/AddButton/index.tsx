@@ -1,21 +1,24 @@
-import React, { useEffect, useRef, useState, FC } from "react";
-// import styles from './upload.module.css'
-import { VideoUploader, VideoUploadResponse } from "@api.video/video-uploader";
+import React, { useState, FC } from "react";
 import { Button } from "@strapi/design-system/Button";
-import { ProgressBar } from "@strapi/design-system/ProgressBar";
 
 import Plus from "@strapi/icons/Plus";
 import AddVideoModal from "../../Modal/AddVideo";
 
-const AddButton: FC = () => {
+interface IAddButtonProps {
+  update: () => void;
+}
+
+const AddButton: FC<IAddButtonProps> = ({ update }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   return (
     <>
-      <Button startIcon={<Plus />} onClick={() => setIsVisible(true)}>
-        Upload
+      <Button endIcon={<Plus />} onClick={() => setIsVisible(true)}>
+        Add a video
       </Button>
-      {isVisible && <AddVideoModal close={() => setIsVisible(false)} />}
+      {isVisible && (
+        <AddVideoModal update={update} close={() => setIsVisible(false)} />
+      )}
     </>
   );
 };

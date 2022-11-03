@@ -48,7 +48,7 @@ export default [
   },
   {
     method: "DELETE",
-    path: "/video/:id",
+    path: "/video/:id/:videoId",
     handler: "assets.delete",
     config: {
       policies: [],

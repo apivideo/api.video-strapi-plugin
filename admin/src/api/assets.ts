@@ -19,8 +19,8 @@ const assetRequest = {
       body,
     });
   },
-  delete: async (id: number) => {
-    return await request(`/${pluginId}/video/${id}`, {
+  delete: async (id: number, videoId: string) => {
+    return await request(`/${pluginId}/video/${id}/${videoId}`, {
       method: "DELETE",
     });
   },

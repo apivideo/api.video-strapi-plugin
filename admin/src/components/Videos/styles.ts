@@ -14,7 +14,6 @@ export const GridBroadcast = styled.div`
   @media (max-width: 520px) {
     padding: 4rem 2rem;
   }
-  background-color: #f9f9f9;
   overflow: auto;
 `;
 

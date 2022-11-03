@@ -56,7 +56,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
       return await strapi
         .plugin("api-video-uploader")
         .service("assets")
-        .delete(ctx.params.id);
+        .delete(ctx.params.id, ctx.params.videoId);
     } catch (err) {
       ctx.throw(500, err);
     }
