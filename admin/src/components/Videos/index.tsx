@@ -1,16 +1,18 @@
 import React, { useState, useEffect, FC } from "react";
 import {
-  Wrapper,
+  WrapperVideo,
   Thumbnail,
   SubInformationsWrapper,
-  Avatar,
-  Initials,
   TitleWrapper,
   Title,
   SubTitle,
   CustomVideos,
+  Container,
+  DeleteIcon,
 } from "./styles";
 import { CustomVideo } from "../../../../types";
+import Trash from "@strapi/icons/Trash";
+
 import assetRequest from "../../api/assets";
 
 export interface IVideosProps {
@@ -27,27 +29,29 @@ const VideoView: FC<IVideosProps> = ({ video, updateData }): JSX.Element => {
   };
 
   return (
-    <>
-      <Wrapper>
+    <Container>
+      <WrapperVideo>
         <Thumbnail src={thumbnail} alt={"thumbnail"}></Thumbnail>
 
         <CustomVideos autoPlay muted loop preload="auto">
           <source src={mp4} type="video/mp4" />
         </CustomVideos>
-        <SubInformationsWrapper>
-          <Avatar>
-            <Initials>API</Initials>
-          </Avatar>
-          <TitleWrapper>
-            <Title>{title}</Title>
-            <SubTitle>
-              <p>API Video</p>
-            </SubTitle>
-          </TitleWrapper>
-          <button onClick={deleteVideo}>delete</button>
-        </SubInformationsWrapper>
-      </Wrapper>
-    </>
+        <DeleteIcon
+          onClick={deleteVideo}
+          aria-label="Delete"
+          icon={<Trash />}
+        />
+      </WrapperVideo>
+
+      <SubInformationsWrapper>
+        <TitleWrapper>
+          <Title>{title}</Title>
+          <SubTitle>
+            <p>Description</p>
+          </SubTitle>
+        </TitleWrapper>
+      </SubInformationsWrapper>
+    </Container>
   );
 };
 

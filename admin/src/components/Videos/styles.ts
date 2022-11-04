@@ -1,7 +1,13 @@
 import styled from "styled-components";
+import { IconButton } from "@strapi/design-system/IconButton";
 
 export const GridBroadcastWrapper = styled.div`
   padding: 10px;
+`;
+
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 export const GridBroadcast = styled.div`
@@ -22,6 +28,7 @@ export const CustomVideos = styled.video`
   width: 100%;
   max-width: 600px;
   display: none;
+  border-radius: 4px;
 `;
 
 export const Thumbnail = styled.img`
@@ -32,12 +39,20 @@ export const Thumbnail = styled.img`
   position: relative;
   cursor: pointer;
   display: block;
+  border-radius: 4px;
 `;
-export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+
+export const DeleteIcon = styled(IconButton)`
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  display: none;
+`;
+
+export const WrapperVideo = styled.div`
   cursor: pointer;
   transition: transform 0.5s ease;
+  position: relative;
   &:hover {
     transform: scale(1.02);
   }
@@ -48,28 +63,15 @@ export const Wrapper = styled.div`
     display: block;
     background-color: black;
   }
+  &:hover ${DeleteIcon} {
+    display: block;
+  }
 `;
 
 export const SubInformationsWrapper = styled.div`
   display: flex;
   margin-top: 1.2rem;
   width: 100%;
-`;
-
-export const Avatar = styled.div`
-  min-width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #e53102;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-`;
-
-export const Initials = styled.p`
-  color: #fff;
-  font-size: 1.4rem;
 `;
 
 export const TitleWrapper = styled.div`

@@ -76,7 +76,7 @@ const HomePage = () => {
               })}
             </GridBroadcast>
           ) : (
-            <EmptyState />
+            <EmptyState update={fetchData} />
           )
         ) : (
           <SetupNeeded />
