@@ -3,7 +3,7 @@ import { Box } from "@strapi/design-system/Box";
 import { EmptyStateLayout } from "@strapi/design-system/EmptyStateLayout";
 import ArrowRight from "@strapi/icons/ArrowRight";
 import { Button } from "@strapi/design-system/Button";
-import { Illo } from "../../components/Illo";
+import { Illo } from "../../assets/Illo";
 import { useHistory } from "react-router-dom";
 import pluginId from "../../pluginId";
 

@@ -29,5 +29,7 @@ declare module "@strapi/design-system/ToggleInput";
 declare module "@strapi/design-system/Tooltip";
 declare module "@strapi/design-system/Typography";
 declare module "@strapi/design-system/EmptyStateLayout";
+declare module "@strapi/design-system/Tag";
+declare module "@strapi/design-system/Badge";
 
 declare module "@strapi/design-system/Field";

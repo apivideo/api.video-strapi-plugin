@@ -9,6 +9,9 @@ import { Button } from "@strapi/design-system/Button";
 import { Typography } from "@strapi/design-system/Typography";
 import FieldComp from "../../FieldComp/Fields";
 import UploadButton from "../../UploadButton";
+import ImportZone from "./importZone";
+import Tags from "../../Tags";
+import { InputData } from "../../../../../types";
 
 interface IAddVideoModalProps {
   close: () => void;
@@ -19,11 +22,20 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({
   update,
   close,
 }): JSX.Element => {
-  const [title, setTitle] = useState("");
+  const [inputData, setInputData] = useState<InputData>({
+    title: "",
+    description: "",
+    tags: ["Strapi"],
+  });
+
   const [file, setFile] = useState<File | undefined>();
+  const [initialState, setInitialState] = useState<number>(0);
 
   // CONSTANTS
   const inputFile = useRef<HTMLInputElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const sourceRef = useRef<HTMLSourceElement>(null);
+  const { title, description, tags } = inputData;
 
   const openFilePicker = () => {
     if (file) {
@@ -32,14 +44,46 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({
     inputFile && inputFile?.current?.click();
   };
 
+  const displayVideoFrame = (
+    video: HTMLVideoElement,
+    source: HTMLSourceElement,
+    file: File
+  ) => {
+    // Object Url as the video source
+    source.setAttribute("src", URL.createObjectURL(file));
+    // Load the video and show it
+    video.load();
+  };
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value);
+    const { name, value } = event.target;
+    setInputData((prevInputData) => ({ ...prevInputData, [name]: value }));
+  };
+
+  const handleSetTag = (tag: string) => {
+    if (tag) {
+      setInputData({ ...inputData, tags: [...inputData.tags, tag] });
+    }
+  };
+
+  const handleRemoveTag = (tag: string) => {
+    const newTags = inputData.tags.filter((t) => t !== tag);
+    setInputData({ ...inputData, tags: newTags });
   };
 
   const fileInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
-    if (files?.length) {
+    if (files && files.length > 0) {
       setFile(files[0]);
+      setInputData((prevInputData) => ({
+        ...prevInputData,
+        title: files[0].name,
+      }));
+      if (initialState === 0) {
+        setInitialState(1);
+      }
+      if (videoRef.current && sourceRef.current)
+        displayVideoFrame(videoRef.current, sourceRef.current, files[0]);
     }
   };
 
@@ -51,23 +95,43 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({
         </Typography>
       </ModalHeader>
       <ModalBody>
+        <ImportZone
+          initialState={initialState}
+          openFilePicker={openFilePicker}
+          videoRef={videoRef}
+          sourceRef={sourceRef}
+        />
         <FieldComp
           name="title"
           label="Title"
           value={title}
           placeholder="Enter your title"
           onChange={handleChange}
+          required
         />
-        <Button variant="secondary" onClick={openFilePicker}>
-          import
-        </Button>
+        <br />
+        <FieldComp
+          name="description"
+          label="Description"
+          value={description}
+          placeholder="Enter a description"
+          onChange={handleChange}
+        />
+        <br />
         <input
           type="file"
           id="upload"
+          accept={"video/*"}
           ref={inputFile}
           name="upload"
           onChange={(e) => fileInputChange(e)}
           style={{ display: "none" }}
+        />
+
+        <Tags
+          handleSetTag={handleSetTag}
+          handleRemoveTag={handleRemoveTag}
+          tags={tags}
         />
       </ModalBody>
       <ModalFooter
@@ -81,6 +145,8 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({
             <UploadButton
               currentFile={file}
               title={title}
+              description={description}
+              tags={tags}
               update={update}
               close={close}
             />

@@ -3,7 +3,7 @@ import { Box } from "@strapi/design-system/Box";
 import { EmptyStateLayout } from "@strapi/design-system/EmptyStateLayout";
 import Plus from "@strapi/icons/Plus";
 import { Button } from "@strapi/design-system/Button";
-import { Illo } from "../Illo";
+import { Illo } from "../../assets/Illo";
 import AddVideoModal from "../Modal/AddVideo";
 
 interface IEmptyStateProps {

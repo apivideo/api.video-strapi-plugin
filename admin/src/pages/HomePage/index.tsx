@@ -58,7 +58,7 @@ const HomePage = () => {
         title="Api.Video Uploader"
         subtitle="Build web or in-app video, faster."
         as="h2"
-        primaryAction={<AddButton update={fetchData} />}
+        primaryAction={isConfigurated && <AddButton update={fetchData} />}
       />
       <ContentLayout>
         {isConfigurated ? (

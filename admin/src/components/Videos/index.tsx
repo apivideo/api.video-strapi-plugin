@@ -14,6 +14,7 @@ import { CustomVideo } from "../../../../types";
 import Trash from "@strapi/icons/Trash";
 
 import assetRequest from "../../api/assets";
+import { getDayMonthYearHourDate } from "../../date";
 
 export interface IVideosProps {
   video: CustomVideo;
@@ -21,12 +22,13 @@ export interface IVideosProps {
 }
 
 const VideoView: FC<IVideosProps> = ({ video, updateData }): JSX.Element => {
-  const { id, videoId, title, thumbnail, mp4 } = video;
+  const { id, videoId, title, description, thumbnail, mp4, createdAt } = video;
 
   const deleteVideo = async () => {
     const data = await assetRequest.delete(id, videoId);
     updateData();
   };
+  const formatedCreatedAt = getDayMonthYearHourDate(createdAt);
 
   return (
     <Container>
@@ -46,9 +48,8 @@ const VideoView: FC<IVideosProps> = ({ video, updateData }): JSX.Element => {
       <SubInformationsWrapper>
         <TitleWrapper>
           <Title>{title}</Title>
-          <SubTitle>
-            <p>Description</p>
-          </SubTitle>
+          <SubTitle>{description}</SubTitle>
+          <p>{formatedCreatedAt}</p>
         </TitleWrapper>
       </SubInformationsWrapper>
     </Container>

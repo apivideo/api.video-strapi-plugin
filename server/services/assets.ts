@@ -24,6 +24,8 @@ export default ({ strapi }: { strapi: Strapi }) => ({
     });
     const newVideo = await client.videos.create({
       title: data["title"],
+      description: data["description"],
+      tags: data["tags"],
     });
     const token = await client.getAccessToken();
     return { newVideo, token };
@@ -38,7 +40,6 @@ export default ({ strapi }: { strapi: Strapi }) => ({
     const client = new ApiVideoClient({
       apiKey: defaultApiKey,
     });
-    console.log(videoId, "videoId");
     try {
       await client.videos.delete(videoId);
       await strapi.entityService.delete(model, id);

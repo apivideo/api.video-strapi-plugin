@@ -11,6 +11,8 @@ import CloudUpload from "@strapi/icons/CloudUpload";
 export interface IUploadButtonProps {
   currentFile: File | undefined;
   title: string;
+  description: string;
+  tags: string[];
   update: () => void;
   close: () => void;
 }
@@ -18,6 +20,8 @@ export interface IUploadButtonProps {
 const UploadButton: FC<IUploadButtonProps> = ({
   currentFile,
   title,
+  description,
+  tags,
   update,
   close,
 }): JSX.Element => {
@@ -27,7 +31,11 @@ const UploadButton: FC<IUploadButtonProps> = ({
   const notification = useNotification();
 
   const fileInputChange = async () => {
-    const body = { title: title };
+    const body = {
+      title: title,
+      description: description,
+      tags: tags,
+    };
     const { newVideo, token } = await assetRequest.createVideoId(body);
     if (currentFile) {
       setIsUploading(true);
@@ -42,13 +50,15 @@ const UploadButton: FC<IUploadButtonProps> = ({
           setProgress(Math.round((e.uploadedBytes * 100) / e.totalBytes))
         );
 
-        // const res: VideoUploadResponse = await uploader.upload();
         const res: any = await uploader.upload();
+        console.log(res, "res");
         const body = {
           title: res.title,
+          description: res.description,
           videoId: res.videoId,
           mp4: res?.assets?.mp4,
           thumbnail: res?.assets?.thumbnail,
+          tags: res.tags,
         };
         const data = await assetRequest.create(body);
         if (data) {

@@ -23,6 +23,10 @@
       "type": "string",
       "required": true
     },
+    "description": {
+      "type": "string",
+      "required": false
+    },
     "videoId": {
       "type": "string",
       "required": true,
@@ -35,6 +39,9 @@
     "thumbnail": {
       "type": "string",
       "required": true
+    },
+    "tags": {
+      "type": "json"
     }
   }
 }

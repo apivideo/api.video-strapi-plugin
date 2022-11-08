@@ -28,6 +28,7 @@ interface IFieldProps {
   tooltip?: string;
   detailsLink?: string;
   error?: string;
+  required?: boolean;
   onChange?: (e: React.ChangeEvent<any>) => void;
 }
 
@@ -53,13 +54,14 @@ const FieldComp: FC<IFieldProps> = ({
   tooltip,
   detailsLink,
   error,
+  required,
   onChange = () => {},
 }): JSX.Element => {
   return (
     <Field name={name} hint={description} error={error}>
       <Stack spacing={1}>
         <Flex>
-          <FieldLabelStyled>{label}</FieldLabelStyled>
+          <FieldLabelStyled required={required}>{label}</FieldLabelStyled>
           <Box paddingLeft={2}>
             {/* {tooltip && (
               <Tooltip description={tooltip}>
