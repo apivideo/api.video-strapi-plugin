@@ -14,6 +14,7 @@ import Trash from "@strapi/icons/Trash";
 
 import assetRequest from "../../api/assets";
 import { getDayMonthYearHourDate } from "../../date";
+import UpdateVideoModal from "../Modal/updateVideo";
 
 export interface IVideosProps {
   video: CustomVideo;
@@ -48,6 +49,8 @@ const VideoView: FC<IVideosProps> = ({ video, updateData }): JSX.Element => {
           <p>{formatedCreatedAt}</p>
         </TitleWrapper>
       </SubInformationsWrapper>
+
+      <UpdateVideoModal video={video} />
     </Container>
   );
 };

@@ -10,6 +10,21 @@
     form-data "^4.0.0"
     got "^11.8.1"
 
+"@api.video/player-sdk@^1.2.21":
+  version "1.2.22"
+  resolved "https://registry.yarnpkg.com/@api.video/player-sdk/-/player-sdk-1.2.22.tgz#0e5929750e6a3b261fe546bbb95737a6fdab9942"
+  integrity sha512-N9AOw0MhwFZBrRqaBs+ib2zVLPnMCh4eru+lZ/XXvcaZZMHSzGEsqSAoMDg9n2PNZ46qJFWhJerFWzl+fjCdXg==
+  dependencies:
+    core-js "^3.8.3"
+    url-polyfill "^1.1.12"
+
+"@api.video/react-player@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@api.video/react-player/-/react-player-1.0.1.tgz#4a6be325df985d8f7d105d99b5a335f51924e1bb"
+  integrity sha512-L6YgMoQuzCMq7NeoMoqhLEIRLOxJ5wshK0Ug3VAzKVeuAO2OhoHYHwUyK73LDIECXL0Tc8aBsBd3QhFETDNn3w==
+  dependencies:
+    "@api.video/player-sdk" "^1.2.21"
+
 "@sindresorhus/is@^4.0.0":
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-4.6.0.tgz#3c7c9c46e678feefe7a2e5bb609d3dbd665ffb3f"
@@ -150,6 +165,11 @@ combined-stream@^1.0.8:
   integrity sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==
   dependencies:
     delayed-stream "~1.0.0"
+
+core-js@^3.8.3:
+  version "3.26.0"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.26.0.tgz#a516db0ed0811be10eac5d94f3b8463d03faccfe"
+  integrity sha512-+DkDrhoR4Y0PxDz6rurahuB+I45OsEUv8E1maPTB6OuHRohMMcznBq9TMpdpDMm/hUPob/mJJS3PqgbHpMTQgw==
 
 csstype@^3.0.2:
   version "3.1.1"
@@ -323,6 +343,11 @@ typescript@^4.8.4:
   version "4.8.4"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.8.4.tgz#c464abca159669597be5f96b8943500b238e60e6"
   integrity sha512-QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ==
+
+url-polyfill@^1.1.12:
+  version "1.1.12"
+  resolved "https://registry.yarnpkg.com/url-polyfill/-/url-polyfill-1.1.12.tgz#6cdaa17f6b022841b3aec0bf8dbd87ac0cd33331"
+  integrity sha512-mYFmBHCapZjtcNHW0MDq9967t+z4Dmg5CJ0KqysK3+ZbyoNOWQHksGCTWwDhxGXllkWlOc10Xfko6v4a3ucM6A==
 
 wrappy@1:
   version "1.0.2"

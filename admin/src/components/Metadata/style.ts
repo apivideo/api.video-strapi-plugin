@@ -18,7 +18,6 @@ export const FooterAction = styled.footer`
   justify-content: space-between;
   padding: 10px 40px 10px 86px;
   background-color: #f9f9f9;
-  /* gap: 80px; */
   width: 100%;
   height: 64px;
   box-shadow: 0px 1px 4px rgb(33 33 52 / 10%);

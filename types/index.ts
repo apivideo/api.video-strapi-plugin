@@ -7,6 +7,11 @@ export interface CustomVideo {
   updatedAt: Date;
   videoId: string;
   description: string;
+  tags: string[];
+  metadata: {
+    key: string;
+    value: string;
+  }[];
 }
 
 export interface InputData {
