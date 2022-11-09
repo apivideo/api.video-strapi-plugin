@@ -22,12 +22,14 @@ import { Loader } from "@strapi/design-system/Loader";
 import EmptyState from "../../components/EmptyState";
 import { CustomVideo } from "../../../../types";
 import AddButton from "../../components/Button/AddButton";
+import SearchBar from "../../components/SearchBar";
 
 const HomePage = () => {
   const [isLoadingData, setIsLoadingData] = useState(true);
   const [isLoadingConfiguration, setIsLoadingConfiguration] = useState(false);
   const [isConfigurated, setIsConfigurated] = useState(false);
   const [assets, setAssets] = useState<CustomVideo[]>([]);
+  const [search, setSearch] = useState("");
 
   const fetchData = async () => {
     if (isLoadingData === false) setIsLoadingData(true);
@@ -51,29 +53,39 @@ const HomePage = () => {
     getConfig();
   }, []);
 
+  const handleSearch = (value: string) => {
+    setSearch(value);
+  };
   if (isLoadingConfiguration) return <LoadingIndicatorPage />;
   return (
     <Layout>
       <BaseHeaderLayout
         title="Api.Video Uploader"
-        subtitle="Build web or in-app video, faster."
+        subtitle="Integrate video with a few lines of code"
         as="h2"
         primaryAction={isConfigurated && <AddButton update={fetchData} />}
       />
       <ContentLayout>
+        <SearchBar
+          search={search}
+          handleSearch={(query) => handleSearch(query)}
+          clearSearch={() => setSearch("")}
+        />
         {isConfigurated ? (
           !isLoadingData && assets?.length > 0 ? (
             <GridBroadcast>
-              {assets?.map((video) => {
-                const { videoId } = video;
-                return (
-                  <VideoView
-                    video={video}
-                    key={videoId}
-                    updateData={fetchData}
-                  />
-                );
-              })}
+              {assets
+                .filter((item) => item.title.includes(search))
+                .map((video) => {
+                  const { videoId } = video;
+                  return (
+                    <VideoView
+                      video={video}
+                      key={videoId}
+                      updateData={fetchData}
+                    />
+                  );
+                })}
             </GridBroadcast>
           ) : (
             <EmptyState update={fetchData} />
