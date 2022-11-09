@@ -12,6 +12,7 @@ import UploadButton from "../../UploadButton";
 import ImportZone from "./importZone";
 import Tags from "../../Tags";
 import { InputData } from "../../../../../types";
+import MetadataTable from "../../Metadata";
 
 interface IAddVideoModalProps {
   close: () => void;
@@ -26,6 +27,12 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({
     title: "",
     description: "",
     tags: ["Strapi"],
+    metadata: [
+      {
+        key: "Plugin",
+        value: "Strapi",
+      },
+    ],
   });
 
   const [file, setFile] = useState<File | undefined>();
@@ -35,7 +42,7 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({
   const inputFile = useRef<HTMLInputElement | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const sourceRef = useRef<HTMLSourceElement>(null);
-  const { title, description, tags } = inputData;
+  const { title, description, tags, metadata } = inputData;
 
   const openFilePicker = () => {
     if (file) {
@@ -62,13 +69,28 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({
 
   const handleSetTag = (tag: string) => {
     if (tag) {
-      setInputData({ ...inputData, tags: [...inputData.tags, tag] });
+      setInputData({ ...inputData, tags: [...(inputData.tags || []), tag] });
     }
   };
 
   const handleRemoveTag = (tag: string) => {
-    const newTags = inputData.tags.filter((t) => t !== tag);
+    const newTags = inputData.tags && inputData.tags.filter((t) => t !== tag);
     setInputData({ ...inputData, tags: newTags });
+  };
+
+  const handleSetMetadata = (metadata: any) => {
+    if (metadata) {
+      setInputData({
+        ...inputData,
+        metadata: [...(inputData.metadata || []), metadata],
+      });
+    }
+  };
+
+  const handleRemoveMetadata = (metadata: Object) => {
+    const newMetadata =
+      inputData?.metadata && inputData?.metadata.filter((m) => m !== metadata);
+    setInputData({ ...inputData, metadata: newMetadata });
   };
 
   const fileInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -113,7 +135,7 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({
         <FieldComp
           name="description"
           label="Description"
-          value={description}
+          value={description || ""}
           placeholder="Enter a description"
           onChange={handleChange}
         />
@@ -131,7 +153,13 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({
         <Tags
           handleSetTag={handleSetTag}
           handleRemoveTag={handleRemoveTag}
-          tags={tags}
+          tags={tags || []}
+        />
+
+        <MetadataTable
+          metadata={metadata}
+          handleSetMetadata={handleSetMetadata}
+          handleRemoveMetadata={handleRemoveMetadata}
         />
       </ModalBody>
       <ModalFooter
@@ -145,8 +173,9 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({
             <UploadButton
               currentFile={file}
               title={title}
-              description={description}
-              tags={tags}
+              description={description || ""}
+              tags={tags || []}
+              metadata={metadata || []}
               update={update}
               close={close}
             />

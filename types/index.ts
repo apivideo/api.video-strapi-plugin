@@ -11,6 +11,14 @@ export interface CustomVideo {
 
 export interface InputData {
   title: string;
-  description: string;
-  tags: string[];
+  description?: string;
+  tags?: string[];
+  metadata?: {
+    key: string;
+    value: string;
+  }[];
+}
+export interface InputDataMetadata {
+  key: string;
+  value: string;
 }

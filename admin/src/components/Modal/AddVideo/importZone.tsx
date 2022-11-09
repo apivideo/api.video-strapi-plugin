@@ -24,7 +24,9 @@ const ImportZone: FC<IImportZoneProps> = ({
           <source ref={sourceRef} />
         </video>
       </ThumbnailImg>
-      <Title>Select a video file to upload</Title>
+      <Title>
+        Select a video<Asterisk>*</Asterisk> file to upload
+      </Title>
       <Subtitle>or drag and drop it here</Subtitle>
     </Wrapper>
   );
@@ -83,4 +85,8 @@ const Title = styled.p`
 const Subtitle = styled.p`
   font-size: 16px;
   color: #666687;
+`;
+
+const Asterisk = styled.span`
+  color: red;
 `;

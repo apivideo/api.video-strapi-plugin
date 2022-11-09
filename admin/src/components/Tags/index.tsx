@@ -1,7 +1,8 @@
 import React, { FC, useState } from "react";
-import { Container, SubTitle, TagsInput, Title, CustomBadge } from "./style";
+import { Container } from "./style";
 import { Tag } from "@strapi/design-system/Tag";
 import Cross from "@strapi/icons/Cross";
+import { CustomBadge, FormInput, SubTitle, Title } from "../../styles/form";
 
 interface ITag {
   tags: string[];
@@ -39,11 +40,12 @@ const Tags: FC<ITag> = ({ tags, handleSetTag, handleRemoveTag }) => {
         A list of tags you want to use to describe your video.
       </SubTitle>
       <Container>
-        <TagsInput
+        <FormInput
+          placeholder="Add a tag"
           value={tag}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
-        ></TagsInput>
+        ></FormInput>
 
         {tags.map((item) => {
           return (

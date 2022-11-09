@@ -6,7 +6,6 @@ import {
   TitleWrapper,
   Title,
   SubTitle,
-  CustomVideos,
   Container,
   DeleteIcon,
 } from "./styles";
@@ -25,7 +24,7 @@ const VideoView: FC<IVideosProps> = ({ video, updateData }): JSX.Element => {
   const { id, videoId, title, description, thumbnail, mp4, createdAt } = video;
 
   const deleteVideo = async () => {
-    const data = await assetRequest.delete(id, videoId);
+    await assetRequest.delete(id, videoId);
     updateData();
   };
   const formatedCreatedAt = getDayMonthYearHourDate(createdAt);
@@ -35,9 +34,6 @@ const VideoView: FC<IVideosProps> = ({ video, updateData }): JSX.Element => {
       <WrapperVideo>
         <Thumbnail src={thumbnail} alt={"thumbnail"}></Thumbnail>
 
-        <CustomVideos autoPlay muted loop preload="auto">
-          <source src={mp4} type="video/mp4" />
-        </CustomVideos>
         <DeleteIcon
           onClick={deleteVideo}
           aria-label="Delete"

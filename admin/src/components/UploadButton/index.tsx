@@ -13,6 +13,7 @@ export interface IUploadButtonProps {
   title: string;
   description: string;
   tags: string[];
+  metadata: { key: string; value: string }[];
   update: () => void;
   close: () => void;
 }
@@ -22,6 +23,7 @@ const UploadButton: FC<IUploadButtonProps> = ({
   title,
   description,
   tags,
+  metadata,
   update,
   close,
 }): JSX.Element => {
@@ -35,6 +37,7 @@ const UploadButton: FC<IUploadButtonProps> = ({
       title: title,
       description: description,
       tags: tags,
+      metadata: metadata,
     };
     const { newVideo, token } = await assetRequest.createVideoId(body);
     if (currentFile) {
@@ -59,6 +62,7 @@ const UploadButton: FC<IUploadButtonProps> = ({
           mp4: res?.assets?.mp4,
           thumbnail: res?.assets?.thumbnail,
           tags: res.tags,
+          metadata: res.metadata,
         };
         const data = await assetRequest.create(body);
         if (data) {

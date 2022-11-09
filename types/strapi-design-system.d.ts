@@ -31,5 +31,7 @@ declare module "@strapi/design-system/Typography";
 declare module "@strapi/design-system/EmptyStateLayout";
 declare module "@strapi/design-system/Tag";
 declare module "@strapi/design-system/Badge";
+declare module "@strapi/design-system/Table";
+declare module "@strapi/design-system/VisuallyHidden";
 
 declare module "@strapi/design-system/Field";

@@ -26,6 +26,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
       title: data["title"],
       description: data["description"],
       tags: data["tags"],
+      metadata: data["metadata"],
     });
     const token = await client.getAccessToken();
     return { newVideo, token };

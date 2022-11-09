@@ -23,18 +23,17 @@ export const GridBroadcast = styled.div`
   overflow: auto;
 `;
 
-export const CustomVideos = styled.video`
-  aspect-ratio: 16 / 9;
-  width: 100%;
-  max-width: 600px;
-  display: none;
-  border-radius: 4px;
-`;
+// export const CustomVideos = styled.video`
+//   aspect-ratio: 16 / 9;
+//   width: 100%;
+//   max-width: 600px;
+//   display: none;
+//   border-radius: 4px;
+// `;
 
 export const Thumbnail = styled.img`
   aspect-ratio: 16 / 9;
   width: 100%;
-  max-width: 600px;
   object-fit: cover;
   position: relative;
   cursor: pointer;
@@ -52,19 +51,16 @@ export const DeleteIcon = styled(IconButton)`
 export const WrapperVideo = styled.div`
   cursor: pointer;
   transition: transform 0.5s ease;
-  position: relative;
+  width: 100%;
+  max-width: 600px;
+
   &:hover {
     transform: scale(1.02);
   }
-  &:hover ${Thumbnail} {
-    display: none;
-  }
-  &:hover ${CustomVideos} {
-    display: block;
-    background-color: black;
-  }
+
   &:hover ${DeleteIcon} {
     display: block;
+    transition: all 2.5s ease;
   }
 `;
 
