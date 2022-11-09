@@ -1,4 +1,5 @@
 import { request } from "@strapi/helper-plugin";
+import { InputData } from "../../../types";
 import pluginId from "../pluginId";
 
 const assetRequest = {
@@ -16,6 +17,12 @@ const assetRequest = {
   create: async (body: Object) => {
     return await request(`/${pluginId}/video`, {
       method: "POST",
+      body,
+    });
+  },
+  update: async (id: number, videoId: string, body: InputData) => {
+    return await request(`/${pluginId}/video/${id}/${videoId}`, {
+      method: "PUT",
       body,
     });
   },

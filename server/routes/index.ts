@@ -39,7 +39,7 @@ export default [
   },
   {
     method: "PUT",
-    path: "/video/:id",
+    path: "/video/:id/:videoId",
     handler: "assets.update",
     config: {
       policies: [],

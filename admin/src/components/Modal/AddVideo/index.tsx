@@ -8,7 +8,7 @@ import {
 import { Button } from "@strapi/design-system/Button";
 import { Typography } from "@strapi/design-system/Typography";
 import FieldComp from "../../FieldComp/Fields";
-import UploadButton from "../../UploadButton";
+import UploadButton from "../../Button/UploadButton";
 import ImportZone from "./importZone";
 import Tags from "../../Tags";
 import { InputData } from "../../../../../types";
@@ -26,7 +26,7 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({
   const [inputData, setInputData] = useState<InputData>({
     title: "",
     description: "",
-    tags: ["Strapi"],
+    tags: [],
     metadata: [
       {
         key: "Plugin",

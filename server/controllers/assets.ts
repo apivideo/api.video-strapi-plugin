@@ -46,7 +46,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
       ctx.body = await strapi
         .plugin("api-video-uploader")
         .service("assets")
-        .update(ctx.params.id, ctx.request.body);
+        .update(ctx.params.id, ctx.params.videoId, ctx.request.body);
     } catch (err) {
       ctx.throw(500, err);
     }

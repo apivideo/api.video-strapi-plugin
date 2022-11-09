@@ -22,6 +22,7 @@ export interface IVideosProps {
 }
 
 const VideoView: FC<IVideosProps> = ({ video, updateData }): JSX.Element => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { id, videoId, title, description, thumbnail, mp4, createdAt } = video;
 
   const deleteVideo = async () => {
@@ -32,7 +33,7 @@ const VideoView: FC<IVideosProps> = ({ video, updateData }): JSX.Element => {
 
   return (
     <Container>
-      <WrapperVideo>
+      <WrapperVideo onClick={() => setIsModalOpen(true)}>
         <Thumbnail src={thumbnail} alt={"thumbnail"}></Thumbnail>
 
         <DeleteIcon
@@ -50,7 +51,13 @@ const VideoView: FC<IVideosProps> = ({ video, updateData }): JSX.Element => {
         </TitleWrapper>
       </SubInformationsWrapper>
 
-      <UpdateVideoModal video={video} />
+      {isModalOpen && (
+        <UpdateVideoModal
+          video={video}
+          update={updateData}
+          close={() => setIsModalOpen(false)}
+        />
+      )}
     </Container>
   );
 };

@@ -59,7 +59,17 @@ export default ({ strapi }: { strapi: Strapi }) => ({
     }
   },
 
-  async update(id: string, data: any) {
-    return await strapi.entityService.update(model, id, data);
+  async update(id: string, videoId: string, data: any) {
+    const defaultApiKey = await getConfig();
+    const client = new ApiVideoClient({
+      apiKey: defaultApiKey,
+    });
+    try {
+      await client.videos.update(videoId, data);
+      await strapi.entityService.update(model, id, { data: data });
+      return true;
+    } catch (error) {
+      return false;
+    }
   },
 });
