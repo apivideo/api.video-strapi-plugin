@@ -1,4 +1,5 @@
 import { Strapi } from "@strapi/strapi";
+import { Context } from "koa";
 
 export default ({ strapi }: { strapi: Strapi }) => ({
   // async list(ctx: any) {

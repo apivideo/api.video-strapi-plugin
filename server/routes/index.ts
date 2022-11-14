@@ -15,7 +15,7 @@ export default [
     handler: "settings.saveConfig",
     config: {
       policies: [],
-      auth: false,
+      auth: true,
     },
   },
   // Assets
