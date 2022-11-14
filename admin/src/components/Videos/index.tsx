@@ -2,12 +2,13 @@ import React, { useState, useEffect, FC } from "react";
 import {
   WrapperVideo,
   Thumbnail,
-  SubInformationsWrapper,
   TitleWrapper,
   Title,
+  DateStyle,
   SubTitle,
   Container,
   DeleteIcon,
+  ImageOverlay,
 } from "./styles";
 import { CustomVideo } from "../../../../types";
 import Trash from "@strapi/icons/Trash";
@@ -34,8 +35,7 @@ const VideoView: FC<IVideosProps> = ({ video, updateData }): JSX.Element => {
   return (
     <Container>
       <WrapperVideo onClick={() => setIsModalOpen(true)}>
-        <Thumbnail src={thumbnail} alt={"thumbnail"}></Thumbnail>
-
+        <Thumbnail src={thumbnail} alt={"thumbnail"} />
         <DeleteIcon
           onClick={deleteVideo}
           aria-label="Delete"
@@ -43,13 +43,11 @@ const VideoView: FC<IVideosProps> = ({ video, updateData }): JSX.Element => {
         />
       </WrapperVideo>
 
-      <SubInformationsWrapper>
-        <TitleWrapper>
-          <Title>{title}</Title>
-          <SubTitle>{description}</SubTitle>
-          <p>{formatedCreatedAt}</p>
-        </TitleWrapper>
-      </SubInformationsWrapper>
+      <TitleWrapper>
+        <Title>{title}</Title>
+        <SubTitle>{description}</SubTitle>
+        <DateStyle>{formatedCreatedAt}</DateStyle>
+      </TitleWrapper>
 
       {isModalOpen && (
         <UpdateVideoModal

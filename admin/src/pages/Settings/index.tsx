@@ -42,7 +42,6 @@ const Settings = () => {
     lockApp();
     const body = { apiKey: apiKey };
     const response = await settingsRequests.editConfig(body);
-
     if (response) {
       notification({
         type: "success",
@@ -51,7 +50,7 @@ const Settings = () => {
     } else {
       notification({
         type: "warning",
-        message: "Error while saving changes",
+        message: "Please enter a valid api key",
       });
     }
     unlockApp();

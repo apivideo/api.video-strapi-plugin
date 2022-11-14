@@ -15,30 +15,16 @@ export const GridBroadcast = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-gap: 16px;
   width: 100%;
-  height: calc(100% - 56px);
-  padding: 4rem 4rem 4rem 2rem;
-  @media (max-width: 520px) {
-    padding: 4rem 2rem;
-  }
+  padding: 20px 0;
   overflow: auto;
 `;
-
-// export const CustomVideos = styled.video`
-//   aspect-ratio: 16 / 9;
-//   width: 100%;
-//   max-width: 600px;
-//   display: none;
-//   border-radius: 4px;
-// `;
 
 export const Thumbnail = styled.img`
   aspect-ratio: 16 / 9;
   width: 100%;
   object-fit: cover;
-  position: relative;
-  cursor: pointer;
-  display: block;
   border-radius: 4px;
+  transition: 0.2s ease;
 `;
 
 export const DeleteIcon = styled(IconButton)`
@@ -48,49 +34,60 @@ export const DeleteIcon = styled(IconButton)`
   display: none;
 `;
 
+export const ImageOverlay = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  width: 100%;
+  height: 0;
+  transition: 0.2s ease;
+`;
+
 export const WrapperVideo = styled.div`
   cursor: pointer;
-  transition: transform 0.5s ease;
+  position: relative;
   width: 100%;
   max-width: 600px;
+  overflow: hidden;
+  border-radius: 4px;
 
-  &:hover {
-    transform: scale(1.02);
+  &:hover ${Thumbnail} {
+    filter: brightness(0.9);
+    transform: scale(1.1);
   }
 
   &:hover ${DeleteIcon} {
     display: block;
-    transition: all 2.5s ease;
   }
-`;
-
-export const SubInformationsWrapper = styled.div`
-  display: flex;
-  margin-top: 1.2rem;
-  width: 100%;
 `;
 
 export const TitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  padding-left: 1.2rem;
-  width: calc(100%-52px);
+  padding-top: 5px;
 `;
 
 export const Title = styled.p`
   font-weight: 500;
-  color: #030303;
-  font-size: 1.4rem;
+  color: #32324d;
+  font-size: 18px;
   line-height: 2rem;
   overflow: hidden;
   -webkit-line-clamp: 2;
   text-overflow: ellipsis;
   white-space: normal;
-  margin-bottom: 0.8rem;
 `;
 
 export const SubTitle = styled.p`
   color: #606060;
-  font-size: 1.2rem;
+  font-size: 14px;
+  font-style: italic;
+`;
+export const DateStyle = styled.p`
+  color: #666687;
+  font-size: 12px;
 `;

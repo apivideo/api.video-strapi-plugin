@@ -1,5 +1,5 @@
-// const pluginId = require("../../admin/src/pluginId.js");
 import { Strapi } from "@strapi/strapi";
+import { isValidApiKey } from "../utils/config";
 
 export default ({ strapi }: { strapi: Strapi }) => ({
   async getConfig() {
@@ -23,11 +23,16 @@ export default ({ strapi }: { strapi: Strapi }) => ({
     });
 
     try {
-      await pluginStore.set({
-        key: "apiKey",
-        value: req.apiKey,
-      });
-      return true;
+      const isValid = await isValidApiKey(req.apiKey);
+      if (isValid) {
+        await pluginStore.set({
+          key: "apiKey",
+          value: req.apiKey,
+        });
+        return true;
+      } else {
+        return false;
+      }
     } catch {
       return false;
     }

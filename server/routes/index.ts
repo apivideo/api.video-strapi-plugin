@@ -55,15 +55,6 @@ export default [
       auth: false,
     },
   },
-  // {
-  //   method: "GET",
-  //   path: "/videos/list",
-  //   handler: "assets.list",
-  //   config: {
-  //     policies: [],
-  //     auth: false,
-  //   },
-  // },
   {
     method: "POST",
     path: "/videos/create",

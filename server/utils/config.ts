@@ -1,3 +1,5 @@
+import ApiVideoClient from "@api.video/nodejs-client";
+
 const getConfig = async () => {
   const pluginStore = strapi.store({
     environment: strapi.config.environment,
@@ -10,4 +12,16 @@ const getConfig = async () => {
   });
   return configKey;
 };
-export { getConfig };
+
+const isValidApiKey = async (apiKey: string) => {
+  const client = new ApiVideoClient({ apiKey });
+
+  try {
+    const { accessToken } = await client.getAccessToken();
+    return accessToken ? true : false;
+  } catch (error) {
+    return false;
+  }
+};
+
+export { getConfig, isValidApiKey };

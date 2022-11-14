@@ -66,27 +66,29 @@ const HomePage = () => {
         primaryAction={isConfigurated && <AddButton update={fetchData} />}
       />
       <ContentLayout>
-        <SearchBar
-          search={search}
-          handleSearch={(query) => handleSearch(query)}
-          clearSearch={() => setSearch("")}
-        />
         {isConfigurated ? (
           !isLoadingData && assets?.length > 0 ? (
-            <GridBroadcast>
-              {assets
-                .filter((item) => item.title.includes(search))
-                .map((video) => {
-                  const { videoId } = video;
-                  return (
-                    <VideoView
-                      video={video}
-                      key={videoId}
-                      updateData={fetchData}
-                    />
-                  );
-                })}
-            </GridBroadcast>
+            <>
+              <SearchBar
+                search={search}
+                handleSearch={(query) => handleSearch(query)}
+                clearSearch={() => setSearch("")}
+              />
+              <GridBroadcast>
+                {assets
+                  .filter((item) => item.title.includes(search))
+                  .map((video) => {
+                    const { videoId } = video;
+                    return (
+                      <VideoView
+                        video={video}
+                        key={videoId}
+                        updateData={fetchData}
+                      />
+                    );
+                  })}
+              </GridBroadcast>
+            </>
           ) : (
             <EmptyState update={fetchData} />
           )
