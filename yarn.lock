@@ -25,6 +25,13 @@
   dependencies:
     "@api.video/player-sdk" "^1.2.21"
 
+"@api.video/video-uploader@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@api.video/video-uploader/-/video-uploader-1.1.0.tgz#2410b4ebd417522bf5728182b8b4f268bce97f3b"
+  integrity sha512-TZtseBEvSbm6aSd/I7apGnYnjssqKBLtHWOGzEozVSGmxgvxFPj21U2dd+DNFw8ycEr3GjKkyyZGGKQXyVrE4g==
+  dependencies:
+    core-js "^3.25.5"
+
 "@sindresorhus/is@^4.0.0":
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-4.6.0.tgz#3c7c9c46e678feefe7a2e5bb609d3dbd665ffb3f"
@@ -165,6 +172,11 @@ combined-stream@^1.0.8:
   integrity sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==
   dependencies:
     delayed-stream "~1.0.0"
+
+core-js@^3.25.5:
+  version "3.26.1"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.26.1.tgz#7a9816dabd9ee846c1c0fe0e8fcad68f3709134e"
+  integrity sha512-21491RRQVzUn0GGM9Z1Jrpr6PNPxPi+Za8OM9q4tksTSnlbXXGKK1nXNg/QvwFYettXvSX6zWKCtHHfjN4puyA==
 
 core-js@^3.8.3:
   version "3.26.0"
