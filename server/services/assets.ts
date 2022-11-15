@@ -6,16 +6,6 @@ import { getConfig } from "../utils/config";
 const model = `plugin::${pluginId}.asset`;
 
 export default ({ strapi }: { strapi: Strapi }) => ({
-  // async getList() {
-  //   const defaultApiKey = process.env.API_KEY;
-
-  //   const client = new ApiVideoClient({
-  //     apiKey: defaultApiKey,
-  //   });
-
-  //   let result = await client.videos.list();
-  //   return result;
-  // },
 
   async createVideoId(data: any) {
     const defaultApiKey = await getConfig();

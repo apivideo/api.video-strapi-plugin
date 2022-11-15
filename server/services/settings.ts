@@ -1,3 +1,4 @@
+import { Context } from "koa";
 import { Strapi } from "@strapi/strapi";
 import { isValidApiKey } from "../utils/config";
 
@@ -14,7 +15,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
     });
     return JSON.stringify(configKey);
   },
-  async saveConfig(ctx: any) {
+  async saveConfig(ctx: Context) {
     const req = ctx.request.body;
     const pluginStore = strapi.store({
       environment: strapi.config.environment,
