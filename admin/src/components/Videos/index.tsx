@@ -14,7 +14,7 @@ import { CustomVideo } from "../../../../types";
 import Trash from "@strapi/icons/Trash";
 
 import assetRequest from "../../api/assets";
-import { getDayMonthYearHourDate } from "../../date";
+import { getDayMonthYearHourDate } from "../../utils/date";
 import UpdateVideoModal from "../Modal/updateVideo";
 
 export interface IVideosProps {

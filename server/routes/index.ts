@@ -6,7 +6,6 @@ export default [
     handler: "settings.getConfig",
     config: {
       policies: [],
-      auth: false,
     },
   },
   {
@@ -15,7 +14,6 @@ export default [
     handler: "settings.saveConfig",
     config: {
       policies: [],
-      auth: false,
     },
   },
   // Assets
@@ -25,7 +23,6 @@ export default [
     handler: "assets.find",
     config: {
       policies: [],
-      auth: false,
     },
   },
   {
@@ -34,7 +31,6 @@ export default [
     handler: "assets.create",
     config: {
       policies: [],
-      auth: false,
     },
   },
   {
@@ -43,7 +39,6 @@ export default [
     handler: "assets.update",
     config: {
       policies: [],
-      auth: false,
     },
   },
   {
@@ -52,7 +47,6 @@ export default [
     handler: "assets.delete",
     config: {
       policies: [],
-      auth: false,
     },
   },
   {
@@ -61,7 +55,6 @@ export default [
     handler: "assets.createVideoId",
     config: {
       policies: [],
-      auth: false,
     },
   },
 ];

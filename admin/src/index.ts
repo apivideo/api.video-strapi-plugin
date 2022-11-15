@@ -3,6 +3,7 @@ import pluginPkg from "../../package.json";
 import pluginId from "./pluginId";
 import Initializer from "./components/Initializer";
 import PluginIcon from "./components/PluginIcon";
+import pluginPermissions from "./utils/permissions";
 
 const name = pluginPkg.strapi.name;
 
@@ -15,6 +16,7 @@ export default {
         id: `${pluginId}.plugin.name`,
         defaultMessage: name,
       },
+
       Component: async () => {
         const component = await import(
           /* webpackChunkName: "[request]" */ "./pages/App"
@@ -22,13 +24,15 @@ export default {
 
         return component;
       },
-      permissions: [
-        // Uncomment to set the permissions of the plugin here
-        // {
-        //   action: '', // the action name should be plugin::plugin-name.actionType
-        //   subject: null,
-        // },
-      ],
+      // permissions: pluginPermissions.mainRead,
+
+      // permissions: [
+      //   // Uncomment to set the permissions of the plugin here
+      //   // {
+      //   //   action: '', // the action name should be plugin::plugin-name.actionType
+      //   //   subject: null,
+      //   // },
+      // ],
     });
 
     app.createSettingSection(
