@@ -32,7 +32,19 @@
       "required": true,
       "maxLength": 255
     },
+    "hls": {
+      "type": "string",
+      "required": true
+    },
+    "iframe": {
+      "type": "string",
+      "required": true
+    },
     "mp4": {
+      "type": "string",
+      "required": true
+    },
+    "player": {
       "type": "string",
       "required": true
     },

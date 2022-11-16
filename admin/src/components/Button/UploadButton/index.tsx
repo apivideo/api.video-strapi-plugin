@@ -58,7 +58,10 @@ const UploadButton: FC<IUploadButtonProps> = ({
           title: res.title,
           description: res.description,
           videoId: res.videoId,
+          hls: res.assets.hls,
+          iframe: res.assets.iframe,
           mp4: res?.assets?.mp4,
+          player: res.assets.player,
           thumbnail: res?.assets?.thumbnail,
           tags: res.tags,
           metadata: res.metadata,
@@ -67,7 +70,6 @@ const UploadButton: FC<IUploadButtonProps> = ({
         if (data) {
           setIsUploading(false);
           update();
-          close();
         } else {
           notification({
             type: "warning",
@@ -77,6 +79,7 @@ const UploadButton: FC<IUploadButtonProps> = ({
       } catch (e) {
         console.error(e);
       }
+      close();
     }
   };
 
