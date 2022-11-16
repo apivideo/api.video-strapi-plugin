@@ -1,27 +1,13 @@
 import { Strapi } from "@strapi/strapi";
 import ApiVideoClient from "@api.video/nodejs-client";
 import pluginId from "../../admin/src/pluginId";
-import { getConfig } from "../utils/config";
+import { getConfig, configClient } from "../utils/config";
 
 const model = `plugin::${pluginId}.asset`;
 
 export default ({ strapi }: { strapi: Strapi }) => ({
-  // async getList() {
-  //   const defaultApiKey = process.env.API_KEY;
-
-  //   const client = new ApiVideoClient({
-  //     apiKey: defaultApiKey,
-  //   });
-
-  //   let result = await client.videos.list();
-  //   return result;
-  // },
-
   async createVideoId(data: any) {
-    const defaultApiKey = await getConfig();
-    const client = new ApiVideoClient({
-      apiKey: defaultApiKey,
-    });
+    const client = await configClient();
     const newVideo = await client.videos.create({
       title: data["title"],
       description: data["description"],
@@ -37,6 +23,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
   },
 
   async delete(id: string, videoId: string): Promise<boolean> {
+    // const client = await configClient();
     const defaultApiKey = await getConfig();
     const client = new ApiVideoClient({
       apiKey: defaultApiKey,
@@ -60,10 +47,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
   },
 
   async update(id: string, videoId: string, data: any) {
-    const defaultApiKey = await getConfig();
-    const client = new ApiVideoClient({
-      apiKey: defaultApiKey,
-    });
+    const client = await configClient();
     try {
       await client.videos.update(videoId, data);
       await strapi.entityService.update(model, id, { data: data });

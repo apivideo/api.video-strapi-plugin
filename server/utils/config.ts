@@ -1,4 +1,5 @@
 import ApiVideoClient from "@api.video/nodejs-client";
+import * as packageJson from "../../package.json";
 
 const getConfig = async () => {
   const pluginStore = strapi.store({
@@ -24,4 +25,14 @@ const isValidApiKey = async (apiKey: string) => {
   }
 };
 
-export { getConfig, isValidApiKey };
+const configClient = async () => {
+  const defaultApiKey = await getConfig();
+  const client = new ApiVideoClient({
+    apiKey: defaultApiKey,
+    sdkName: "strapi-plugin",
+    sdkVersion: packageJson.version,
+  });
+  return client;
+};
+
+export { getConfig, isValidApiKey, configClient };

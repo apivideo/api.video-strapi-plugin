@@ -25,17 +25,18 @@ export interface IVideosProps {
 
 const VideoView: FC<IVideosProps> = ({ video, updateData }): JSX.Element => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isDeleteDialogOpen, setIsDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const { id, videoId, title, description, thumbnail, mp4, createdAt } = video;
 
   const deleteVideo = async () => {
     await assetRequest.delete(id, videoId);
+    setIsDeleteDialogOpen(false);
     updateData();
   };
 
   const openDialog = (e: React.ChangeEvent<any>) => {
     e.stopPropagation();
-    setIsDialogOpen(true);
+    setIsDeleteDialogOpen(true);
   };
   const formatedCreatedAt = getDayMonthYearHourDate(createdAt);
 
@@ -63,7 +64,7 @@ const VideoView: FC<IVideosProps> = ({ video, updateData }): JSX.Element => {
         <DialogDelete
           title={title}
           isOpen={isDeleteDialogOpen}
-          setIsOpen={() => setIsDialogOpen(false)}
+          close={() => setIsDeleteDialogOpen(false)}
           deleteVideo={deleteVideo}
         />
       )}

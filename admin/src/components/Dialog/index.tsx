@@ -11,22 +11,18 @@ import styled from "styled-components";
 interface IDialogDelete {
   title: string;
   isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
+  close: (isOpen: boolean) => void;
   deleteVideo: () => void;
 }
 
 const DialogDelete: FC<IDialogDelete> = ({
   title,
   isOpen,
-  setIsOpen,
+  close,
   deleteVideo,
 }) => {
   return (
-    <Dialog
-      onClose={() => setIsOpen(false)}
-      title="Confirmation"
-      isOpen={isOpen}
-    >
+    <Dialog onClose={close} title="Confirmation" isOpen={isOpen}>
       <DialogBody icon={<ExclamationMarkCircle />}>
         <Stack spacing={2}>
           <Flex justifyContent="center">
@@ -39,7 +35,7 @@ const DialogDelete: FC<IDialogDelete> = ({
       </DialogBody>
       <DialogFooter
         startAction={
-          <Button onClick={() => setIsOpen(false)} variant="tertiary">
+          <Button onClick={close} variant="tertiary">
             Cancel
           </Button>
         }
