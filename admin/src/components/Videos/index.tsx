@@ -16,6 +16,7 @@ import Trash from "@strapi/icons/Trash";
 import assetRequest from "../../api/assets";
 import { getDayMonthYearHourDate } from "../../utils/date";
 import UpdateVideoModal from "../Modal/updateVideo";
+import DialogDelete from "../Dialog";
 
 export interface IVideosProps {
   video: CustomVideo;
@@ -24,11 +25,17 @@ export interface IVideosProps {
 
 const VideoView: FC<IVideosProps> = ({ video, updateData }): JSX.Element => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDialogOpen] = useState(false);
   const { id, videoId, title, description, thumbnail, mp4, createdAt } = video;
 
   const deleteVideo = async () => {
     await assetRequest.delete(id, videoId);
     updateData();
+  };
+
+  const openDialog = (e: React.ChangeEvent<any>) => {
+    e.stopPropagation();
+    setIsDialogOpen(true);
   };
   const formatedCreatedAt = getDayMonthYearHourDate(createdAt);
 
@@ -36,11 +43,7 @@ const VideoView: FC<IVideosProps> = ({ video, updateData }): JSX.Element => {
     <Container>
       <WrapperVideo onClick={() => setIsModalOpen(true)}>
         <Thumbnail src={thumbnail} alt={"thumbnail"} />
-        <DeleteIcon
-          onClick={deleteVideo}
-          aria-label="Delete"
-          icon={<Trash />}
-        />
+        <DeleteIcon onClick={openDialog} aria-label="Delete" icon={<Trash />} />
       </WrapperVideo>
 
       <TitleWrapper>
@@ -54,6 +57,14 @@ const VideoView: FC<IVideosProps> = ({ video, updateData }): JSX.Element => {
           video={video}
           update={updateData}
           close={() => setIsModalOpen(false)}
+        />
+      )}
+      {isDeleteDialogOpen && (
+        <DialogDelete
+          title={title}
+          isOpen={isDeleteDialogOpen}
+          setIsOpen={() => setIsDialogOpen(false)}
+          deleteVideo={deleteVideo}
         />
       )}
     </Container>
