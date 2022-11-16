@@ -1,10 +1,10 @@
 {
-  "name": "api-video-uploader",
+  "name": "strapi-plugin-api-video-uploader",
   "version": "0.0.1",
-  "description": "This is the description of the plugin.",
+  "description": "This plugin allows you to upload your content to Api.Video and use it with Strapi.",
   "strapi": {
     "name": "api-video-uploader",
-    "description": "Description of Api Video Uploader plugin",
+    "description": "This plugin allows you to upload your content to Api.Video and use it with Strapi.",
     "kind": "plugin",
     "displayName": "Api Video Uploader"
   },
@@ -16,24 +16,31 @@
     "@types/styled-components": "^5.1.26",
     "typescript": "^4.8.4"
   },
+  "devDependencies": {},
+  "peerDependencies": {
+    "@strapi/strapi": "^4.0.0"
+  },
+  "scripts": {
+    "postinstall": "tsc",
+    "build": "tsc",
+    "clean": "find . -type f -name '*.js' -delete",
+    "dev": "tsc --watch"
+  },
   "author": {
-    "name": "A Strapi developer"
+    "name": "Mathieu Thiry",
+    "email": "37848173+promathieuthiry@users.noreply.github.com",
+    "url": "https://github.com/promathieuthiry"
   },
   "maintainers": [
     {
-      "name": "A Strapi developer"
+      "name": "Mathieu Thiry",
+      "email": "37848173+promathieuthiry@users.noreply.github.com",
+      "url": "https://github.com/promathieuthiry"
     }
   ],
   "engines": {
     "node": ">=14.19.1 <=18.x.x",
     "npm": ">=6.0.0"
   },
-  "license": "MIT",
-  "devDependencies": {},
-  "scripts": {
-    "postinstall": "tsc",
-    "build": "tsc",
-    "clean": "find . -type f -name '*.js' -delete",
-    "dev": "tsc --watch"
-  }
+  "license": "MIT"
 }
