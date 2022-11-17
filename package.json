@@ -8,6 +8,10 @@
     "kind": "plugin",
     "displayName": "Api Video Uploader"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/apivideo/api.video-strapi-plugin"
+  },
   "dependencies": {
     "@api.video/nodejs-client": "^2.2.9",
     "@api.video/react-player": "^1.0.1",

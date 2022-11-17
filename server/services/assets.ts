@@ -23,11 +23,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
   },
 
   async delete(id: string, videoId: string): Promise<boolean> {
-    // const client = await configClient();
-    const defaultApiKey = await getConfig();
-    const client = new ApiVideoClient({
-      apiKey: defaultApiKey,
-    });
+    const client = await configClient();
     try {
       await client.videos.delete(videoId);
       await strapi.entityService.delete(model, id);
