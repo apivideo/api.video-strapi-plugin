@@ -11,7 +11,7 @@
 ---
 
 <div style="margin: 20px 0" align="center">
-  <img style="width: 100%; height: auto;" src="public/assets/preview_dark.png" alt="UI preview" />
+  <img style="width: 100%; height: auto;" src="public/assets/preview_light.png" alt="UI preview" />
 </div>
 
 <p align="center">
