@@ -60,7 +60,7 @@ const HomePage = () => {
   return (
     <Layout>
       <BaseHeaderLayout
-        title="Api.Video Uploader"
+        title="api.video uploader"
         subtitle="Integrate video with a few lines of code"
         as="h2"
         primaryAction={isConfigurated && <AddButton update={fetchData} />}

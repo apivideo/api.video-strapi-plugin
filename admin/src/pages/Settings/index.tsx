@@ -59,7 +59,7 @@ const Settings = () => {
   return (
     <>
       <HeaderLayout
-        title={"Api Video Uploader"}
+        title={"api.video uploader"}
         primaryAction={
           <Button
             type="submit"

@@ -2,8 +2,8 @@
   <img style="width: 150px; height: auto;" src="public/assets/api-video-logo.png" alt="Logo - Api Video" />
 </div>
 <div align="center">
-  <h1>Strapi v4 - Api Video Uploader</h1>
-  <p>Powerful Strapi tool for managing uploads to <a href="https://api.video">Api Video</a>.</p>
+  <h1>Strapi v4 - api.video uploader</h1>
+  <p>Powerful Strapi tool for managing uploads to <a href="https://api.video">api.video</a>.</p>
      <a href="https://twitter.com/intent/follow?screen_name=api_video"><img src="https://img.shields.io/twitter/follow/api_video?style=social" alt="Twitter Badge"/></a>
     <a href="https://community.api.video"><img src="https://img.shields.io/discourse/topics?server=https%3A%2F%2Fcommunity.api.video" alt="Pull Requests Badge"/></a>
 </div>
