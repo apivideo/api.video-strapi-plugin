@@ -1,5 +1,5 @@
 <div align="center" width="150px">
-  <img style="width: 150px; height: auto;" src="public/assets/api-video-logo.png" alt="Logo - Api Video" />
+  <img style="width: 150px; height: auto;" src="public/assets/api-video-logo.png" alt="Logo - api.video" />
 </div>
 <div align="center">
   <h1>Strapi v4 - api.video uploader</h1>
@@ -35,11 +35,11 @@ This plugin provides the ability to upload content via a file to upload to  <a h
 
 ## ✨ Features
 
-- **Upload videos** using a file to [Api Video](https://api.video) inside of [Strapi](https://strapi.io/)
+- **Upload videos** using a file to [api.video](https://api.video) inside of [Strapi](https://strapi.io/)
 - **Manage assets** with the plugin's asset grid and pagination capabilities
 - **Search** for assets using title
 - **Preview content** using our player (powered by the [api.video-player-react](https://github.com/apivideo/api.video-react-player) package)
-- **Delete assets** which result in the [Api Video](https://api.video) Asset also being deleted
+- **Delete assets** which result in the [api.video](https://api.video) Asset also being deleted
 
 ## ⏳ Installation
 
@@ -76,10 +76,10 @@ All done. Enjoy 🎉
 
 ## 🖐 Requirements
 
-**Api Video**
+**api.video**
 
-- A [Api Video](https://api.video) account
-- You will only an **Api Key** which can be created in the [Api Video Dashboard](https://dashboard.api.video/apikeys)
+- A [api.video](https://api.video) account
+- You will only an **Api Key** which can be created in the [api.video Dashboard](https://dashboard.api.video/apikeys)
 
 Complete installation requirements are exact same as for Strapi itself and can be found in the documentation under [Installation Requirements](https://docs.strapi.io/developer-docs/latest/getting-started/introduction.html).
 
@@ -101,7 +101,7 @@ In our minimum support we're following [official Node.js releases timelines](htt
 
 ## 🔧 Configuration
 
-In order for this plugin to communicate with [Api Video](https://api.video), a configuration needs to be set for the plugin before it can be used.
+In order for this plugin to communicate with [api.video](https://api.video), a configuration needs to be set for the plugin before it can be used.
 
 With your **Api Key**, navigate to the Settings view within [Strapi](https://strapi.io/) and click the "General" section under **API VIDEO UPLOADER**.
 
@@ -159,5 +159,7 @@ If you encounter an error or have questions, please feel free to file inquiries 
 
 ## 📚 References
 
-- [Api Video](https://docs.api.video/docs/apivideo-api-reference)
+- [api.video](https://docs.api.video/docs/apivideo-api-reference)
 - [Strapi.io](https://strapi.io/)
+
+video video-processing strapi video-streaming mux strapi-plugin strapi-cms
