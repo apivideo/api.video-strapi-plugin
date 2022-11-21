@@ -6,7 +6,6 @@
 
 import React, { useState, useEffect } from "react";
 import { LoadingIndicatorPage } from "@strapi/helper-plugin";
-import pluginId from "../../pluginId";
 import {
   Layout,
   ContentLayout,
@@ -18,7 +17,6 @@ import assetRequest from "../../api/assets";
 import VideoView from "../../components/Videos";
 import settingsRequests from "../../api/settings";
 import SetupNeeded from "../../components/SetupNeeded";
-import { Loader } from "@strapi/design-system/Loader";
 import EmptyState from "../../components/EmptyState";
 import { CustomVideo } from "../../../../types";
 import AddButton from "../../components/Button/AddButton";
@@ -34,7 +32,6 @@ const HomePage = () => {
   const fetchData = async () => {
     if (isLoadingData === false) setIsLoadingData(true);
     const data = await assetRequest.getAllvideos();
-    console.table(data);
     setIsLoadingData(false);
     setAssets(data);
   };

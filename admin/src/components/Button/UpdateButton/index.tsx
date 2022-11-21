@@ -1,11 +1,7 @@
-import React, { useEffect, useRef, useState, FC } from "react";
-import { VideoUploader, VideoUploadResponse } from "@api.video/video-uploader";
-import assetRequest from "../../../api/assets";
+import React, { useState, FC } from "react";
 import { Button } from "@strapi/design-system/Button";
-import { ProgressBar } from "@strapi/design-system/ProgressBar";
 import { useNotification } from "@strapi/helper-plugin";
-
-import CloudUpload from "@strapi/icons/CloudUpload";
+import assetRequest from "../../../api/assets";
 
 export interface IUpdateButtonProps {
   title: string;
@@ -43,15 +39,6 @@ const UpdateButton: FC<IUpdateButtonProps> = ({
 
     try {
       const data = await assetRequest.update(id, videoId, body);
-      // const body = {
-      //   title: res.title,
-      //   description: res.description,
-      //   videoId: res.videoId,
-      //   mp4: res?.assets?.mp4,
-      //   thumbnail: res?.assets?.thumbnail,
-      //   tags: res.tags,
-      //   metadata: res.metadata,
-      // };
       if (data) {
         setIsUploading(false);
         update();

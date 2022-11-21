@@ -13,7 +13,6 @@ import { Box } from "@strapi/design-system/Box";
 import { Button } from "@strapi/design-system/Button";
 import { Grid, GridItem } from "@strapi/design-system/Grid";
 import { HeaderLayout, ContentLayout } from "@strapi/design-system/Layout";
-import { Main } from "@strapi/design-system/Main";
 import { Stack } from "@strapi/design-system/Stack";
 import { Typography } from "@strapi/design-system/Typography";
 import settingsRequests from "../../api/settings";
@@ -26,7 +25,6 @@ const Settings = () => {
 
   const getConfig = async () => {
     const currentApiKey = await settingsRequests.getConfig();
-    console.log(currentApiKey, "currentApiKey");
     setApikey(currentApiKey);
   };
 
@@ -96,7 +94,6 @@ const Settings = () => {
                   description="Generated in the Api.video Dashboard and used for authenticating API calls against Api.Video"
                   detailsLink="https://docs.api.video/docs/upload-a-video-regular-upload"
                   isPassword
-                  // error={errors && errors.access_token}
                   onChange={handleChange}
                 />
               </GridItem>

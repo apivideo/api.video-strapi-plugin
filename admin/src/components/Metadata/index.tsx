@@ -1,21 +1,11 @@
-import React, { useState, ChangeEvent, useRef, FC } from "react";
-import {
-  Table,
-  Thead,
-  Tbody,
-  TFooter,
-  Tr,
-  Td,
-  Th,
-} from "@strapi/design-system/Table";
+import React, { useState, ChangeEvent, FC } from "react";
+import { Table, Thead, Tbody, Tr, Td, Th } from "@strapi/design-system/Table";
 import { Typography } from "@strapi/design-system/Typography";
 import { VisuallyHidden } from "@strapi/design-system/VisuallyHidden";
 import { Flex } from "@strapi/design-system/Flex";
 import { IconButton } from "@strapi/design-system/IconButton";
 import { Box } from "@strapi/design-system/Box";
-
 import Plus from "@strapi/icons/Plus";
-import Pencil from "@strapi/icons/Pencil";
 import Trash from "@strapi/icons/Trash";
 
 import {
@@ -24,9 +14,8 @@ import {
   FormKey,
   FormValue,
   SubTitleMetadata,
-  ValueMetadataInput,
 } from "./style";
-import { CustomBadge, SubTitle, Title, FormInput } from "../../styles/form";
+import { CustomBadge, Title } from "../../styles/form";
 import { InputDataMetadata } from "../../../../types";
 
 interface MetadataTableProps {

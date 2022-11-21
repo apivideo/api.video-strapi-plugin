@@ -1,7 +1,6 @@
 import { Strapi } from "@strapi/strapi";
-import ApiVideoClient from "@api.video/nodejs-client";
 import pluginId from "../../admin/src/pluginId";
-import { getConfig, configClient } from "../utils/config";
+import { configClient } from "../utils/config";
 
 const model = `plugin::${pluginId}.asset`;
 

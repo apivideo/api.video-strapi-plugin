@@ -1,9 +1,6 @@
 import React, { FC } from "react";
-import { useIntl } from "react-intl";
 import styled from "styled-components";
-import Information from "@strapi/icons/Information";
 import { Box } from "@strapi/design-system/Box";
-import { Icon } from "@strapi/design-system/Icon";
 import {
   Field,
   FieldError,
@@ -14,9 +11,6 @@ import {
 import { Flex } from "@strapi/design-system/Flex";
 import { Link } from "@strapi/design-system/Link";
 import { Stack } from "@strapi/design-system/Stack";
-import { Tooltip } from "@strapi/design-system/Tooltip";
-
-import getTrad from "../../utils/getTrad";
 
 interface IFieldProps {
   name: string;
@@ -62,25 +56,7 @@ const FieldComp: FC<IFieldProps> = ({
       <Stack spacing={1}>
         <Flex>
           <FieldLabelStyled required={required}>{label}</FieldLabelStyled>
-          <Box paddingLeft={2}>
-            {/* {tooltip && (
-              <Tooltip description={tooltip}>
-                <TooltipButtonStyled
-                  type="button"
-                  aria-label={formatMessage({
-                    id: getTrad("SettingsField.tooltip-label"),
-                    defaultMessage: "Information about the field",
-                  })}
-                >
-                  <Icon
-                    as={Information}
-                    color="neutral800"
-                    aria-hidden={true}
-                  />
-                </TooltipButtonStyled>
-              </Tooltip>
-            )} */}
-          </Box>
+          <Box paddingLeft={2}></Box>
           {detailsLink && (
             <Flex width="100%" justifyContent="flex-end">
               <Link isExternal href={detailsLink}>

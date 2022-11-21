@@ -36,18 +36,6 @@ export const DeleteIcon = styled(IconButton)`
   display: none;
 `;
 
-export const ImageOverlay = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  overflow: hidden;
-  width: 100%;
-  height: 0;
-  transition: 0.2s ease;
-`;
-
 export const WrapperVideo = styled.div`
   cursor: pointer;
   position: relative;

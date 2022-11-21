@@ -1,4 +1,9 @@
-import React, { useState, useEffect, FC } from "react";
+import React, { useState, FC } from "react";
+import Trash from "@strapi/icons/Trash";
+import assetRequest from "../../api/assets";
+import { getDayMonthYearHourDate } from "../../utils/date";
+import UpdateVideoModal from "../Modal/updateVideo";
+import DialogDelete from "../Dialog";
 import {
   WrapperVideo,
   Thumbnail,
@@ -8,15 +13,8 @@ import {
   SubTitle,
   Container,
   DeleteIcon,
-  ImageOverlay,
 } from "./styles";
 import { CustomVideo } from "../../../../types";
-import Trash from "@strapi/icons/Trash";
-
-import assetRequest from "../../api/assets";
-import { getDayMonthYearHourDate } from "../../utils/date";
-import UpdateVideoModal from "../Modal/updateVideo";
-import DialogDelete from "../Dialog";
 
 export interface IVideosProps {
   video: CustomVideo;

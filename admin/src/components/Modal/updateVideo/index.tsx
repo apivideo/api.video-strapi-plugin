@@ -1,4 +1,4 @@
-import React, { FC, useState, useRef, ChangeEvent } from "react";
+import React, { FC, useState, ChangeEvent } from "react";
 import {
   ModalLayout,
   ModalBody,

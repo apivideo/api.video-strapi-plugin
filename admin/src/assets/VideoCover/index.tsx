@@ -5,8 +5,6 @@ export const VideoCover = () => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       data-name="Layer 1"
-      //   width="1008.92047"
-      //   height="607.45001"
       width="249"
       height="150"
       viewBox="0 0 1008.92047 607.45001"

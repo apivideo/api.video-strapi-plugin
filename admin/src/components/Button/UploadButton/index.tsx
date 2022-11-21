@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useState, FC } from "react";
-import { VideoUploader, VideoUploadResponse } from "@api.video/video-uploader";
+import React, { useState, FC } from "react";
+import { VideoUploader } from "@api.video/video-uploader";
 import assetRequest from "../../../api/assets";
 import { Button } from "@strapi/design-system/Button";
-import { ProgressBar } from "@strapi/design-system/ProgressBar";
 import { useNotification } from "@strapi/helper-plugin";
 
 import CloudUpload from "@strapi/icons/CloudUpload";

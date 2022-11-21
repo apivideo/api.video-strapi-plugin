@@ -29,5 +29,3 @@ export const FooterAction = styled.footer`
 export const AddButton = styled(IconButton)`
   border-radius: 50%;
 `;
-
-export const ValueMetadataInput = styled(FormInput)``;
