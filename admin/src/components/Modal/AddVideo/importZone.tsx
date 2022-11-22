@@ -1,22 +1,72 @@
-import React, { FC } from "react";
+import React, { FC, useState, useRef } from "react";
 import styled from "styled-components";
 import { VideoCover } from "../../../assets/VideoCover";
+import { useNotification } from "@strapi/helper-plugin";
 
 interface IImportZoneProps {
   initialState: number;
-  openFilePicker: () => void;
+  onFileSelected: (file: File) => void;
   videoRef: React.RefObject<HTMLVideoElement>;
   sourceRef: React.RefObject<HTMLSourceElement>;
 }
 
 const ImportZone: FC<IImportZoneProps> = ({
   initialState,
-  openFilePicker,
+  onFileSelected,
   videoRef,
   sourceRef,
 }) => {
+  const inputFile = useRef<HTMLInputElement | null>(null);
+  const notification = useNotification();
+  const [file, setFile] = useState<File | undefined>();
+
+  const openFilePicker = () => {
+    if (file) {
+      setFile(undefined);
+    }
+    inputFile && inputFile?.current?.click();
+  };
+
+  const fileInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { files } = e.target;
+    if (files && files.length > 0) {
+      onFileSelected(files[0]);
+    }
+  };
+
+  const onFileDrop = async (ev: React.DragEvent<HTMLDivElement>) => {
+    ev.preventDefault();
+
+    if (ev.dataTransfer.items) {
+      if (ev.dataTransfer.items.length > 1) {
+        notification({
+          type: "warning",
+          message: 'Only one file is allowed',
+        });
+        return;
+      }
+
+      const item = ev.dataTransfer.items[0];
+
+      if (item.kind === 'file') {
+        onFileSelected(item.getAsFile()!);
+      }
+    } else if (ev.dataTransfer.files) {
+      if (ev.dataTransfer.files.length > 1) {
+        notification({
+          type: "warning",
+          message: 'Only one file is allowed',
+        });
+        return;
+      }
+
+      onFileSelected(ev.dataTransfer.files[0]);
+    }
+  };
+
+
   return (
-    <Wrapper onClick={openFilePicker}>
+    <Wrapper onDrop={onFileDrop} onDragOver={e => e.preventDefault()} onClick={openFilePicker}>
       {initialState === 0 && <VideoCover />}
 
       <ThumbnailImg isShowed={initialState === 1}>
@@ -28,6 +78,15 @@ const ImportZone: FC<IImportZoneProps> = ({
         Select a video<Asterisk>*</Asterisk> file to upload
       </Title>
       <Subtitle>or drag and drop it here</Subtitle>
+      <input
+        type="file"
+        id="upload"
+        accept={"video/*"}
+        ref={inputFile}
+        name="upload"
+        onChange={(e) => fileInputChange(e)}
+        style={{ display: "none" }}
+      />
     </Wrapper>
   );
 };

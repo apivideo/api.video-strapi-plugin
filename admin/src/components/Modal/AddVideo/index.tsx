@@ -39,17 +39,9 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({
   const [initialState, setInitialState] = useState<number>(0);
 
   // CONSTANTS
-  const inputFile = useRef<HTMLInputElement | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const sourceRef = useRef<HTMLSourceElement>(null);
   const { title, description, tags, metadata } = inputData;
-
-  const openFilePicker = () => {
-    if (file) {
-      setFile(undefined);
-    }
-    inputFile && inputFile?.current?.click();
-  };
 
   const displayVideoFrame = (
     video: HTMLVideoElement,
@@ -93,21 +85,19 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({
     setInputData({ ...inputData, metadata: newMetadata });
   };
 
-  const fileInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { files } = e.target;
-    if (files && files.length > 0) {
-      setFile(files[0]);
-      setInputData((prevInputData) => ({
-        ...prevInputData,
-        title: files[0].name,
-      }));
-      if (initialState === 0) {
-        setInitialState(1);
-      }
-      if (videoRef.current && sourceRef.current)
-        displayVideoFrame(videoRef.current, sourceRef.current, files[0]);
+  const onFileSelected = (file: File) => {
+    setFile(file);
+    setInputData((prevInputData) => ({
+      ...prevInputData,
+      title: file.name,
+    }));
+    if (initialState === 0) {
+      setInitialState(1);
     }
-  };
+    if (videoRef.current && sourceRef.current)
+      displayVideoFrame(videoRef.current, sourceRef.current, file);
+  }
+
 
   return (
     <ModalLayout onClose={close} labelledBy="title">
@@ -119,7 +109,7 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({
       <ModalBody>
         <ImportZone
           initialState={initialState}
-          openFilePicker={openFilePicker}
+          onFileSelected={onFileSelected}
           videoRef={videoRef}
           sourceRef={sourceRef}
         />
@@ -140,15 +130,6 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({
           onChange={handleChange}
         />
         <br />
-        <input
-          type="file"
-          id="upload"
-          accept={"video/*"}
-          ref={inputFile}
-          name="upload"
-          onChange={(e) => fileInputChange(e)}
-          style={{ display: "none" }}
-        />
 
         <Tags
           handleSetTag={handleSetTag}
