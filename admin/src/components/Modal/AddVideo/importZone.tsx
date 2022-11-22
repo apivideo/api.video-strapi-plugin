@@ -37,6 +37,8 @@ const ImportZone: FC<IImportZoneProps> = ({
   const onFileDrop = async (ev: React.DragEvent<HTMLDivElement>) => {
     ev.preventDefault();
 
+    let file: File | null = null;
+
     if (ev.dataTransfer.items) {
       if (ev.dataTransfer.items.length > 1) {
         notification({
@@ -49,7 +51,7 @@ const ImportZone: FC<IImportZoneProps> = ({
       const item = ev.dataTransfer.items[0];
 
       if (item.kind === 'file') {
-        onFileSelected(item.getAsFile()!);
+        file = item.getAsFile()!;
       }
     } else if (ev.dataTransfer.files) {
       if (ev.dataTransfer.files.length > 1) {
@@ -60,10 +62,20 @@ const ImportZone: FC<IImportZoneProps> = ({
         return;
       }
 
-      onFileSelected(ev.dataTransfer.files[0]);
+      file = ev.dataTransfer.files[0];
     }
-  };
 
+    if (file) {
+      if (!file.type.startsWith('video/')) {
+        notification({
+          type: "warning",
+          message: 'Only video files are allowed',
+        });
+        return;
+      }
+      onFileSelected(file);
+    };
+  }
 
   return (
     <Wrapper onDrop={onFileDrop} onDragOver={e => e.preventDefault()} onClick={openFilePicker}>
