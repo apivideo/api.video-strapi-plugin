@@ -29,7 +29,7 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({
     tags: [],
     metadata: [
       {
-        key: "Plugin",
+        key: "Upload source",
         value: "Strapi",
       },
     ],
@@ -96,8 +96,7 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({
     }
     if (videoRef.current && sourceRef.current)
       displayVideoFrame(videoRef.current, sourceRef.current, file);
-  }
-
+  };
 
   return (
     <ModalLayout onClose={close} labelledBy="title">

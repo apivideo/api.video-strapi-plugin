@@ -100,8 +100,11 @@ const MetadataTable: FC<MetadataTableProps> = ({
               <Td>
                 <Flex justifyContent={"flex-end"}>
                   <IconButton
+                    disabled={index === 0}
                     onClick={() => handleRemoveMetadata(entry)}
-                    label="Delete"
+                    label={
+                      index === 0 ? "Default value, can't be deleted" : "Delete"
+                    }
                     noBorder
                     icon={<Trash />}
                   />

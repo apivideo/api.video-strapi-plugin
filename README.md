@@ -30,6 +30,7 @@ This plugin provides the ability to upload content via a file to upload to  <a h
 - [🖐 Requirements](#-requirements)
 - [🔧 Configuration](#-configuration)
 - [👤 Permissions](#-permissions)
+- [💾 Metadata](#-metadata)
 - [🤝 Contributing](#-contributing)
 - [📚 References](#-references)
 
@@ -150,6 +151,10 @@ module.exports = ({ env }) => [
 ## 👤 Permissions
 
 Only "Super Admin" can access to the settings page [Strapi](https://strapi.io/). Others instance will be able to utilize the plugin for uploading and managing content.
+
+## 💾 Metadata
+
+By default we send the value `Strapi`as `Upload source` to keep track. This value is set by default and can't be changed.
 
 ## 🤝 Contributing
 
