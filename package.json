@@ -1,10 +1,10 @@
 {
   "name": "strapi-plugin-api-video-uploader",
   "version": "0.0.1",
-  "description": "This plugin allows you to upload your content to Api.Video and use it with Strapi.",
+  "description": "A powerful Strapi plugin to easily manage your videos and integrate them in your project",
   "strapi": {
     "name": "api-video-uploader",
-    "description": "This plugin allows you to upload your content to Api.Video and use it with Strapi.",
+    "description": "A powerful Strapi plugin to easily manage your videos and integrate them in your project",
     "kind": "plugin",
     "displayName": "Api Video Uploader"
   },

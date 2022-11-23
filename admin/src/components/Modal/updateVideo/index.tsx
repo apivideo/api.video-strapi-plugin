@@ -9,10 +9,11 @@ import { Button } from "@strapi/design-system/Button";
 import { Typography } from "@strapi/design-system/Typography";
 import FieldComp from "../../FieldComp/Fields";
 import Tags from "../../Tags";
-import { CustomVideo, InputData } from "../../../../../types";
+import { CustomAssets, CustomVideo, InputData } from "../../../../../types";
 import MetadataTable from "../../Metadata";
 import PlayerView from "./PlayerView";
 import UpdateButton from "../../Button/UpdateButton";
+import LinksTable from "../../LinksTable";
 
 interface IUpdateVideoModalProps {
   video: CustomVideo;
@@ -34,6 +35,12 @@ const UpdateVideoModal: FC<IUpdateVideoModalProps> = ({
 
   // CONSTANTS
   const { title, description, tags, metadata } = inputData;
+  const assets: CustomAssets = {
+    hls: video.hls,
+    iframe: video.iframe,
+    mp4: video.mp4,
+    player: video.player,
+  };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -104,6 +111,8 @@ const UpdateVideoModal: FC<IUpdateVideoModalProps> = ({
           handleSetMetadata={handleSetMetadata}
           handleRemoveMetadata={handleRemoveMetadata}
         />
+
+        <LinksTable assets={assets} />
       </ModalBody>
       <ModalFooter
         startActions={
