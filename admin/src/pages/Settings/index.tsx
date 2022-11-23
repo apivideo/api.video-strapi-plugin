@@ -87,12 +87,12 @@ const Settings = () => {
             <Grid gap={6}>
               <GridItem col={6} s={12}>
                 <FieldComp
-                  name="apiKey"
-                  label="apiKey"
+                  name="API Key"
+                  label="API Key"
                   value={apiKey}
-                  placeholder="Enter your Api Key"
-                  description="Generated in the Api.video Dashboard and used for authenticating API calls against Api.Video"
-                  detailsLink="https://docs.api.video/docs/upload-a-video-regular-upload"
+                  placeholder="Enter your API Key"
+                  description="Generated in the api.video's dashboard and used for authenticating API calls."
+                  detailsLink="https://dashboard.api.video"
                   isPassword
                   onChange={handleChange}
                 />

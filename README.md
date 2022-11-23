@@ -161,5 +161,3 @@ If you encounter an error or have questions, please feel free to file inquiries 
 
 - [api.video](https://docs.api.video/docs/apivideo-api-reference)
 - [Strapi.io](https://strapi.io/)
-
-video video-processing strapi video-streaming mux strapi-plugin strapi-cms
