@@ -1,10 +1,11 @@
-import { Strapi } from "@strapi/strapi";
+import { Strapi, factories } from "@strapi/strapi";
 import pluginId from "../../admin/src/pluginId";
 import { configClient } from "../utils/config";
 
-const model = `plugin::${pluginId}.asset`;
+const model = `plugin::${pluginId}.api-video-asset`;
 
-export default ({ strapi }: { strapi: Strapi }) => ({
+
+export default factories.createCoreService<any>(model, (params: { strapi: Strapi }) => ({
   async createVideoId(data: any) {
     const client = await configClient();
     const newVideo = await client.videos.create({
@@ -17,8 +18,17 @@ export default ({ strapi }: { strapi: Strapi }) => ({
     return { newVideo, token };
   },
 
-  async find(query: any) {
+  async findAll(query: any) {
     return await strapi.entityService.findMany(model, query);
+  },
+
+  async create(data: any) {
+    try {
+      await strapi.entityService.create(model, { data: data });
+      return true;
+    } catch (error) {
+      return false;
+    }
   },
 
   async delete(id: string, videoId: string): Promise<boolean> {
@@ -26,15 +36,6 @@ export default ({ strapi }: { strapi: Strapi }) => ({
     try {
       await client.videos.delete(videoId);
       await strapi.entityService.delete(model, id);
-      return true;
-    } catch (error) {
-      return false;
-    }
-  },
-
-  async create(data: any) {
-    try {
-      await strapi.entityService.create(model, { data: data });
       return true;
     } catch (error) {
       return false;
@@ -51,4 +52,4 @@ export default ({ strapi }: { strapi: Strapi }) => ({
       return false;
     }
   },
-});
+}));

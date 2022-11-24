@@ -1,7 +1,7 @@
-import assets from "./assets";
-import settings from "./settings";
+import settings from './settings';
+import apiVideoAssetService from './api-video-asset'
 
 export default {
-  assets,
   settings,
+  'api-video-asset': apiVideoAssetService,
 };

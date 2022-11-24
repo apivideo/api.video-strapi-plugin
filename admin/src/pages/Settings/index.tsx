@@ -17,6 +17,7 @@ import { Stack } from "@strapi/design-system/Stack";
 import { Typography } from "@strapi/design-system/Typography";
 import settingsRequests from "../../api/settings";
 import FieldComp from "../../components/FieldComp/Fields";
+import pluginPermissions from "../../permissions";
 
 const Settings = () => {
   const [apiKey, setApikey] = useState("");
@@ -24,7 +25,7 @@ const Settings = () => {
   const notification = useNotification();
 
   const getConfig = async () => {
-    const currentApiKey = await settingsRequests.getConfig();
+    const currentApiKey = await settingsRequests.get();
     setApikey(currentApiKey);
   };
 
@@ -39,7 +40,7 @@ const Settings = () => {
   const handleOnSubmit = async () => {
     lockApp();
     const body = { apiKey: apiKey };
-    const response = await settingsRequests.editConfig(body);
+    const response = await settingsRequests.update(body);
     if (response) {
       notification({
         type: "success",
@@ -105,4 +106,9 @@ const Settings = () => {
   );
 };
 
-export default Settings;
+export default ()  => (
+  <CheckPagePermissions permissions={pluginPermissions.settingsRoles}>
+    <Settings />
+  </CheckPagePermissions>
+);
+

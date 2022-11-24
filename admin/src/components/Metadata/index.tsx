@@ -25,12 +25,14 @@ interface MetadataTableProps {
   }[];
   handleSetMetadata: (metadata: InputDataMetadata) => void;
   handleRemoveMetadata: (metadata: InputDataMetadata) => void;
+  editable: boolean;
 }
 
 const MetadataTable: FC<MetadataTableProps> = ({
   metadata,
   handleSetMetadata,
   handleRemoveMetadata,
+  editable,
 }) => {
   const [inputData, setInputData] = useState<InputDataMetadata>({
     key: "",
@@ -98,7 +100,7 @@ const MetadataTable: FC<MetadataTableProps> = ({
                 <Typography textColor="neutral800">{entry.value}</Typography>
               </Td>
               <Td>
-                <Flex justifyContent={"flex-end"}>
+                {editable && <Flex justifyContent={"flex-end"}>
                   <IconButton
                     disabled={index === 0}
                     onClick={() => handleRemoveMetadata(entry)}
@@ -108,13 +110,13 @@ const MetadataTable: FC<MetadataTableProps> = ({
                     noBorder
                     icon={<Trash />}
                   />
-                </Flex>
+                </Flex>}
               </Td>
             </Tr>
           ))}
         </Tbody>
       </Table>
-      <FooterAction>
+      {editable && <FooterAction>
         <FormKey
           name="key"
           value={key}
@@ -129,7 +131,7 @@ const MetadataTable: FC<MetadataTableProps> = ({
           onChange={handleChange}
         ></FormValue>
         <AddButton onClick={addElement} label="add" noBorder icon={<Plus />} />
-      </FooterAction>
+      </FooterAction>}
     </>
   );
 };

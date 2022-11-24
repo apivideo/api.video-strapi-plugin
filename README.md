@@ -104,7 +104,7 @@ In our minimum support we're following [official Node.js releases timelines](htt
 
 In order for this plugin to communicate with [api.video](https://api.video), a configuration needs to be set for the plugin before it can be used.
 
-With your **Api Key**, navigate to the Settings view within [Strapi](https://strapi.io/) and click the "General" section under **API VIDEO UPLOADER**.
+With your **Api Key**, navigate to the Settings view within [Strapi](https://strapi.io/) and click the "General" section under **API.VIDEO UPLOADER**.
 
 On this view, enter your Api Key and click the Save button.
 

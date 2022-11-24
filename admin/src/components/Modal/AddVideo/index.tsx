@@ -134,12 +134,14 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({
           handleSetTag={handleSetTag}
           handleRemoveTag={handleRemoveTag}
           tags={tags || []}
+          editable={true}
         />
 
         <MetadataTable
           metadata={metadata}
           handleSetMetadata={handleSetMetadata}
           handleRemoveMetadata={handleRemoveMetadata}
+          editable={true}
         />
       </ModalBody>
       <ModalFooter

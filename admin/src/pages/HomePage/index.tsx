@@ -4,7 +4,7 @@
  *
  */
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { LoadingIndicatorPage } from "@strapi/helper-plugin";
 import {
   Layout,
@@ -21,6 +21,8 @@ import EmptyState from "../../components/EmptyState";
 import { CustomVideo } from "../../../../types";
 import AddButton from "../../components/Button/AddButton";
 import SearchBar from "../../components/SearchBar";
+import { CheckPagePermissions, useRBAC } from '@strapi/helper-plugin';
+import pluginPermissions from "../../permissions";
 
 const HomePage = () => {
   const [isLoadingData, setIsLoadingData] = useState(true);
@@ -28,6 +30,22 @@ const HomePage = () => {
   const [isConfigurated, setIsConfigurated] = useState(false);
   const [assets, setAssets] = useState<CustomVideo[]>([]);
   const [search, setSearch] = useState("");
+
+  const permissions = useMemo(() => {
+    return {
+      read: pluginPermissions.mainRead,
+      create: pluginPermissions.mainCreate,
+      delete: pluginPermissions.mainDelete,
+      update: pluginPermissions.mainUpdate,
+      updateSettings: pluginPermissions.settingsUpdate,
+    };
+  }, []);
+
+
+  const {
+    isLoading: isLoadingPermissions,
+    allowedActions: { canRead, canCreate, canDelete, canUpdate, canUpdateSettings },
+  } = useRBAC(permissions);
 
   const fetchData = async () => {
     if (isLoadingData === false) setIsLoadingData(true);
@@ -38,7 +56,7 @@ const HomePage = () => {
 
   const getConfig = async () => {
     setIsLoadingConfiguration(true);
-    const currentApiKey = await settingsRequests.getConfig();
+    const currentApiKey = await settingsRequests.get();
     setIsConfigurated(currentApiKey?.length > 0);
     setIsLoadingConfiguration(false);
   };
@@ -53,14 +71,15 @@ const HomePage = () => {
   const handleSearch = (value: string) => {
     setSearch(value);
   };
-  if (isLoadingConfiguration) return <LoadingIndicatorPage />;
+  if (isLoadingConfiguration || isLoadingPermissions) return <LoadingIndicatorPage />;
+  
   return (
     <Layout>
       <BaseHeaderLayout
         title="api.video uploader"
         subtitle="Integrate video with a few lines of code"
         as="h2"
-        primaryAction={isConfigurated && <AddButton update={fetchData} />}
+        primaryAction={isConfigurated && canCreate && <AddButton update={fetchData} />}
       />
       <ContentLayout>
         {isConfigurated ? (
@@ -81,6 +100,8 @@ const HomePage = () => {
                         video={video}
                         key={videoId}
                         updateData={fetchData}
+                        editable={canUpdate}
+                        deletable={canDelete}
                       />
                     );
                   })}
@@ -97,4 +118,8 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default ()  => (
+  <CheckPagePermissions permissions={pluginPermissions.mainRead}>
+    <HomePage />
+  </CheckPagePermissions>
+);

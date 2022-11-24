@@ -1,4 +1,4 @@
-import { Strapi } from "@strapi/strapi";
+import { Strapi } from '@strapi/strapi';
 
 export default ({ strapi }: { strapi: Strapi }) => {
   // destroy phase

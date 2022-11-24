@@ -1,60 +1,22 @@
-export default [
-  // Settings
-  {
-    method: "GET",
-    path: "/settings",
-    handler: "settings.getConfig",
-    config: {
-      policies: [],
-    },
+import apiVideoContentApiRoutes from './content-api-routes';
+import apiVideoAdminRoutes from './admin-routes';
+import apiVideoSettingsRoutes from './settings-routes';
+
+const routes = {
+  // routes for the admin panel (/api-video-uploader/api-video-asset/...)
+  admin: {
+    type: 'admin',
+    routes: apiVideoAdminRoutes
   },
-  {
-    method: "POST",
-    path: "/settings",
-    handler: "settings.saveConfig",
-    config: {
-      policies: [],
-    },
+  // routes for the plugin settings panel (/api-video-uploader/settings)
+  settings: {
+    routes: apiVideoSettingsRoutes
   },
-  // Assets
-  {
-    method: "GET",
-    path: "/videos",
-    handler: "assets.find",
-    config: {
-      policies: [],
-    },
-  },
-  {
-    method: "POST",
-    path: "/video",
-    handler: "assets.create",
-    config: {
-      policies: [],
-    },
-  },
-  {
-    method: "PUT",
-    path: "/video/:id/:videoId",
-    handler: "assets.update",
-    config: {
-      policies: [],
-    },
-  },
-  {
-    method: "DELETE",
-    path: "/video/:id/:videoId",
-    handler: "assets.delete",
-    config: {
-      policies: [],
-    },
-  },
-  {
-    method: "POST",
-    path: "/videos/create",
-    handler: "assets.createVideoId",
-    config: {
-      policies: [],
-    },
-  },
-];
+  // routes for the content api (/api/api-video-uploader/...)
+  "content-api": {
+    type: 'content-api',
+    routes: apiVideoContentApiRoutes
+  }
+};
+
+export default routes;

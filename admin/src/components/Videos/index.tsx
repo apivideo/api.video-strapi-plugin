@@ -19,9 +19,11 @@ import { CustomVideo } from "../../../../types";
 export interface IVideosProps {
   video: CustomVideo;
   updateData: () => void;
+  editable: boolean;
+  deletable: boolean;
 }
 
-const VideoView: FC<IVideosProps> = ({ video, updateData }): JSX.Element => {
+const VideoView: FC<IVideosProps> = ({ video, updateData, deletable, editable }): JSX.Element => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const { id, videoId, title, description, thumbnail, mp4, createdAt } = video;
@@ -32,7 +34,7 @@ const VideoView: FC<IVideosProps> = ({ video, updateData }): JSX.Element => {
     updateData();
   };
 
-  const openDialog = (e: React.ChangeEvent<any>) => {
+  const openDeleteDialog = (e: React.ChangeEvent<any>) => {
     e.stopPropagation();
     setIsDeleteDialogOpen(true);
   };
@@ -42,7 +44,7 @@ const VideoView: FC<IVideosProps> = ({ video, updateData }): JSX.Element => {
     <Container>
       <WrapperVideo onClick={() => setIsModalOpen(true)}>
         <Thumbnail src={thumbnail} alt={"thumbnail"} />
-        <DeleteIcon onClick={openDialog} aria-label="Delete" icon={<Trash />} />
+        {deletable && <DeleteIcon onClick={openDeleteDialog} aria-label="Delete" icon={<Trash />} />}
       </WrapperVideo>
 
       <TitleWrapper>
@@ -55,6 +57,7 @@ const VideoView: FC<IVideosProps> = ({ video, updateData }): JSX.Element => {
         <UpdateVideoModal
           video={video}
           update={updateData}
+          editable={editable}
           close={() => setIsModalOpen(false)}
         />
       )}

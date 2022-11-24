@@ -24,6 +24,7 @@ interface IFieldProps {
   error?: string;
   required?: boolean;
   onChange?: (e: React.ChangeEvent<any>) => void;
+  editable?: boolean;
 }
 
 const FieldLabelStyled = styled(FieldLabel)`
@@ -50,6 +51,7 @@ const FieldComp: FC<IFieldProps> = ({
   error,
   required,
   onChange = () => {},
+  editable,
 }): JSX.Element => {
   return (
     <Field name={name} hint={description} error={error}>
@@ -66,6 +68,7 @@ const FieldComp: FC<IFieldProps> = ({
           )}
         </Flex>
         <FieldInput
+          disabled={editable === undefined ? false : !editable}
           placeholder={placeholder}
           value={value}
           type={isPassword ? "password" : "text"}

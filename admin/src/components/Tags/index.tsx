@@ -8,9 +8,10 @@ interface ITag {
   tags: string[];
   handleSetTag: (tag: string) => void;
   handleRemoveTag: (tag: string) => void;
+  editable: boolean;
 }
-
-const Tags: FC<ITag> = ({ tags, handleSetTag, handleRemoveTag }) => {
+ 
+const Tags: FC<ITag> = ({ tags, handleSetTag, handleRemoveTag, editable }) => {
   const [tag, setTag] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,18 +41,18 @@ const Tags: FC<ITag> = ({ tags, handleSetTag, handleRemoveTag }) => {
         A list of tags you want to use to describe your video.
       </SubTitle>
       <Container>
-        <FormInput
+        {editable && <FormInput
           placeholder="Add a tag"
           value={tag}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
-        ></FormInput>
+        ></FormInput>}
 
         {tags.map((item) => {
           return (
             <Tag
               key={item}
-              onClick={() => handleRemoveTag(item)}
+              onClick={editable ? () => handleRemoveTag(item): undefined}
               icon={<Cross aria-hidden={true} />}
             >
               {item}
