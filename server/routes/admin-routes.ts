@@ -1,4 +1,4 @@
-const routes = [
+export default [
     {
         method: 'GET',
         path: '/api-video-asset',
@@ -40,5 +40,3 @@ const routes = [
         },
     },
 ]
-
-export default routes
