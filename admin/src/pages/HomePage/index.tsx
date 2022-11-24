@@ -4,97 +4,117 @@
  *
  */
 
-import React, { useState, useEffect } from "react";
-import { LoadingIndicatorPage } from "@strapi/helper-plugin";
-import {
-  Layout,
-  ContentLayout,
-  BaseHeaderLayout,
-} from "@strapi/design-system/Layout";
+import React, { useState, useEffect, useMemo } from 'react'
+import { LoadingIndicatorPage } from '@strapi/helper-plugin'
+import { Layout, ContentLayout, BaseHeaderLayout } from '@strapi/design-system/Layout'
 
-import { GridBroadcast } from "../../components/Videos/styles";
-import assetRequest from "../../api/assets";
-import VideoView from "../../components/Videos";
-import settingsRequests from "../../api/settings";
-import SetupNeeded from "../../components/SetupNeeded";
-import EmptyState from "../../components/EmptyState";
-import { CustomVideo } from "../../../../types";
-import AddButton from "../../components/Button/AddButton";
-import SearchBar from "../../components/SearchBar";
+import { GridBroadcast } from '../../components/Videos/styles'
+import assetRequest from '../../api/assets'
+import VideoView from '../../components/Videos'
+import settingsRequests from '../../api/settings'
+import SetupNeeded from '../../components/SetupNeeded'
+import EmptyState from '../../components/EmptyState'
+import { CustomVideo } from '../../../../types'
+import AddButton from '../../components/Button/AddButton'
+import SearchBar from '../../components/SearchBar'
+import { CheckPagePermissions, useRBAC } from '@strapi/helper-plugin'
+import pluginPermissions from '../../permissions'
 
 const HomePage = () => {
-  const [isLoadingData, setIsLoadingData] = useState(true);
-  const [isLoadingConfiguration, setIsLoadingConfiguration] = useState(false);
-  const [isConfigurated, setIsConfigurated] = useState(false);
-  const [assets, setAssets] = useState<CustomVideo[]>([]);
-  const [search, setSearch] = useState("");
+    const [isLoadingData, setIsLoadingData] = useState(true)
+    const [isLoadingConfiguration, setIsLoadingConfiguration] = useState(false)
+    const [isConfigurated, setIsConfigurated] = useState(false)
+    const [assets, setAssets] = useState<CustomVideo[]>([])
+    const [search, setSearch] = useState('')
 
-  const fetchData = async () => {
-    if (isLoadingData === false) setIsLoadingData(true);
-    const data = await assetRequest.getAllvideos();
-    setIsLoadingData(false);
-    setAssets(data);
-  };
+    const permissions = useMemo(() => {
+        return {
+            read: pluginPermissions.mainRead,
+            create: pluginPermissions.mainCreate,
+            delete: pluginPermissions.mainDelete,
+            update: pluginPermissions.mainUpdate,
+            updateSettings: pluginPermissions.settingsUpdate,
+        }
+    }, [])
 
-  const getConfig = async () => {
-    setIsLoadingConfiguration(true);
-    const currentApiKey = await settingsRequests.getConfig();
-    setIsConfigurated(currentApiKey?.length > 0);
-    setIsLoadingConfiguration(false);
-  };
+    const {
+        isLoading: isLoadingPermissions,
+        allowedActions: { canRead, canCreate, canDelete, canUpdate, canUpdateSettings },
+    } = useRBAC(permissions)
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-  useEffect(() => {
-    getConfig();
-  }, []);
+    const fetchData = async () => {
+        if (isLoadingData === false) setIsLoadingData(true)
+        const data = await assetRequest.getAllvideos()
+        setIsLoadingData(false)
+        setAssets(data)
+    }
 
-  const handleSearch = (value: string) => {
-    setSearch(value);
-  };
-  if (isLoadingConfiguration) return <LoadingIndicatorPage />;
-  return (
-    <Layout>
-      <BaseHeaderLayout
-        title="api.video uploader"
-        subtitle="Integrate video with a few lines of code"
-        as="h2"
-        primaryAction={isConfigurated && <AddButton update={fetchData} />}
-      />
-      <ContentLayout>
-        {isConfigurated ? (
-          !isLoadingData && assets?.length > 0 ? (
-            <>
-              <SearchBar
-                search={search}
-                handleSearch={(query) => handleSearch(query)}
-                clearSearch={() => setSearch("")}
-              />
-              <GridBroadcast>
-                {assets
-                  .filter((item) => item.title.includes(search))
-                  .map((video) => {
-                    const { videoId } = video;
-                    return (
-                      <VideoView
-                        video={video}
-                        key={videoId}
-                        updateData={fetchData}
-                      />
-                    );
-                  })}
-              </GridBroadcast>
-            </>
-          ) : (
-            <EmptyState update={fetchData} />
-          )
-        ) : (
-          <SetupNeeded />
-        )}
-      </ContentLayout>
-    </Layout>
-  );
-};
+    const getConfig = async () => {
+        setIsLoadingConfiguration(true)
+        const currentApiKey = await settingsRequests.get()
+        setIsConfigurated(currentApiKey?.length > 0)
+        setIsLoadingConfiguration(false)
+    }
 
-export default HomePage;
+    useEffect(() => {
+        fetchData()
+    }, [])
+    useEffect(() => {
+        getConfig()
+    }, [])
+
+    const handleSearch = (value: string) => {
+        setSearch(value)
+    }
+    if (isLoadingConfiguration || isLoadingPermissions) return <LoadingIndicatorPage />
+
+    return (
+        <Layout>
+            <BaseHeaderLayout
+                title="api.video uploader"
+                subtitle="Integrate video with a few lines of code"
+                as="h2"
+                primaryAction={isConfigurated && canCreate && <AddButton update={fetchData} />}
+            />
+            <ContentLayout>
+                {isConfigurated ? (
+                    !isLoadingData && assets?.length > 0 ? (
+                        <>
+                            <SearchBar
+                                search={search}
+                                handleSearch={(query) => handleSearch(query)}
+                                clearSearch={() => setSearch('')}
+                            />
+                            <GridBroadcast>
+                                {assets
+                                    .filter((item) => item.title.includes(search))
+                                    .map((video) => {
+                                        const { videoId } = video
+                                        return (
+                                            <VideoView
+                                                video={video}
+                                                key={videoId}
+                                                updateData={fetchData}
+                                                editable={canUpdate}
+                                                deletable={canDelete}
+                                            />
+                                        )
+                                    })}
+                            </GridBroadcast>
+                        </>
+                    ) : (
+                        <EmptyState update={fetchData} />
+                    )
+                ) : (
+                    <SetupNeeded />
+                )}
+            </ContentLayout>
+        </Layout>
+    )
+}
+
+export default () => (
+    <CheckPagePermissions permissions={pluginPermissions.mainRead}>
+        <HomePage />
+    </CheckPagePermissions>
+)

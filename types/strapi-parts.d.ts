@@ -1,1 +1,1 @@
-declare module '@strapi/parts/Icon';
+declare module '@strapi/parts/Icon'

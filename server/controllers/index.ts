@@ -1,7 +1,9 @@
-import settings from "./settings";
-import assets from "./assets";
+import adminController from './admin-controller'
+import settingsController from './settings-controller'
+import contentApiControler from './content-api-controller'
 
 export default {
-  settings,
-  assets,
-};
+    admin: adminController,
+    'content-api': contentApiControler,
+    settings: settingsController,
+}

@@ -1,99 +1,78 @@
-import { prefixPluginTranslations } from "@strapi/helper-plugin";
-import pluginPkg from "../../package.json";
-import pluginId from "./pluginId";
-import Initializer from "./components/Initializer";
-import PluginIcon from "./components/PluginIcon";
-import pluginPermissions from "./utils/permissions";
+import { prefixPluginTranslations } from '@strapi/helper-plugin'
+import pluginPkg from '../../package.json'
+import Initializer from './components/Initializer'
+import PluginIcon from './components/PluginIcon'
+import pluginPermissions from './permissions'
+import pluginId from './pluginId'
 
-const name = pluginPkg.strapi.name;
+const name = pluginPkg.strapi.name
+const displayName = pluginPkg.strapi.displayName
 
 export default {
-  register(app: any) {
-    app.addMenuLink({
-      to: `/plugins/${pluginId}`,
-      icon: PluginIcon,
-      intlLabel: {
-        id: `${pluginId}.plugin.name`,
-        defaultMessage: name,
-      },
+    register(app: any) {
+        app.addMenuLink({
+            to: `/plugins/${pluginId}`,
+            icon: PluginIcon,
+            intlLabel: {
+                id: `${pluginId}.plugin.name`,
+                defaultMessage: displayName,
+            },
+            permissions: pluginPermissions.mainRead,
+            Component: async () => await import('./pages/App'),
+        })
 
-      Component: async () => {
-        const component = await import(
-          /* webpackChunkName: "[request]" */ "./pages/App"
-        );
-
-        return component;
-      },
-      // permissions: pluginPermissions.mainRead,
-
-      // permissions: [
-      //   // Uncomment to set the permissions of the plugin here
-      //   // {
-      //   //   action: '', // the action name should be plugin::plugin-name.actionType
-      //   //   subject: null,
-      //   // },
-      // ],
-    });
-
-    app.createSettingSection(
-      {
-        id: pluginId,
-        intlLabel: {
-          // id: getTrad("SettingsNav.section-label"),
-          id: "Api Video Uploader plugin Settings Section",
-          defaultMessage: "Api Video Uploader",
-        },
-      },
-      [
-        {
-          intlLabel: {
-            id: "Settings Section Api Video",
-            defaultMessage: "Settings",
-          },
-          id: "api-video-uploader-settings",
-          to: `/settings/${pluginId}`,
-          // permissions: pluginPermissions.settingsRoles,
-          Component: async () => {
-            const component = await import(
-              /* webpackChunkName: "mux-video-uploader-settings-page" */ "./pages/Settings"
-            );
-
-            return component;
-          },
-        },
-      ]
-    );
-
-    app.registerPlugin({
-      id: pluginId,
-      initializer: Initializer,
-      isReady: false,
-      name,
-    });
-  },
-
-  bootstrap(app: any) {},
-  async registerTrads({ locales }: { locales: string[] }) {
-    const importedTrads = await Promise.all(
-      locales.map((locale: string) => {
-        return import(
-          /* webpackChunkName: "translation-[request]" */ `./translations/${locale}.json`
+        app.createSettingSection(
+            {
+                id: pluginId,
+                intlLabel: {
+                    id: 'Api.Video Uploader plugin Settings Section',
+                    defaultMessage: 'Api.video Uploader',
+                },
+            },
+            [
+                {
+                    intlLabel: {
+                        id: 'Settings Section Api.Video',
+                        defaultMessage: 'Settings',
+                    },
+                    id: 'api-video-uploader-settings',
+                    to: `/settings/${pluginId}`,
+                    permissions: pluginPermissions.settingsRoles,
+                    Component: async () => await import('./pages/Settings'),
+                },
+            ]
         )
-          .then(({ default: data }) => {
-            return {
-              data: prefixPluginTranslations(data, pluginId),
-              locale,
-            };
-          })
-          .catch(() => {
-            return {
-              data: {},
-              locale,
-            };
-          });
-      })
-    );
 
-    return Promise.resolve(importedTrads);
-  },
-};
+        app.registerPlugin({
+            id: pluginId,
+            initializer: Initializer,
+            isReady: false,
+            name,
+        })
+    },
+
+    bootstrap(app: any) {},
+    async registerTrads(app: any) {
+        const { locales } = app
+
+        const importedTrads = await Promise.all(
+            locales.map((locale: any) => {
+                return import(`./translations/${locale}`)
+                    .then(({ default: data }) => {
+                        return {
+                            data: prefixPluginTranslations(data, pluginId),
+                            locale,
+                        }
+                    })
+                    .catch(() => {
+                        return {
+                            data: {},
+                            locale,
+                        }
+                    })
+            })
+        )
+
+        return Promise.resolve(importedTrads)
+    },
+}

@@ -1,17 +1,17 @@
-import { request } from "@strapi/helper-plugin";
+import { request } from '@strapi/helper-plugin'
 
 const settingsRequests = {
-  getConfig: async () => {
-    return await request("/api-video-uploader/settings", {
-      method: "GET",
-    });
-  },
-  editConfig: async (body: Object) => {
-    return await request("/api-video-uploader/settings", {
-      method: "POST",
-      body,
-    });
-  },
-};
+    get: async () => {
+        return await request('/api-video-uploader/settings', {
+            method: 'GET',
+        })
+    },
+    update: async (body: Object) => {
+        return await request('/api-video-uploader/settings', {
+            method: 'POST',
+            body,
+        })
+    },
+}
 
-export default settingsRequests;
+export default settingsRequests
