@@ -53,7 +53,7 @@ Coming soon
 (Use **yarn** to install this plugin within your Strapi project (recommended). [Install yarn with these docs](https://yarnpkg.com/lang/en/docs/install/).)
 
 ```bash
-yarn add strapi-plugin-api-video-uploader@latest
+yarn add @api.video/strapi-uploader-plugin@latest
 ```
 
 After successful installation you've to re-build your Strapi instance. To archive that simply use:
@@ -154,7 +154,7 @@ By default we send the value `Strapi`as `Upload source` to keep track. This valu
 
 Contributions, issues and feature requests are welcome!
 
-If you encounter an error or have questions, please feel free to file inquiries on the [Issues](https://github.com/apivideo/api.video-strapi-plugin/issues) page for `strapi-plugin-api-video-uploader`.
+If you encounter an error or have questions, please feel free to file inquiries on the [Issues](https://github.com/apivideo/api.video-strapi-plugin/issues) page for `@api.video/strapi-uploader-plugin`.
 
 ## 📚 References
 
