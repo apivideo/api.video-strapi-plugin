@@ -1,6 +1,6 @@
-declare var strapi: any;
+declare var strapi: any
 
-declare module "*.svg" {
-  const content: any;
-  export default content;
+declare module '*.svg' {
+    const content: any
+    export default content
 }

@@ -23,24 +23,24 @@ This plugin provides the ability to upload content via a file to upload to  <a h
 
 ### Table of Contents
 
-- [✨ Features](#-features)
-- [⏳ Installation](#-installation)
-  - [Via Strapi Marketplace](#via-strapi-marketplace)
-  - [Via command line](#via-command-line)
-- [🖐 Requirements](#-requirements)
-- [🔧 Configuration](#-configuration)
-- [👤 Permissions](#-permissions)
-- [💾 Metadata](#-metadata)
-- [🤝 Contributing](#-contributing)
-- [📚 References](#-references)
+-   [✨ Features](#-features)
+-   [⏳ Installation](#-installation)
+    -   [Via Strapi Marketplace](#via-strapi-marketplace)
+    -   [Via command line](#via-command-line)
+-   [🖐 Requirements](#-requirements)
+-   [🔧 Configuration](#-configuration)
+-   [👤 Permissions](#-permissions)
+-   [💾 Metadata](#-metadata)
+-   [🤝 Contributing](#-contributing)
+-   [📚 References](#-references)
 
 ## ✨ Features
 
-- **Upload videos** using a file to [api.video](https://api.video) inside of [Strapi](https://strapi.io/)
-- **Manage assets** with the plugin's asset grid and pagination capabilities
-- **Search** for assets using title
-- **Preview content** using our player (powered by the [api.video-player-react](https://github.com/apivideo/api.video-react-player) package)
-- **Delete assets** which result in the [api.video](https://api.video) Asset also being deleted
+-   **Upload videos** using a file to [api.video](https://api.video) inside of [Strapi](https://strapi.io/)
+-   **Manage assets** with the plugin's asset grid and pagination capabilities
+-   **Search** for assets using title
+-   **Preview content** using our player (powered by the [api.video-player-react](https://github.com/apivideo/api.video-react-player) package)
+-   **Delete assets** which result in the [api.video](https://api.video) Asset also being deleted
 
 ## ⏳ Installation
 
@@ -79,22 +79,22 @@ All done. Enjoy 🎉
 
 **api.video**
 
-- A [api.video](https://api.video) account
-- You will only an **Api Key** which can be created in the [api.video Dashboard](https://dashboard.api.video/apikeys)
+-   A [api.video](https://api.video) account
+-   You will only an **Api Key** which can be created in the [api.video Dashboard](https://dashboard.api.video/apikeys)
 
 Complete installation requirements are exact same as for Strapi itself and can be found in the documentation under [Installation Requirements](https://docs.strapi.io/developer-docs/latest/getting-started/introduction.html).
 
 **Minimum environment requirements**
 
-- Node.js `>=14.19.1 <=18.x.x`
-- NPM `>=6.x.x`
+-   Node.js `>=14.19.1 <=18.x.x`
+-   NPM `>=6.x.x`
 
 In our minimum support we're following [official Node.js releases timelines](https://nodejs.org/en/about/releases/).
 
 **Supported Strapi versions**:
 
-- Strapi v4.5.1 (recently tested)
-- Strapi v4.x
+-   Strapi v4.5.1 (recently tested)
+-   Strapi v4.x
 
 > This plugin is designed for **Strapi v4** and is not working with v3.x.
 
@@ -117,35 +117,29 @@ To resolve **Content Security Policy directive** issue and to visualize the thum
 ```javascript
 // config/middlewares.js
 module.exports = ({ env }) => [
-  "strapi::errors",
-  {
-    name: "strapi::security",
-    config: {
-      contentSecurityPolicy: {
-        useDefaults: true,
-        directives: {
-          "connect-src": ["'self'", "https:"],
-          "img-src": [
-            "'self'",
-            "data:",
-            "blob:",
-            "embed.api.video",
-            "cdn.api.video/vod/",
-          ],
-          "frame-src": ["'self'", "data:", "blob:", "embed.api.video"],
-          upgradeInsecureRequests: null,
+    'strapi::errors',
+    {
+        name: 'strapi::security',
+        config: {
+            contentSecurityPolicy: {
+                useDefaults: true,
+                directives: {
+                    'connect-src': ["'self'", 'https:'],
+                    'img-src': ["'self'", 'data:', 'blob:', 'embed.api.video', 'cdn.api.video/vod/'],
+                    'frame-src': ["'self'", 'data:', 'blob:', 'embed.api.video'],
+                    upgradeInsecureRequests: null,
+                },
+            },
         },
-      },
     },
-  },
-  "strapi::cors",
-  "strapi::poweredBy",
-  "strapi::logger",
-  "strapi::query",
-  "strapi::body",
-  "strapi::favicon",
-  "strapi::public",
-];
+    'strapi::cors',
+    'strapi::poweredBy',
+    'strapi::logger',
+    'strapi::query',
+    'strapi::body',
+    'strapi::favicon',
+    'strapi::public',
+]
 ```
 
 ## 👤 Permissions
@@ -164,5 +158,5 @@ If you encounter an error or have questions, please feel free to file inquiries 
 
 ## 📚 References
 
-- [api.video](https://docs.api.video/docs/apivideo-api-reference)
-- [Strapi.io](https://strapi.io/)
+-   [api.video](https://docs.api.video/docs/apivideo-api-reference)
+-   [Strapi.io](https://strapi.io/)

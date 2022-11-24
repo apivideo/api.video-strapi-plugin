@@ -1,7 +1,7 @@
-import apiVideoAssetSchema from './api-video-asset/api-video-asset-schema.json';
+import apiVideoAssetSchema from './api-video-asset/api-video-asset-schema.json'
 
 export = {
-    "api-video-asset": {
-        schema: apiVideoAssetSchema
-    }
-};
+    'api-video-asset': {
+        schema: apiVideoAssetSchema,
+    },
+}

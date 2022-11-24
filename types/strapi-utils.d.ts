@@ -1,1 +1,1 @@
-declare module '@strapi/utils';
+declare module '@strapi/utils'
