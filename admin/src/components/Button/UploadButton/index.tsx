@@ -44,7 +44,7 @@ const UploadButton: FC<IUploadButtonProps> = ({
                 file: currentFile,
                 accessToken: token.accessToken,
                 refreshToken: token.refreshToken,
-                videoId: newVideo.videoId
+                videoId: newVideo.videoId,
             })
             try {
                 uploader.onProgress((e) => setProgress(Math.round((e.uploadedBytes * 100) / e.totalBytes)))
