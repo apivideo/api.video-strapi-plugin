@@ -1,37 +1,45 @@
-import React, { FC, useState, ChangeEvent } from 'react'
+import React, { FC, useState, useRef, ChangeEvent } from 'react'
 import { ModalLayout, ModalBody, ModalHeader, ModalFooter } from '@strapi/design-system/ModalLayout'
 import { Button } from '@strapi/design-system/Button'
 import { Typography } from '@strapi/design-system/Typography'
 import FieldComp from '../../FieldComp/Fields'
+import UploadButton from '../../Button/UploadButton'
+import ImportZone from './importZone'
 import Tags from '../../Tags'
-import { CustomAssets, CustomVideo, InputData } from '../../../../../types'
+import { InputData } from '../../../../types'
 import MetadataTable from '../../Metadata'
-import PlayerView from './PlayerView'
-import UpdateButton from '../../Button/UpdateButton'
-import LinksTable from '../../LinksTable'
 
-interface IUpdateVideoModalProps {
-    video: CustomVideo
-    update: () => void
+interface IAddVideoModalProps {
     close: () => void
-    editable: boolean
+    update: () => void
 }
 
-const UpdateVideoModal: FC<IUpdateVideoModalProps> = ({ video, update, close, editable }): JSX.Element => {
+const AddVideoModal: FC<IAddVideoModalProps> = ({ update, close }): JSX.Element => {
     const [inputData, setInputData] = useState<InputData>({
-        title: video.title,
-        description: video.description,
-        tags: video.tags,
-        metadata: video.metadata,
+        title: '',
+        description: '',
+        tags: [],
+        metadata: [
+            {
+                key: 'Upload source',
+                value: 'Strapi',
+            },
+        ],
     })
 
+    const [file, setFile] = useState<File | undefined>()
+    const [initialState, setInitialState] = useState<number>(0)
+
     // CONSTANTS
+    const videoRef = useRef<HTMLVideoElement>(null)
+    const sourceRef = useRef<HTMLSourceElement>(null)
     const { title, description, tags, metadata } = inputData
-    const assets: CustomAssets = {
-        hls: video.hls,
-        iframe: video.iframe,
-        mp4: video.mp4,
-        player: video.player,
+
+    const displayVideoFrame = (video: HTMLVideoElement, source: HTMLSourceElement, file: File) => {
+        // Object Url as the video source
+        source.setAttribute('src', URL.createObjectURL(file))
+        // Load the video and show it
+        video.load()
     }
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -64,22 +72,38 @@ const UpdateVideoModal: FC<IUpdateVideoModalProps> = ({ video, update, close, ed
         setInputData({ ...inputData, metadata: newMetadata })
     }
 
+    const onFileSelected = (file: File) => {
+        setFile(file)
+        setInputData((prevInputData) => ({
+            ...prevInputData,
+            title: file.name,
+        }))
+        if (initialState === 0) {
+            setInitialState(1)
+        }
+        if (videoRef.current && sourceRef.current) displayVideoFrame(videoRef.current, sourceRef.current, file)
+    }
+
     return (
         <ModalLayout onClose={close} labelledBy="title">
             <ModalHeader>
                 <Typography fontWeight="bold" textColor="neutral800" as="h2" id="title">
-                    Update video
+                    Upload a video
                 </Typography>
             </ModalHeader>
             <ModalBody>
-                <PlayerView video={video} />
+                <ImportZone
+                    initialState={initialState}
+                    onFileSelected={onFileSelected}
+                    videoRef={videoRef}
+                    sourceRef={sourceRef}
+                />
                 <FieldComp
                     name="title"
                     label="Title"
                     value={title}
                     placeholder="Enter your title"
                     onChange={handleChange}
-                    editable={editable}
                     required
                 />
                 <br />
@@ -89,25 +113,17 @@ const UpdateVideoModal: FC<IUpdateVideoModalProps> = ({ video, update, close, ed
                     value={description || ''}
                     placeholder="Enter a description"
                     onChange={handleChange}
-                    editable={editable}
                 />
                 <br />
 
-                <Tags
-                    handleSetTag={handleSetTag}
-                    handleRemoveTag={handleRemoveTag}
-                    tags={tags || []}
-                    editable={editable}
-                />
+                <Tags handleSetTag={handleSetTag} handleRemoveTag={handleRemoveTag} tags={tags || []} editable={true} />
 
                 <MetadataTable
                     metadata={metadata}
                     handleSetMetadata={handleSetMetadata}
                     handleRemoveMetadata={handleRemoveMetadata}
-                    editable={editable}
+                    editable={true}
                 />
-
-                <LinksTable assets={assets} />
             </ModalBody>
             <ModalFooter
                 startActions={
@@ -116,24 +132,21 @@ const UpdateVideoModal: FC<IUpdateVideoModalProps> = ({ video, update, close, ed
                     </Button>
                 }
                 endActions={
-                    editable && (
-                        <>
-                            <UpdateButton
-                                title={title}
-                                description={description || ''}
-                                tags={tags || []}
-                                metadata={metadata || []}
-                                id={video.id}
-                                videoId={video.videoId}
-                                update={update}
-                                close={close}
-                            />
-                        </>
-                    )
+                    <>
+                        <UploadButton
+                            currentFile={file}
+                            title={title}
+                            description={description || ''}
+                            tags={tags || []}
+                            metadata={metadata || []}
+                            update={update}
+                            close={close}
+                        />
+                    </>
                 }
             />
         </ModalLayout>
     )
 }
 
-export default UpdateVideoModal
+export default AddVideoModal

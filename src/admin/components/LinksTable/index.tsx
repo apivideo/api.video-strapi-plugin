@@ -9,7 +9,7 @@ import Plus from '@strapi/icons/Plus'
 import Link from '@strapi/icons/Link'
 
 import { CustomBadge, Title } from '../../styles/form'
-import { CustomAssets, InputDataMetadata } from '../../../../types'
+import { CustomAssets, InputDataMetadata } from '../../../types'
 import { SubTitleMetadata } from '../Metadata/style'
 import { copyClipboard } from '../../utils'
 

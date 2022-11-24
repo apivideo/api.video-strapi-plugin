@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "target": "ES2015",
+        "module": "commonjs",
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "jsx": "react",
+        "declaration": true,
+        "declarationMap": true,
+        "sourceMap": true,
+        "isolatedModules": true,
+        "strict": true,
+        "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "rootDir": ".",
+        "outDir": "../dist/",
+        "resolveJsonModule": true
+    },
+    "references": [
+        {
+            "path": "../"
+        }
+    ]
+}

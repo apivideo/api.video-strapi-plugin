@@ -1,5 +1,5 @@
 import { request } from '@strapi/helper-plugin'
-import { InputData } from '../../../types'
+import { InputData } from '../../types'
 import pluginId from '../pluginId'
 
 const assetRequest = {

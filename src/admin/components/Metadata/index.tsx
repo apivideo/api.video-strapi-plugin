@@ -10,7 +10,7 @@ import Trash from '@strapi/icons/Trash'
 
 import { AddButton, FooterAction, FormKey, FormValue, SubTitleMetadata } from './style'
 import { CustomBadge, Title } from '../../styles/form'
-import { InputDataMetadata } from '../../../../types'
+import { InputDataMetadata } from '../../../types'
 
 interface MetadataTableProps {
     metadata?: {

@@ -1,5 +1,5 @@
 import ApiVideoClient from '@api.video/nodejs-client'
-import * as packageJson from '../../package.json'
+import * as packageJson from '../../../package.json'
 
 const getConfig = async () => {
     const pluginStore = strapi.store({

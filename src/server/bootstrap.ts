@@ -1,4 +1,4 @@
-import pluginId from './../admin/src/pluginId'
+import pluginId from './../admin/pluginId'
 
 export default async ({ strapi }: { strapi: any }) => {
     const actions = [
@@ -32,7 +32,7 @@ export default async ({ strapi }: { strapi: any }) => {
             section: 'plugins',
             displayName: 'Read',
             subCategory: 'settings',
-            uid: 'settings.read',
+            uid: 'settings',
             pluginName: pluginId,
         },
         {

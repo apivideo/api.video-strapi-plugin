@@ -1,6 +1,6 @@
 import React, { useRef, FC } from 'react'
 import ApiVideoPlayer from '@api.video/react-player'
-import { CustomVideo } from '../../../../../types'
+import { CustomVideo } from '../../../../types'
 import styled from 'styled-components'
 
 interface IPlayerViewProps {

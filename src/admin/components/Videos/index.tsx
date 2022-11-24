@@ -5,7 +5,7 @@ import { getDayMonthYearHourDate } from '../../utils/date'
 import UpdateVideoModal from '../Modal/updateVideo'
 import DialogDelete from '../Dialog'
 import { WrapperVideo, Thumbnail, TitleWrapper, Title, DateStyle, SubTitle, Container, DeleteIcon } from './styles'
-import { CustomVideo } from '../../../../types'
+import { CustomVideo } from '../../../types'
 
 export interface IVideosProps {
     video: CustomVideo

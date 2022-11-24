@@ -1,5 +1,5 @@
 import { Strapi, factories } from '@strapi/strapi'
-import pluginId from '../../admin/src/pluginId'
+import pluginId from '../../admin/pluginId'
 import { configClient } from '../utils/config'
 
 const model = `plugin::${pluginId}.api-video-asset`
