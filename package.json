@@ -53,6 +53,15 @@
         "node": ">=14.19.1 <=18.x.x",
         "npm": ">=6.0.0"
     },
+    "keywords": [
+        "video",
+        "video-processing",
+        "strapi",
+        "strapi-plugin",
+        "strapicms",
+        "strapi-cms",
+        "strapi4"
+    ],
     "license": "MIT",
     "lint-staged": {
         "*.{ts,js,css,md,json}": "prettier --write"
