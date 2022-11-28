@@ -73,10 +73,11 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({ update, close }): JSX.Element 
     }
 
     const onFileSelected = (file: File) => {
+        console.log(file, 'file')
         setFile(file)
         setInputData((prevInputData) => ({
             ...prevInputData,
-            title: file.name,
+            title: file.name.replace(/\.[^/.]+$/, ''),
         }))
         if (initialState === 0) {
             setInitialState(1)

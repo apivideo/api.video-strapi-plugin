@@ -72,7 +72,7 @@ const HomePage = () => {
         <Layout>
             <BaseHeaderLayout
                 title="api.video uploader"
-                subtitle="Integrate video with a few lines of code"
+                subtitle="Upload to and manage your api.video library directly within Strapi"
                 as="h2"
                 primaryAction={isConfigurated && canCreate && <AddButton update={fetchData} />}
             />

@@ -24,8 +24,6 @@ const PlayerView: FC<IPlayerViewProps> = ({ video }) => {
                     borderRadius: 4,
                     overflow: 'hidden',
                 }}
-                autoplay
-                loop
             />
         </Wrapper>
     )

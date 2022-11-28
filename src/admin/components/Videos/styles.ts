@@ -56,27 +56,33 @@ export const WrapperVideo = styled.div`
 export const TitleWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    overflow: hidden;
-    padding-top: 5px;
 `
 
 export const Title = styled.p`
+    margin-top: 5px;
     font-weight: 500;
     color: #32324d;
     font-size: 18px;
     line-height: 2rem;
+    min-width: 250px;
+    max-width: 600px;
+    white-space: nowrap;
     overflow: hidden;
-    -webkit-line-clamp: 2;
     text-overflow: ellipsis;
-    white-space: normal;
 `
 
 export const SubTitle = styled.p`
     color: #606060;
     font-size: 14px;
     font-style: italic;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 `
 export const DateStyle = styled.p`
     color: #666687;
     font-size: 12px;
+    margin-top: 10px;
 `
