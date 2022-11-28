@@ -1,5 +1,5 @@
-<div align="center" width="150px">
-  <img style="width: 150px; height: auto;" src="public/assets/api-video-logo.png" alt="Logo - api.video" />
+<div align="center">
+  <img src="public/assets/api-video-logo.png" alt="Logo - api.video" />
 </div>
 <div align="center">
   <h1>Strapi v4 - api.video uploader</h1>
@@ -147,7 +147,6 @@ module.exports = ({ env }) => [
 With the Community Edition of [Strapi](https://strapi.io/), any user with the role of super administrator can configure and use the plugin.
 
 With Strapi Enterprise the permissions can be fine tuned according to the role of users. This is done in the **Roles** view in the **Administration Panel**.
-
 
 ## 💾 Metadata
 
