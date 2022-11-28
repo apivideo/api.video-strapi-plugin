@@ -1,11 +1,11 @@
-import pluginId from './pluginId'
+import { mainCreateAction, mainDeleteAction, mainReadAction, mainUpdateAction, settingsReadAction, settingsUpdateAction } from './actions'
 
-const settingsRead = [{ action: `plugin::${pluginId}.settings.read`, subject: null }]
-const settingsUpdate = [{ action: `plugin::${pluginId}.settings.update`, subject: null }]
-const mainRead = [{ action: `plugin::${pluginId}.read`, subject: null }]
-const mainCreate = [{ action: `plugin::${pluginId}.create`, subject: null }]
-const mainUpdate = [{ action: `plugin::${pluginId}.update`, subject: null }]
-const mainDelete = [{ action: `plugin::${pluginId}.delete`, subject: null }]
+const settingsRead = [{ action: settingsReadAction, subject: null }]
+const settingsUpdate = [{ action: settingsUpdateAction, subject: null }]
+const mainRead = [{ action: mainReadAction, subject: null }]
+const mainCreate = [{ action: mainCreateAction, subject: null }]
+const mainUpdate = [{ action: mainUpdateAction, subject: null }]
+const mainDelete = [{ action: mainDeleteAction, subject: null }]
 
 const pluginPermissions = {
     // This permission regards the main component (App) and is used to tell

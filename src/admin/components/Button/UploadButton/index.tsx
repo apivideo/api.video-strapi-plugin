@@ -50,7 +50,7 @@ const UploadButton: FC<IUploadButtonProps> = ({
                 uploader.onProgress((e) => setProgress(Math.round((e.uploadedBytes * 100) / e.totalBytes)))
 
                 const res: any = await uploader.upload()
-                console.log(res, 'res')
+
                 const body = {
                     title: res.title,
                     description: res.description,

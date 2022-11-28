@@ -32,7 +32,7 @@ export default async ({ strapi }: { strapi: any }) => {
             section: 'plugins',
             displayName: 'Read',
             subCategory: 'settings',
-            uid: 'settings',
+            uid: 'settings.read',
             pluginName: pluginId,
         },
         {

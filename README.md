@@ -144,7 +144,10 @@ module.exports = ({ env }) => [
 
 ## 👤 Permissions
 
-Only "Super Admin" can access to the settings page [Strapi](https://strapi.io/). Others instance will be able to utilize the plugin for uploading and managing content.
+With the Community Edition of [Strapi](https://strapi.io/), any user with the role of super administrator can configure and use the plugin.
+
+With Strapi Enterprise the permissions can be fine tuned according to the role of users. This is done in the **Roles** view in the **Administration Panel**.
+
 
 ## 💾 Metadata
 
