@@ -49,10 +49,10 @@ const HomePage = () => {
         setAssets(data)
     }
 
-    const getConfig = async () => {
+    const getApiKey = async () => {
         setIsLoadingConfiguration(true)
-        const currentApiKey = await settingsRequests.get()
-        setIsConfigurated(currentApiKey?.length > 0)
+        const settings = await settingsRequests.get()
+        setIsConfigurated(settings?.apiKey?.length > 0)
         setIsLoadingConfiguration(false)
     }
 
@@ -60,7 +60,7 @@ const HomePage = () => {
         fetchData()
     }, [])
     useEffect(() => {
-        getConfig()
+        getApiKey()
     }, [])
 
     const handleSearch = (value: string) => {

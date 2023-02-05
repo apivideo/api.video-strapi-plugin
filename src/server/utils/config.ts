@@ -8,10 +8,10 @@ const getConfig = async () => {
         name: 'api-video-uploader',
     })
 
-    const configKey = await pluginStore.get({
-        key: 'apiKey',
+    const settings = await pluginStore.get({
+        key: 'settings',
     })
-    return configKey
+    return settings.apiKey
 }
 
 const isValidApiKey = async (apiKey: string) => {

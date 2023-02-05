@@ -4,6 +4,7 @@ import { Button } from '@strapi/design-system/Button'
 import { Typography } from '@strapi/design-system/Typography'
 import FieldComp from '../../FieldComp/Fields'
 import Tags from '../../Tags'
+import Toggle from '../../Toggle'
 import { CustomAssets, CustomVideo, InputData } from '../../../../types'
 import MetadataTable from '../../Metadata'
 import PlayerView from './PlayerView'
@@ -21,12 +22,13 @@ const UpdateVideoModal: FC<IUpdateVideoModalProps> = ({ video, update, close, ed
     const [inputData, setInputData] = useState<InputData>({
         title: video.title,
         description: video.description,
+        _public: video._public,
         tags: video.tags,
         metadata: video.metadata,
     })
 
     // CONSTANTS
-    const { title, description, tags, metadata } = inputData
+    const { title, description, _public, tags, metadata } = inputData
     const assets: CustomAssets = {
         hls: video.hls,
         iframe: video.iframe,
@@ -37,6 +39,10 @@ const UpdateVideoModal: FC<IUpdateVideoModalProps> = ({ video, update, close, ed
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target
         setInputData((prevInputData) => ({ ...prevInputData, [name]: value }))
+    }
+
+    const handleSetPublic = (event: ChangeEvent<HTMLInputElement>) => {
+        setInputData({ ...inputData, _public: event.target.checked })
     }
 
     const handleSetTag = (tag: string) => {
@@ -93,6 +99,16 @@ const UpdateVideoModal: FC<IUpdateVideoModalProps> = ({ video, update, close, ed
                 />
                 <br />
 
+                <Toggle 
+                    label="Public"
+                    required={true}
+                    checked={inputData._public}
+                    onLabel="True"
+                    offLabel="False"
+                    onChange={handleSetPublic}
+                />
+                <br />
+
                 <Tags
                     handleSetTag={handleSetTag}
                     handleRemoveTag={handleRemoveTag}
@@ -121,6 +137,7 @@ const UpdateVideoModal: FC<IUpdateVideoModalProps> = ({ video, update, close, ed
                             <UpdateButton
                                 title={title}
                                 description={description || ''}
+                                _public={_public}
                                 tags={tags || []}
                                 metadata={metadata || []}
                                 id={video.id}

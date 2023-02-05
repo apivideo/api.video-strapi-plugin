@@ -1,21 +1,24 @@
 import { Strapi } from '@strapi/strapi'
+import { CustomSettings } from '../../types'
 import { isValidApiKey } from '../utils/config'
 
 export default ({ strapi }: { strapi: Strapi }) => ({
-    async getConfig() {
+    async getSettings() {
         const pluginStore = strapi.store({
             environment: strapi.config.environment,
             type: 'plugin',
             name: 'api-video-uploader',
         })
 
-        const configKey = await pluginStore.get({
-            key: 'apiKey',
+        const customSettings = await pluginStore.get({
+            key: 'settings',
         })
-        return JSON.stringify(configKey)
+
+        console.log(customSettings)
+
+        return customSettings
     },
-    async saveConfig(ctx: any) {
-        const req = ctx.request.body
+    async saveSettings(settings: CustomSettings){
         const pluginStore = strapi.store({
             environment: strapi.config.environment,
             type: 'plugin',
@@ -23,12 +26,13 @@ export default ({ strapi }: { strapi: Strapi }) => ({
         })
 
         try {
-            const isValid = await isValidApiKey(req.apiKey)
+            const isValid = await isValidApiKey(settings.apiKey)
             if (isValid) {
                 await pluginStore.set({
-                    key: 'apiKey',
-                    value: req.apiKey,
+                    key: 'settings',
+                    value: settings,
                 })
+                console.log(settings)
                 return true
             } else {
                 return false

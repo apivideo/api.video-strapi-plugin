@@ -6,6 +6,7 @@ import assetsRequests from '../../../api/assets'
 export interface IUpdateButtonProps {
     title: string
     description: string
+    _public: boolean
     tags: string[]
     metadata: { key: string; value: string }[]
     id: number
@@ -17,6 +18,7 @@ export interface IUpdateButtonProps {
 const UpdateButton: FC<IUpdateButtonProps> = ({
     title,
     description,
+    _public,
     tags,
     metadata,
     id,
@@ -32,6 +34,7 @@ const UpdateButton: FC<IUpdateButtonProps> = ({
         const body = {
             title: title,
             description: description,
+            _public: _public,
             tags: tags,
             metadata: metadata,
         }

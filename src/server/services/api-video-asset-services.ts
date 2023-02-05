@@ -1,6 +1,7 @@
 import { Strapi, factories } from '@strapi/strapi'
 import pluginId from '../../admin/pluginId'
 import { configClient } from '../utils/config'
+import { CustomVideo } from '../../types/index'
 
 const model = `plugin::${pluginId}.api-video-asset`
 
@@ -10,6 +11,7 @@ export default factories.createCoreService<any>(model, (params: { strapi: Strapi
         const newVideo = await client.videos.create({
             title: data['title'],
             description: data['description'],
+            _public: data['_public'],
             tags: data['tags'],
             metadata: data['metadata'],
         })
@@ -19,6 +21,14 @@ export default factories.createCoreService<any>(model, (params: { strapi: Strapi
 
     async findAll(query: any) {
         return await strapi.entityService.findMany(model, query)
+    },
+
+    async token(videoId: string) {
+        const client = await configClient()
+        
+        const video = await client.videos.get(videoId)
+
+        return {token: video?._public ? undefined : video.assets?.player?.split('=')[1]}
     },
 
     async create(data: any) {

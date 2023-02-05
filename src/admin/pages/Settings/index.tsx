@@ -18,29 +18,38 @@ import { Typography } from '@strapi/design-system/Typography'
 import settingsRequests from '../../api/settings'
 import FieldComp from '../../components/FieldComp/Fields'
 import pluginPermissions from '../../permissions'
+import Toggle from '../../components/Toggle'
+import { CustomSettings } from '../../../types'
 
 const Settings = () => {
-    const [apiKey, setApikey] = useState('')
+    const [settings, setSettings] = useState<CustomSettings>({
+        apiKey: '',
+        defaultPublic: true
+    })
     const { lockApp, unlockApp } = useOverlayBlocker()
     const notification = useNotification()
 
-    const getConfig = async () => {
-        const currentApiKey = await settingsRequests.get()
-        setApikey(currentApiKey)
+    const getSettings = async () => {
+        const settings = await settingsRequests.get()
+        setSettings(settings)
     }
 
     useEffect(() => {
-        getConfig()
+        getSettings()
     }, [])
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setApikey(event.target.value)
+        setSettings({ ...settings, apiKey: event.target.value })
+    }
+
+    const handleSetPublic = (event: ChangeEvent<HTMLInputElement>) => {
+        setSettings({ ...settings, defaultPublic: event.target.checked })
     }
 
     const handleOnSubmit = async () => {
         lockApp()
-        const body = { apiKey: apiKey }
-        const response = await settingsRequests.update(body)
+        const response = await settingsRequests.update(settings)
+
         if (response) {
             notification({
                 type: 'success',
@@ -49,9 +58,10 @@ const Settings = () => {
         } else {
             notification({
                 type: 'warning',
-                message: 'Please enter a valid api key',
+                message: 'Please enter valid settings',
             })
         }
+
         unlockApp()
     }
 
@@ -85,12 +95,22 @@ const Settings = () => {
                                 <FieldComp
                                     name="API Key"
                                     label="API Key"
-                                    value={apiKey}
+                                    value={settings.apiKey}
                                     placeholder="Enter your API Key"
                                     description="Generated in the api.video's dashboard and used for authenticating API calls."
                                     detailsLink="https://dashboard.api.video"
                                     isPassword
                                     onChange={handleChange}
+                                />
+                            </GridItem>
+                            <GridItem col={6} s={12}>
+                                <Toggle
+                                    label="Default Video Privacy"
+                                    checked={settings.defaultPublic}
+                                    required={true}
+                                    onLabel="Public"
+                                    offLabel="Private"
+                                    onChange={handleSetPublic}
                                 />
                             </GridItem>
                         </Grid>

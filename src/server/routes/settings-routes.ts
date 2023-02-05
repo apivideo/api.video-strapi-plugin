@@ -2,7 +2,7 @@ export default [
     {
         method: 'GET',
         path: '/settings',
-        handler: 'settings.getConfig',
+        handler: 'settings.getSettings',
         config: {
             policies: [],
         },
@@ -10,7 +10,7 @@ export default [
     {
         method: 'POST',
         path: '/settings',
-        handler: 'settings.saveConfig',
+        handler: 'settings.saveSettings',
         config: {
             policies: [],
         },

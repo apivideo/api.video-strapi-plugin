@@ -1,6 +1,7 @@
 export interface CustomVideo {
     title: string
     description: string
+    _public: boolean
     videoId: string
     hls: string
     iframe: string
@@ -23,9 +24,15 @@ export interface CustomAssets {
     player: string
 }
 
+export interface CustomSettings {
+    apiKey: string
+    defaultPublic: boolean
+}
+
 export interface InputData {
     title: string
     description?: string
+    _public: boolean
     tags?: string[]
     metadata?: {
         key: string

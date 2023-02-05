@@ -3,7 +3,7 @@ import { isAllowedTo } from '.';
 import { mainCreateAction, mainDeleteAction, mainReadAction, mainUpdateAction, settingsReadAction, settingsUpdateAction } from '../../admin/actions';
 
 export default ({ strapi }: { strapi: Strapi }) => ({
-    async getConfig(ctx: any) {
+    async getSettings(ctx: any) {
         try {
             if (!isAllowedTo(strapi, ctx, settingsReadAction)
                 && !isAllowedTo(strapi, ctx, mainReadAction)
@@ -14,18 +14,22 @@ export default ({ strapi }: { strapi: Strapi }) => ({
                 return ctx.forbidden();
             }
 
-            return await strapi.plugin('api-video-uploader').service('settings').getConfig(ctx)
+            console.log('controller.getSettings')
+
+            return await strapi.plugin('api-video-uploader').service('settings').getSettings(ctx)
         } catch (err) {
             ctx.throw(500, err)
         }
     },
-    async saveConfig(ctx: any) {
+    async saveSettings(ctx: any) {
         try {
             if (!isAllowedTo(strapi, ctx, settingsUpdateAction)) {
                 return ctx.forbidden();
             }
 
-            return await strapi.plugin('api-video-uploader').service('settings').saveConfig(ctx)
+            console.log('controller.saveSettings')
+
+            return await strapi.plugin('api-video-uploader').service('settings').saveSettings(ctx.request.body)
         } catch (err) {
             ctx.throw(500, err)
         }
