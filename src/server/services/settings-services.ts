@@ -10,13 +10,19 @@ export default ({ strapi }: { strapi: Strapi }) => ({
             name: 'api-video-uploader',
         })
 
-        const customSettings = await pluginStore.get({
-            key: 'settings',
+        const defaultPublic = await pluginStore.get({
+            key: 'defaultPublic',
         })
 
-        console.log(customSettings)
-
-        return customSettings
+        const configKey = await pluginStore.get({
+            key: 'apiKey',
+        })
+ 
+        const res: CustomSettings = {
+            apiKey: configKey,
+            defaultPublic: defaultPublic ?? true,
+        }
+        return res;
     },
     async saveSettings(settings: CustomSettings){
         const pluginStore = strapi.store({
@@ -29,10 +35,14 @@ export default ({ strapi }: { strapi: Strapi }) => ({
             const isValid = await isValidApiKey(settings.apiKey)
             if (isValid) {
                 await pluginStore.set({
-                    key: 'settings',
-                    value: settings,
+                    key: 'apiKey',
+                    value: settings.apiKey,
                 })
-                console.log(settings)
+                
+                await pluginStore.set({
+                    key: 'defaultPublic',
+                    value: settings.defaultPublic,
+                })
                 return true
             } else {
                 return false

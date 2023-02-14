@@ -1,13 +1,16 @@
 import { request } from '@strapi/helper-plugin'
+import { CustomSettings } from '../../types'
+
+import pluginId from '../pluginId'
 
 const settingsRequests = {
-    get: async () => {
-        return await request('/api-video-uploader/settings', {
+    get: async (): Promise<CustomSettings> => {
+        return await request(`/${pluginId}/settings`, {
             method: 'GET',
         })
     },
     update: async (body: Object) => {
-        return await request('/api-video-uploader/settings', {
+        return await request(`/${pluginId}/settings`, {
             method: 'POST',
             body,
         })
