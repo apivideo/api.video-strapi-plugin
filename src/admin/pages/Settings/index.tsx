@@ -1,25 +1,22 @@
-import React, { useState, useEffect, ChangeEvent } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 
 import {
-    CheckPagePermissions,
-    SettingsPageTitle,
-    useNotification,
-    useOverlayBlocker,
-    useRBAC,
+    CheckPagePermissions, useNotification,
+    useOverlayBlocker
 } from '@strapi/helper-plugin'
 
-import Check from '@strapi/icons/Check'
 import { Box } from '@strapi/design-system/Box'
 import { Button } from '@strapi/design-system/Button'
 import { Grid, GridItem } from '@strapi/design-system/Grid'
-import { HeaderLayout, ContentLayout } from '@strapi/design-system/Layout'
+import { ContentLayout, HeaderLayout } from '@strapi/design-system/Layout'
 import { Stack } from '@strapi/design-system/Stack'
 import { Typography } from '@strapi/design-system/Typography'
+import Check from '@strapi/icons/Check'
+import { CustomSettings } from '../../../types'
 import settingsRequests from '../../api/settings'
 import FieldComp from '../../components/FieldComp/Fields'
-import pluginPermissions from '../../permissions'
 import Toggle from '../../components/Toggle'
-import { CustomSettings } from '../../../types'
+import pluginPermissions from '../../permissions'
 
 const Settings = () => {
     const [settings, setSettings] = useState<CustomSettings>({
@@ -91,7 +88,7 @@ const Settings = () => {
                             Settings
                         </Typography>
                         <Grid gap={6}>
-                            <GridItem col={6} s={12}>
+                            <GridItem col={12} s={12}>
                                 <FieldComp
                                     name="API Key"
                                     label="API Key"
@@ -103,7 +100,7 @@ const Settings = () => {
                                     onChange={handleChange}
                                 />
                             </GridItem>
-                            <GridItem col={6} s={12}>
+                            <GridItem col={12} s={12}>
                                 <Toggle
                                     label="Default Video Privacy"
                                     checked={settings.defaultPublic}

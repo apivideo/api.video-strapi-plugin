@@ -1,46 +1,28 @@
-import React, { useEffect, useRef, useState, FC } from 'react'
-import ApiVideoPlayer from '@api.video/react-player'
+import ApiVideoReactPlayer from '@api.video/react-player'
+import React, { FC } from 'react'
 import styled from 'styled-components'
-import { CustomVideo } from '../../../../types'
-import assetsRequests from '../../../api/assets'
+import { EnhancedCustomVideo } from '../../../pages/HomePage'
 
 interface IPlayerViewProps {
-    video: CustomVideo
+    video: EnhancedCustomVideo
 }
-
+ 
 const PlayerView: FC<IPlayerViewProps> = ({ video }) => {
-    const [token, setToken] = useState(undefined)
-    const [isGettingToken, setIsGettingToken] = useState(true)
-
-    const videoRef = useRef<ApiVideoPlayer>(null)
-
-    const { videoId } = video
-
-    const getToken = async () => {
-        const tokenResponse = await assetsRequests.getToken(videoId)
-        setToken(tokenResponse.token)
-        setIsGettingToken(false)
-    }
-
-    useEffect(() => {
-        getToken()
-    }, [])
+    const { videoId, token, privateSession } = video
 
     return (
         <Wrapper>
-            {!isGettingToken && (
-                <ApiVideoPlayer
-                    video={video._public || !token ? { id: videoId } : { id: videoId, token: token }}
-                    videoStyleObjectFit={'cover'}
-                    ref={videoRef}
-                    style={{
-                        width: 'auto',
-                        height: 300,
-                        borderRadius: 4,
-                        overflow: 'hidden',
-                    }}
-                />
-            )}
+            <ApiVideoReactPlayer
+                video={video._public ? { id: videoId } : { id: videoId, token, privateSession}}
+                videoStyleObjectFit={'cover'}
+
+                style={{
+                    width: 'auto',
+                    height: 300,
+                    borderRadius: 4,
+                    overflow: 'hidden',
+                }}
+            ></ApiVideoReactPlayer>
         </Wrapper>
     )
 }

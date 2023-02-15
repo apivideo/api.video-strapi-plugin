@@ -1,18 +1,19 @@
-import React, { FC, useState, ChangeEvent } from 'react'
-import { ModalLayout, ModalBody, ModalHeader, ModalFooter } from '@strapi/design-system/ModalLayout'
 import { Button } from '@strapi/design-system/Button'
+import { ModalBody, ModalFooter, ModalHeader, ModalLayout } from '@strapi/design-system/ModalLayout'
 import { Typography } from '@strapi/design-system/Typography'
+import React, { ChangeEvent, FC, useState } from 'react'
+import { CustomAssets, InputData } from '../../../../types'
+import { EnhancedCustomVideo } from '../../../pages/HomePage'
+import UpdateButton from '../../Button/UpdateButton'
 import FieldComp from '../../FieldComp/Fields'
+import LinksTable from '../../LinksTable'
+import MetadataTable from '../../Metadata'
 import Tags from '../../Tags'
 import Toggle from '../../Toggle'
-import { CustomAssets, CustomVideo, InputData } from '../../../../types'
-import MetadataTable from '../../Metadata'
 import PlayerView from './PlayerView'
-import UpdateButton from '../../Button/UpdateButton'
-import LinksTable from '../../LinksTable'
 
 interface IUpdateVideoModalProps {
-    video: CustomVideo
+    video: EnhancedCustomVideo
     update: () => void
     close: () => void
     editable: boolean
