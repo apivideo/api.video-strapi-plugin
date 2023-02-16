@@ -51,6 +51,7 @@ const HomePage = () => {
     const fetchData = async () => {
         if (isLoadingData === false) setIsLoadingData(true)
         const data = await Promise.all((await assetsRequests.getAllvideos()).map(async (video: CustomVideo): Promise<EnhancedCustomVideo> => {
+            video._public = video._public ?? true;
             if (video._public) {
                 return video;
             }

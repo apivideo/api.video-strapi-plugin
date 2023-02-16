@@ -12,17 +12,25 @@ export default factories.createCoreController('plugin::api-video-uploader.api-vi
     },
     async find(ctx) {
         const videos = await strapi.entityService.findMany(model, ctx.query)
-        
-        return await Promise.all(videos.map(async (video: CustomVideo) => video._public 
-            ? video 
-            : await replacePrivateVideoTokens(video)));
+
+
+        return await Promise.all(videos
+            .map((video: CustomVideo) => ({
+                ...video,
+                _public: video._public ?? true,
+            }))
+            .map(async (video: CustomVideo) => video._public
+                ? video
+                : await replacePrivateVideoTokens(video)));
     },
     async findOne(ctx) {
         const video = await strapi.entityService.findOne(model, ctx.params.id, ctx.query)
-        
-        if(!video) {
+
+        if (!video) {
             return ctx.notFound()
         }
+
+        video._public = video._public ?? true;
 
         return video._public
             ? video

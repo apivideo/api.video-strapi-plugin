@@ -2,7 +2,7 @@ import { Button } from '@strapi/design-system/Button'
 import { ModalBody, ModalFooter, ModalHeader, ModalLayout } from '@strapi/design-system/ModalLayout'
 import { Typography } from '@strapi/design-system/Typography'
 import React, { ChangeEvent, FC, useState } from 'react'
-import { CustomAssets, InputData } from '../../../../types'
+import { InputData } from '../../../../types'
 import { EnhancedCustomVideo } from '../../../pages/HomePage'
 import UpdateButton from '../../Button/UpdateButton'
 import FieldComp from '../../FieldComp/Fields'
@@ -30,13 +30,7 @@ const UpdateVideoModal: FC<IUpdateVideoModalProps> = ({ video, update, close, ed
 
     // CONSTANTS
     const { title, description, _public, tags, metadata } = inputData
-    const assets: CustomAssets = {
-        hls: video.hls,
-        iframe: video.iframe,
-        mp4: video.mp4,
-        player: video.player,
-    }
-
+  
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target
         setInputData((prevInputData) => ({ ...prevInputData, [name]: value }))
@@ -124,7 +118,7 @@ const UpdateVideoModal: FC<IUpdateVideoModalProps> = ({ video, update, close, ed
                     editable={editable}
                 />
 
-                <LinksTable assets={assets} />
+                <LinksTable video={video} />
             </ModalBody>
             <ModalFooter
                 startActions={
