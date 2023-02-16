@@ -1,17 +1,19 @@
-import React, { FC, useState, ChangeEvent } from 'react'
-import { ModalLayout, ModalBody, ModalHeader, ModalFooter } from '@strapi/design-system/ModalLayout'
 import { Button } from '@strapi/design-system/Button'
+import { ModalBody, ModalFooter, ModalHeader, ModalLayout } from '@strapi/design-system/ModalLayout'
 import { Typography } from '@strapi/design-system/Typography'
-import FieldComp from '../../FieldComp/Fields'
-import Tags from '../../Tags'
-import { CustomAssets, CustomVideo, InputData } from '../../../../types'
-import MetadataTable from '../../Metadata'
-import PlayerView from './PlayerView'
+import React, { ChangeEvent, FC, useState } from 'react'
+import { InputData } from '../../../../types'
+import { EnhancedCustomVideo } from '../../../pages/HomePage'
 import UpdateButton from '../../Button/UpdateButton'
+import FieldComp from '../../FieldComp/Fields'
 import LinksTable from '../../LinksTable'
+import MetadataTable from '../../Metadata'
+import Tags from '../../Tags'
+import Toggle from '../../Toggle'
+import PlayerView from './PlayerView'
 
 interface IUpdateVideoModalProps {
-    video: CustomVideo
+    video: EnhancedCustomVideo
     update: () => void
     close: () => void
     editable: boolean
@@ -21,22 +23,21 @@ const UpdateVideoModal: FC<IUpdateVideoModalProps> = ({ video, update, close, ed
     const [inputData, setInputData] = useState<InputData>({
         title: video.title,
         description: video.description,
+        _public: video._public,
         tags: video.tags,
         metadata: video.metadata,
     })
 
     // CONSTANTS
-    const { title, description, tags, metadata } = inputData
-    const assets: CustomAssets = {
-        hls: video.hls,
-        iframe: video.iframe,
-        mp4: video.mp4,
-        player: video.player,
-    }
-
+    const { title, description, _public, tags, metadata } = inputData
+  
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target
         setInputData((prevInputData) => ({ ...prevInputData, [name]: value }))
+    }
+
+    const handleSetPublic = (event: ChangeEvent<HTMLInputElement>) => {
+        setInputData({ ...inputData, _public: event.target.checked })
     }
 
     const handleSetTag = (tag: string) => {
@@ -93,6 +94,16 @@ const UpdateVideoModal: FC<IUpdateVideoModalProps> = ({ video, update, close, ed
                 />
                 <br />
 
+                <Toggle 
+                    label="Public"
+                    required={true}
+                    checked={inputData._public}
+                    onLabel="True"
+                    offLabel="False"
+                    onChange={handleSetPublic}
+                />
+                <br />
+
                 <Tags
                     handleSetTag={handleSetTag}
                     handleRemoveTag={handleRemoveTag}
@@ -107,7 +118,7 @@ const UpdateVideoModal: FC<IUpdateVideoModalProps> = ({ video, update, close, ed
                     editable={editable}
                 />
 
-                <LinksTable assets={assets} />
+                <LinksTable video={video} />
             </ModalBody>
             <ModalFooter
                 startActions={
@@ -121,6 +132,7 @@ const UpdateVideoModal: FC<IUpdateVideoModalProps> = ({ video, update, close, ed
                             <UpdateButton
                                 title={title}
                                 description={description || ''}
+                                _public={_public}
                                 tags={tags || []}
                                 metadata={metadata || []}
                                 id={video.id}

@@ -1,30 +1,28 @@
-import React, { useRef, FC } from 'react'
-import ApiVideoPlayer from '@api.video/react-player'
-import { CustomVideo } from '../../../../types'
+import ApiVideoReactPlayer from '@api.video/react-player'
+import React, { FC } from 'react'
 import styled from 'styled-components'
+import { EnhancedCustomVideo } from '../../../pages/HomePage'
 
 interface IPlayerViewProps {
-    video: CustomVideo
+    video: EnhancedCustomVideo
 }
-
+ 
 const PlayerView: FC<IPlayerViewProps> = ({ video }) => {
-    const videoRef = useRef<ApiVideoPlayer>(null)
-
-    const { videoId } = video
+    const { videoId, token, privateSession } = video
 
     return (
         <Wrapper>
-            <ApiVideoPlayer
-                video={{ id: videoId }}
+            <ApiVideoReactPlayer
+                video={video._public ? { id: videoId } : { id: videoId, token, privateSession}}
                 videoStyleObjectFit={'cover'}
-                ref={videoRef}
+
                 style={{
                     width: 'auto',
                     height: 300,
                     borderRadius: 4,
                     overflow: 'hidden',
                 }}
-            />
+            ></ApiVideoReactPlayer>
         </Wrapper>
     )
 }

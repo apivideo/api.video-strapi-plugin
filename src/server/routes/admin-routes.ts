@@ -8,6 +8,14 @@ export default [
         },
     },
     {
+        method: 'GET',
+        path: '/api-video-asset/token/:videoId',
+        handler: 'admin.token',
+        config: {
+            policies: [],
+        },
+    },
+    {
         method: 'POST',
         path: '/api-video-asset',
         handler: 'admin.create',

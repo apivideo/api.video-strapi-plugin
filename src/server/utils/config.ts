@@ -1,5 +1,6 @@
 import ApiVideoClient from '@api.video/nodejs-client'
 import * as packageJson from '../../../package.json'
+import { CustomSettings } from '../../types'
 
 const getConfig = async () => {
     const pluginStore = strapi.store({
@@ -8,10 +9,19 @@ const getConfig = async () => {
         name: 'api-video-uploader',
     })
 
+    const defaultPublic = await pluginStore.get({
+        key: 'defaultPublic',
+    })
+
     const configKey = await pluginStore.get({
         key: 'apiKey',
     })
-    return configKey
+
+    const res: CustomSettings = {
+        apiKey: configKey,
+        defaultPublic: defaultPublic ?? true,
+    }
+    return res;
 }
 
 const isValidApiKey = async (apiKey: string) => {
@@ -26,7 +36,7 @@ const isValidApiKey = async (apiKey: string) => {
 }
 
 const configClient = async (apiKey?: string) => new ApiVideoClient({
-    apiKey: apiKey ? apiKey : await getConfig(),
+    apiKey: apiKey ? apiKey : (await getConfig()).apiKey,
     sdkName: 'strapi-plugin',
     sdkVersion: packageJson.version,
 })

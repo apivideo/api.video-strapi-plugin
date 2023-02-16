@@ -38,6 +38,17 @@ export default ({ strapi }: { strapi: Strapi }) => ({
             ctx.throw(500, err)
         }
     },
+    async token(ctx: any) {
+        try {
+            if (!isAllowedTo(strapi, ctx, mainReadAction)) {
+                return ctx.forbidden();
+            }
+
+            ctx.body = await strapi.plugin('api-video-uploader').service('api-video-asset').token(ctx.params.videoId)
+        } catch (err) {
+            ctx.throw(500, err)
+        }
+    },
     async update(ctx: any) {
         try {
             if (!isAllowedTo(strapi, ctx, mainUpdateAction)) {

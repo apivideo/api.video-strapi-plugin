@@ -1,14 +1,15 @@
-import React, { useState, FC } from 'react'
 import Trash from '@strapi/icons/Trash'
+import React, { FC, useEffect, useRef, useState } from 'react'
 import assetsRequests from '../../api/assets'
+import { VideoCover } from '../../assets/VideoCover'
+import { EnhancedCustomVideo } from '../../pages/HomePage'
 import { getDayMonthYearHourDate } from '../../utils/date'
-import UpdateVideoModal from '../Modal/updateVideo'
 import DialogDelete from '../Dialog'
-import { WrapperVideo, Thumbnail, TitleWrapper, Title, DateStyle, SubTitle, Container, DeleteIcon } from './styles'
-import { CustomVideo } from '../../../types'
+import UpdateVideoModal from '../Modal/updateVideo'
+import { Container, DateStyle, DeleteIcon, SubTitle, Thumbnail, Title, TitleWrapper, WrapperVideo } from './styles'
 
 export interface IVideosProps {
-    video: CustomVideo
+    video: EnhancedCustomVideo
     updateData: () => void
     editable: boolean
     deletable: boolean
@@ -17,10 +18,36 @@ export interface IVideosProps {
 const VideoView: FC<IVideosProps> = ({ video, updateData, deletable, editable }): JSX.Element => {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
-    const { id, videoId, title, description, thumbnail, mp4, createdAt } = video
+    const [thumbnail, setThumbnail] = useState<string>()
+    const thumbnailTimout = useRef<any>(0)
+
+    useEffect(() => {
+        const fetchThumbnail = async () => {
+            const fetchRes = await fetch(video.thumbnail);
+
+            if (fetchRes.status === 200) {
+                setThumbnail(URL.createObjectURL(await fetchRes.blob()));
+                return;
+            }
+
+            thumbnailTimout.current = setTimeout(() => fetchThumbnail(), 1000);
+        }
+
+        setThumbnail(undefined);
+
+        fetchThumbnail();
+
+        return () => {
+            setTimeout(() => {
+                if (thumbnailTimout.current) clearTimeout(thumbnailTimout.current);
+            }, 1000);
+        }
+    }, [video])
+
+
 
     const deleteVideo = async () => {
-        await assetsRequests.delete(id, videoId)
+        await assetsRequests.delete(video.id, video.videoId)
         setIsDeleteDialogOpen(false)
         updateData()
     }
@@ -29,18 +56,21 @@ const VideoView: FC<IVideosProps> = ({ video, updateData, deletable, editable })
         e.stopPropagation()
         setIsDeleteDialogOpen(true)
     }
-    const formatedCreatedAt = getDayMonthYearHourDate(createdAt)
+    const formatedCreatedAt = getDayMonthYearHourDate(video.createdAt)
+
 
     return (
         <Container>
             <WrapperVideo onClick={() => setIsModalOpen(true)}>
-                <Thumbnail src={thumbnail} alt={'thumbnail'} />
+                {thumbnail ? (
+                    <Thumbnail src={thumbnail} alt={'thumbnail'} />
+                ) : (<VideoCover />)}
                 {deletable && <DeleteIcon onClick={openDeleteDialog} aria-label="Delete" icon={<Trash />} />}
             </WrapperVideo>
 
             <TitleWrapper>
-                <Title>{title}</Title>
-                <SubTitle>{description}</SubTitle>
+                <Title>{video.title}</Title>
+                <SubTitle>{video.description}</SubTitle>
                 <DateStyle>{formatedCreatedAt}</DateStyle>
             </TitleWrapper>
 
@@ -54,7 +84,7 @@ const VideoView: FC<IVideosProps> = ({ video, updateData, deletable, editable })
             )}
             {isDeleteDialogOpen && (
                 <DialogDelete
-                    title={title}
+                    title={video.title}
                     isOpen={isDeleteDialogOpen}
                     close={() => setIsDeleteDialogOpen(false)}
                     deleteVideo={deleteVideo}

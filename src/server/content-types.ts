@@ -30,6 +30,11 @@ export = {
                     type: 'string',
                     required: false,
                 },
+                _public:{
+                    type: 'boolean',
+                    default: true,
+                    required: true
+                },
                 videoId: {
                     type: 'string',
                     required: true,

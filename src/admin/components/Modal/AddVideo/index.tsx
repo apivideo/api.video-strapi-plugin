@@ -1,4 +1,4 @@
-import React, { FC, useState, useRef, ChangeEvent } from 'react'
+import React, { FC, useEffect, useState, useRef, ChangeEvent } from 'react'
 import { ModalLayout, ModalBody, ModalHeader, ModalFooter } from '@strapi/design-system/ModalLayout'
 import { Button } from '@strapi/design-system/Button'
 import { Typography } from '@strapi/design-system/Typography'
@@ -6,6 +6,8 @@ import FieldComp from '../../FieldComp/Fields'
 import UploadButton from '../../Button/UploadButton'
 import ImportZone from './importZone'
 import Tags from '../../Tags'
+import Toggle from '../../Toggle'
+import settingsRequests from '../../../api/settings'
 import { InputData } from '../../../../types'
 import MetadataTable from '../../Metadata'
 
@@ -18,6 +20,7 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({ update, close }): JSX.Element 
     const [inputData, setInputData] = useState<InputData>({
         title: '',
         description: '',
+        _public: true,
         tags: [],
         metadata: [
             {
@@ -33,7 +36,7 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({ update, close }): JSX.Element 
     // CONSTANTS
     const videoRef = useRef<HTMLVideoElement>(null)
     const sourceRef = useRef<HTMLSourceElement>(null)
-    const { title, description, tags, metadata } = inputData
+    const { title, description, _public, tags, metadata } = inputData
 
     const displayVideoFrame = (video: HTMLVideoElement, source: HTMLSourceElement, file: File) => {
         // Object Url as the video source
@@ -42,9 +45,18 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({ update, close }): JSX.Element 
         video.load()
     }
 
+    const getSettings = async () => {
+        const settings = await settingsRequests.get()
+        setInputData({ ...inputData, _public: settings.defaultPublic })
+    }
+
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target
         setInputData((prevInputData) => ({ ...prevInputData, [name]: value }))
+    }
+
+    const handleSetPublic = (event: ChangeEvent<HTMLInputElement>) => {
+        setInputData({ ...inputData, _public: event.target.checked })
     }
 
     const handleSetTag = (tag: string) => {
@@ -85,6 +97,10 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({ update, close }): JSX.Element 
         if (videoRef.current && sourceRef.current) displayVideoFrame(videoRef.current, sourceRef.current, file)
     }
 
+    useEffect(() => {
+        getSettings()
+    }, [])
+
     return (
         <ModalLayout onClose={close} labelledBy="title">
             <ModalHeader>
@@ -117,6 +133,16 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({ update, close }): JSX.Element 
                 />
                 <br />
 
+                <Toggle 
+                    label="Public"
+                    required={true}
+                    checked={_public}
+                    onLabel="True"
+                    offLabel="False"
+                    onChange={handleSetPublic}
+                />
+                <br />
+
                 <Tags handleSetTag={handleSetTag} handleRemoveTag={handleRemoveTag} tags={tags || []} editable={true} />
 
                 <MetadataTable
@@ -138,6 +164,7 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({ update, close }): JSX.Element 
                             currentFile={file}
                             title={title}
                             description={description || ''}
+                            _public={_public}
                             tags={tags || []}
                             metadata={metadata || []}
                             update={update}

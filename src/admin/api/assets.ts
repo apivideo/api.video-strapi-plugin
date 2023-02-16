@@ -8,6 +8,11 @@ const assetsRequests = {
             method: 'GET',
         })
     },
+    getToken: async (videoId: string) => {
+        return await request(`/${pluginId}/api-video-asset/token/${videoId}`, {
+            method: 'GET',
+        })
+    },
     createVideoId: async (body: Object) => {
         return await request(`/${pluginId}/api-video-asset/create`, {
             method: 'POST',

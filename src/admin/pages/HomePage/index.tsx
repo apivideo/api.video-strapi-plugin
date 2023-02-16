@@ -4,21 +4,27 @@
  *
  */
 
-import React, { useState, useEffect, useMemo } from 'react'
+import { BaseHeaderLayout, ContentLayout, Layout } from '@strapi/design-system/Layout'
 import { LoadingIndicatorPage } from '@strapi/helper-plugin'
-import { Layout, ContentLayout, BaseHeaderLayout } from '@strapi/design-system/Layout'
+import React, { useEffect, useMemo, useState } from 'react'
 
-import { GridBroadcast } from '../../components/Videos/styles'
-import assetsRequests from '../../api/assets'
-import VideoView from '../../components/Videos'
-import settingsRequests from '../../api/settings'
-import SetupNeeded from '../../components/SetupNeeded'
-import EmptyState from '../../components/EmptyState'
-import { CustomVideo } from '../../../types'
-import AddButton from '../../components/Button/AddButton'
-import SearchBar from '../../components/SearchBar'
+import { PrivateVideoSession } from '@api.video/private-video-session'
 import { CheckPagePermissions, useRBAC } from '@strapi/helper-plugin'
+import { CustomVideo } from '../../../types'
+import assetsRequests from '../../api/assets'
+import settingsRequests from '../../api/settings'
+import AddButton from '../../components/Button/AddButton'
+import EmptyState from '../../components/EmptyState'
+import SearchBar from '../../components/SearchBar'
+import SetupNeeded from '../../components/SetupNeeded'
+import VideoView from '../../components/Videos'
+import { GridBroadcast } from '../../components/Videos/styles'
 import pluginPermissions from '../../permissions'
+
+export type EnhancedCustomVideo = CustomVideo & {
+    token?: string;
+    privateSession?: string;
+}
 
 const HomePage = () => {
     const [isLoadingData, setIsLoadingData] = useState(true)
@@ -44,15 +50,33 @@ const HomePage = () => {
 
     const fetchData = async () => {
         if (isLoadingData === false) setIsLoadingData(true)
-        const data = await assetsRequests.getAllvideos()
+        const data = await Promise.all((await assetsRequests.getAllvideos()).map(async (video: CustomVideo): Promise<EnhancedCustomVideo> => {
+            video._public = video._public ?? true;
+            if (video._public) {
+                return video;
+            }
+            const token = (await assetsRequests.getToken(video.videoId)).token;
+            const privateSession = new PrivateVideoSession({
+                token,
+                videoId: video.videoId,
+            });
+            
+            return {
+                ...video,
+                thumbnail: await privateSession.getThumbnailUrl(),
+                privateSession: await privateSession.getSessionToken(),
+                token 
+            }
+        }));
+
         setIsLoadingData(false)
         setAssets(data)
     }
 
-    const getConfig = async () => {
+    const getApiKey = async () => {
         setIsLoadingConfiguration(true)
-        const currentApiKey = await settingsRequests.get()
-        setIsConfigurated(currentApiKey?.length > 0)
+        const settings = await settingsRequests.get()
+        setIsConfigurated(settings?.apiKey?.length > 0)
         setIsLoadingConfiguration(false)
     }
 
@@ -60,10 +84,10 @@ const HomePage = () => {
         fetchData()
     }, [])
     useEffect(() => {
-        getConfig()
+        getApiKey()
     }, [])
 
-    const handleSearch = (value: string) => {
+    const handleSearch = (value: string) => { 
         setSearch(value)
     }
     if (isLoadingConfiguration || isLoadingPermissions) return <LoadingIndicatorPage />
