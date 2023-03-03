@@ -2,6 +2,9 @@
 
 All changes to this project will be documented in this file.
 
+## [1.0.2] - 2023-03-03
+- Properly handle private videos in graphql results
+  
 ## [1.0.1] - 2023-02-16
 - Add support of private videos
 
