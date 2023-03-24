@@ -2,11 +2,18 @@
 
 All changes to this project will be documented in this file.
 
+## [1.0.3] - 2023-03-24
+
+-   Update readme with official link from strapi marketplace
+
 ## [1.0.2] - 2023-03-03
-- Properly handle private videos in graphql results
-  
+
+-   Properly handle private videos in graphql results
+
 ## [1.0.1] - 2023-02-16
-- Add support of private videos
+
+-   Add support of private videos
 
 ## [1.0.0] - 2022-11-28
-- First version of the api.video uploader plugin for Strapi
+
+-   First version of the api.video uploader plugin for Strapi

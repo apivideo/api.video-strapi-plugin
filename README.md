@@ -23,16 +23,16 @@ This plugin provides the ability to upload content via a file to upload to  <a h
 
 ### Table of Contents
 
-- [✨ Features](#-features)
-- [⏳ Installation](#-installation)
-  - [Via Strapi Marketplace](#via-strapi-marketplace)
-  - [Via command line](#via-command-line)
-- [🖐 Requirements](#-requirements)
-- [🔧 Configuration](#-configuration)
-- [👤 Permissions](#-permissions)
-- [💾 Metadata](#-metadata)
-- [🤝 Contributing](#-contributing)
-- [📚 References](#-references)
+-   [✨ Features](#-features)
+-   [⏳ Installation](#-installation)
+    -   [Via Strapi Marketplace](#via-strapi-marketplace)
+    -   [Via command line](#via-command-line)
+-   [🖐 Requirements](#-requirements)
+-   [🔧 Configuration](#-configuration)
+-   [👤 Permissions](#-permissions)
+-   [💾 Metadata](#-metadata)
+-   [🤝 Contributing](#-contributing)
+-   [📚 References](#-references)
 
 ## ✨ Features
 
@@ -46,7 +46,7 @@ This plugin provides the ability to upload content via a file to upload to  <a h
 
 ### Via Strapi Marketplace
 
-Coming soon
+We're available on the [Strapi Marketplace](https://market.strapi.io/plugins/@api.video-strapi-uploader-plugin).
 
 ### Via command line
 
