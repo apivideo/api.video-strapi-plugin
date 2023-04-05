@@ -2,6 +2,9 @@
 
 All changes to this project will be documented in this file.
 
+## [1.0.4] - 2023-04-05
+-  Add support of private videos in graphql relations results
+
 ## [1.0.3] - 2023-03-24
 
 -   Update readme with official link from strapi marketplace
