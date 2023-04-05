@@ -1,9 +1,4 @@
-import { findOneWithPrivateVideoTransform, findWithPrivateVideoTransform } from "./controllers/content-api-controller";
-
-
-const toEntityResponse = (entity: any) => strapi.service("plugin::graphql.format").returnTypes.toEntityResponse(entity);
-const toEntityResponseCollection = (entity: any) => strapi.service("plugin::graphql.format").returnTypes.toEntityResponseCollection(entity);
-
+import { replacePrivateVideoTokens } from "./utils/private-videos";
 
 export default async ({ strapi }: { strapi: any }) => {
     const extensionService = strapi.plugin('graphql').service('extension');
@@ -14,14 +9,11 @@ export default async ({ strapi }: { strapi: any }) => {
     
     extensionService.use({
         resolvers: {
-            Query: {
-                apiVideoUploaderApiVideoAsset: {
-                    resolve: async (parent: any, args: any, context: any, info: any) => toEntityResponse(findOneWithPrivateVideoTransform(args.id))
-                },
-                apiVideoUploaderApiVideoAssets: {
-                    resolve: async (parent: any, args: any, context: any, info: any) => toEntityResponseCollection(await findWithPrivateVideoTransform())
+            ApiVideoUploaderApiVideoAssetEntity: {
+                attributes: {
+                    resolve: async (parent: any, args: any, context: any, info: any) => replacePrivateVideoTokens(parent)
                 }
-            }
+            },
         }
     })
   };
