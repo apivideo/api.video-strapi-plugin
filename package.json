@@ -1,6 +1,6 @@
 {
     "name": "@api.video/strapi-uploader-plugin",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "A powerful Strapi plugin to easily manage your videos and integrate them in your project",
     "strapi": {
         "name": "api-video-uploader",
@@ -51,7 +51,7 @@
         }
     ],
     "engines": {
-        "node": ">=14.19.1 <=18.x.x",
+        "node": ">=14.19.1 <22.0.0",
         "npm": ">=6.0.0"
     },
     "keywords": [
