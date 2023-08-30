@@ -1,7 +1,7 @@
 import { replacePrivateVideoTokens } from "./utils/private-videos";
 
 export default async ({ strapi }: { strapi: any }) => {
-    const extensionService = strapi.plugin('graphql').service('extension');
+    const extensionService = strapi.plugin('graphql')?.service('extension');
 
     if(!extensionService) {
         return;
