@@ -11,6 +11,7 @@ import Trash from '@strapi/icons/Trash'
 import { AddButton, FooterAction, FormKey, FormValue, SubTitleMetadata } from './style'
 import { CustomBadge, Title } from '../../styles/form'
 import { InputDataMetadata } from '../../../types'
+import { useTheme } from '../../utils/hooks'
 
 interface MetadataTableProps {
     metadata?: {
@@ -32,6 +33,7 @@ const MetadataTable: FC<MetadataTableProps> = ({ metadata, handleSetMetadata, ha
 
     const COL_COUNT = 5
     const ROW_COUNT = 2
+    const theme = useTheme()
 
     const addElement = () => {
         handleSetMetadata({
@@ -48,7 +50,7 @@ const MetadataTable: FC<MetadataTableProps> = ({ metadata, handleSetMetadata, ha
 
     return (
         <>
-            <Title>
+            <Title dark={theme === 'dark'}>
                 Metadata
                 <CustomBadge active={metadata?.length !== 0}>{metadata?.length}</CustomBadge>
             </Title>

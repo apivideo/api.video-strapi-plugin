@@ -22,6 +22,7 @@ interface IFieldProps {
 }
 
 const FieldLabelStyled = styled(FieldLabel)`
+    width: 100%;
     & > div {
         width: max-content;
     }

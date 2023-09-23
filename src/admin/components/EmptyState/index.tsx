@@ -14,7 +14,7 @@ const EmptyState: FC<IEmptyStateProps> = ({ update }) => {
     const [isVisible, setIsVisible] = useState(false)
 
     return (
-        <Box padding={8} background="neutral100">
+        <Box padding={10} background="neutral100">
             <EmptyStateLayout
                 icon={<Illo />}
                 content="You don't have any videos yet"

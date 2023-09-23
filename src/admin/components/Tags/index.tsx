@@ -3,6 +3,7 @@ import { Container } from './style'
 import { Tag } from '@strapi/design-system/Tag'
 import Cross from '@strapi/icons/Cross'
 import { CustomBadge, FormInput, SubTitle, Title } from '../../styles/form'
+import { useTheme } from '../../utils/hooks'
 
 interface ITag {
     tags: string[]
@@ -13,6 +14,7 @@ interface ITag {
 
 const Tags: FC<ITag> = ({ tags, handleSetTag, handleRemoveTag, editable }) => {
     const [tag, setTag] = useState('')
+    const theme = useTheme()
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTag(e.target.value)
@@ -33,7 +35,7 @@ const Tags: FC<ITag> = ({ tags, handleSetTag, handleRemoveTag, editable }) => {
     }
     return (
         <>
-            <Title>
+            <Title  dark={theme === 'dark'}>
                 Tags
                 <CustomBadge active={tags.length > 0}>{tags.length}</CustomBadge>
             </Title>

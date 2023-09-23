@@ -13,6 +13,7 @@ import { EnhancedCustomVideo } from '../../pages/HomePage'
 import { Title } from '../../styles/form'
 import { copyClipboard } from '../../utils'
 import { SubTitleMetadata } from '../Metadata/style'
+import { useTheme } from '../../utils/hooks'
 
 interface LinksProps {
     video: EnhancedCustomVideo
@@ -32,6 +33,7 @@ const videoToAssets = (video: EnhancedCustomVideo): CustomAssets => {
 const LinksTable: FC<LinksProps> = ({ video }) => {
 
     const [assets, setAssets] = useState<CustomAssets | undefined>(!!video?.token ? undefined : videoToAssets(video))
+    const theme = useTheme()
     const COL_COUNT = 4
     const ROW_COUNT = 2
 
@@ -44,7 +46,7 @@ const LinksTable: FC<LinksProps> = ({ video }) => {
 
     return (
         <>
-            <Title style={{ marginTop: '20px' }}>Links</Title>
+            <Title dark={theme === 'dark'} style={{ marginTop: '20px' }}>Links</Title>
             {isPrivate
                 ? <>
                     <SubTitleMetadata>The URLs for assets of private videos can only be used once. To obtain new URLs, you can click on the button below to generate fresh links. Each time you access a private video through the Strapi Content API, a new set of private asset URLs will be generated.</SubTitleMetadata>

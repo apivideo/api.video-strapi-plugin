@@ -58,10 +58,10 @@ export const TitleWrapper = styled.div`
     flex-direction: column;
 `
 
-export const Title = styled.p`
+export const Title = styled.p<{ dark: boolean }>`
     margin-top: 5px;
     font-weight: 500;
-    color: #32324d;
+    color: ${p => p.dark ? '#ffffff' : '#32324d'};
     font-size: 18px;
     line-height: 2rem;
     min-width: 250px;

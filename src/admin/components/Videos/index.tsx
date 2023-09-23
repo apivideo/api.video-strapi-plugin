@@ -7,6 +7,7 @@ import { getDayMonthYearHourDate } from '../../utils/date'
 import DialogDelete from '../Dialog'
 import UpdateVideoModal from '../Modal/updateVideo'
 import { Container, DateStyle, DeleteIcon, SubTitle, Thumbnail, Title, TitleWrapper, WrapperVideo } from './styles'
+import { useTheme } from '../../utils/hooks'
 
 export interface IVideosProps {
     video: EnhancedCustomVideo
@@ -19,6 +20,7 @@ const VideoView: FC<IVideosProps> = ({ video, updateData, deletable, editable })
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
     const [thumbnail, setThumbnail] = useState<string>()
+    const theme = useTheme()
     const thumbnailTimout = useRef<any>(0)
 
     useEffect(() => {
@@ -69,7 +71,7 @@ const VideoView: FC<IVideosProps> = ({ video, updateData, deletable, editable })
             </WrapperVideo>
 
             <TitleWrapper>
-                <Title>{video.title}</Title>
+                <Title dark={theme === 'dark'}>{video.title}</Title>
                 <SubTitle>{video.description}</SubTitle>
                 <DateStyle>{formatedCreatedAt}</DateStyle>
             </TitleWrapper>

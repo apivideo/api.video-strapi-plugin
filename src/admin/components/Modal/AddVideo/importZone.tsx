@@ -1,7 +1,8 @@
-import React, { FC, useState, useRef } from 'react'
+import React, { FC, useState, useRef, useEffect } from 'react'
 import styled from 'styled-components'
 import { VideoCover } from '../../../assets/VideoCover'
 import { useNotification } from '@strapi/helper-plugin'
+import { useTheme } from '../../../utils/hooks'
 
 interface IImportZoneProps {
     initialState: number
@@ -14,6 +15,7 @@ const ImportZone: FC<IImportZoneProps> = ({ initialState, onFileSelected, videoR
     const inputFile = useRef<HTMLInputElement | null>(null)
     const notification = useNotification()
     const [file, setFile] = useState<File | undefined>()
+    const theme = useTheme()
 
     const openFilePicker = () => {
         if (file) {
@@ -81,7 +83,7 @@ const ImportZone: FC<IImportZoneProps> = ({ initialState, onFileSelected, videoR
                     <source ref={sourceRef} />
                 </video>
             </ThumbnailImg>
-            <Title>
+            <Title dark={theme === 'dark'}>
                 Select a video<Asterisk>*</Asterisk> file to upload
             </Title>
             <Subtitle>or drag and drop it here</Subtitle>
@@ -141,11 +143,11 @@ const Wrapper = styled.div`
     }
 `
 
-const Title = styled.p`
+const Title = styled.p<{ dark: boolean }>`
     font-size: 24px;
     font-weight: 600;
     padding: 20px 0 10px 0;
-    color: #32324d;
+    color: ${p => p.dark ? '#ffffff' : '#32324d'};
 `
 
 const Subtitle = styled.p`

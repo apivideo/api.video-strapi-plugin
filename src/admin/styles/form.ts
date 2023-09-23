@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 import { Badge } from '@strapi/design-system/Badge'
 
-export const Title = styled.p`
-    color: #32324d;
+export const Title = styled.p<{ dark: boolean }>`
+    color: ${p => p.dark ? '#ffffff' : '#32324d'};
     font-size: 12px;
     font-weight: bold;
     padding: 0px 0px 5px 0px;

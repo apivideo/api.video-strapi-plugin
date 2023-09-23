@@ -100,39 +100,37 @@ const HomePage = () => {
                 as="h2"
                 primaryAction={isConfigurated && canCreate && <AddButton update={fetchData} />}
             />
-            <ContentLayout>
-                {isConfigurated ? (
-                    !isLoadingData && assets?.length > 0 ? (
-                        <>
-                            <SearchBar
-                                search={search}
-                                handleSearch={(query) => handleSearch(query)}
-                                clearSearch={() => setSearch('')}
-                            />
-                            <GridBroadcast>
-                                {assets
-                                    .filter((item) => item.title.includes(search))
-                                    .map((video) => {
-                                        const { videoId } = video
-                                        return (
-                                            <VideoView
-                                                video={video}
-                                                key={videoId}
-                                                updateData={fetchData}
-                                                editable={canUpdate}
-                                                deletable={canDelete}
-                                            />
-                                        )
-                                    })}
-                            </GridBroadcast>
-                        </>
-                    ) : (
-                        <EmptyState update={fetchData} />
-                    )
+            {isConfigurated ? (
+                !isLoadingData && assets?.length > 0 ? (
+                    <ContentLayout>
+                        <SearchBar
+                            search={search}
+                            handleSearch={(query) => handleSearch(query)}
+                            clearSearch={() => setSearch('')}
+                        />
+                        <GridBroadcast>
+                            {assets
+                                .filter((item) => item.title.includes(search))
+                                .map((video) => {
+                                    const { videoId } = video
+                                    return (
+                                        <VideoView
+                                            video={video}
+                                            key={videoId}
+                                            updateData={fetchData}
+                                            editable={canUpdate}
+                                            deletable={canDelete}
+                                        />
+                                    )
+                                })}
+                        </GridBroadcast>
+                    </ContentLayout>
                 ) : (
-                    <SetupNeeded />
-                )}
-            </ContentLayout>
+                    <EmptyState update={fetchData} />
+                )
+            ) : (
+                <SetupNeeded />
+            )}
         </Layout>
     )
 }

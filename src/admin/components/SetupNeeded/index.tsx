@@ -13,7 +13,7 @@ const SetupNeeded = () => {
         history.push(`/settings/${pluginId}`)
     }
     return (
-        <Box padding={8} background="neutral100">
+        <Box padding={10} background="neutral100">
             <EmptyStateLayout
                 icon={<Illo />}
                 content="In order for uploads to function, an administrator will need to complete the setup of this plugin by visiting the settings page. Click the button below to be taken there now."
