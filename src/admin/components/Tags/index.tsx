@@ -1,9 +1,8 @@
 import React, { FC, useState } from 'react'
 import { Container } from './style'
-import { Tag } from '@strapi/design-system/Tag'
-import Cross from '@strapi/icons/Cross'
-import { CustomBadge, FormInput, SubTitle, Title } from '../../styles/form'
+import { CustomBadge, SubTitle, Title } from '../../styles/form'
 import { useTheme } from '../../utils/hooks'
+import { CreatableCombobox, ComboboxOption } from '@strapi/design-system'
 
 interface ITag {
     tags: string[]
@@ -13,54 +12,36 @@ interface ITag {
 }
 
 const Tags: FC<ITag> = ({ tags, handleSetTag, handleRemoveTag, editable }) => {
-    const [tag, setTag] = useState('')
+    const [value, setValue] = useState<string>('')
     const theme = useTheme()
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setTag(e.target.value)
+    const onCreateOption = (value: string) => {
+        handleSetTag(value)
+        setValue(value)
+        console.log('CHANGE', value)
     }
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        const value = tag.trim()
-        const hasValue = value.length > 0
-        if (e.key === 'Enter' || e.key === 'Tab' || e.key === ',') {
-            e.preventDefault()
-            if (!hasValue) return
-            if (tags.some((item) => item === value)) {
-                return
-            }
-            handleSetTag(value)
-            setTag('')
+    const onClear = () => {
+        if (tags.find(tag => tag === value)) {
+            handleRemoveTag(value)
         }
     }
+
     return (
         <>
-            <Title  dark={theme === 'dark'}>
+            <Title dark={theme === 'dark'}>
                 Tags
                 <CustomBadge active={tags.length > 0}>{tags.length}</CustomBadge>
             </Title>
             <SubTitle>A list of tags you want to use to describe your video.</SubTitle>
             <Container>
-                {editable && (
-                    <FormInput
-                        placeholder="Add a tag"
-                        value={tag}
-                        onChange={handleChange}
-                        onKeyDown={handleKeyDown}
-                    ></FormInput>
-                )}
-
-                {tags.map((item) => {
-                    return (
-                        <Tag
-                            key={item}
-                            onClick={editable ? () => handleRemoveTag(item) : undefined}
-                            icon={<Cross aria-hidden={true} />}
-                        >
-                            {item}
-                        </Tag>
-                    )
-                })}
+                <CreatableCombobox aria-label="Tags" value={value} onChange={setValue} onCreateOption={onCreateOption} onClear={onClear} disabled={!editable}>
+                    {tags.map((tag, i) => (
+                        <ComboboxOption key={i} value={tag}>
+                            {tag}
+                        </ComboboxOption>
+                    ))}
+                </CreatableCombobox>
             </Container>
         </>
     )
