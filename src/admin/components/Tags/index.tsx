@@ -18,7 +18,6 @@ const Tags: FC<ITag> = ({ tags, handleSetTag, handleRemoveTag, editable }) => {
     const onCreateOption = (value: string) => {
         handleSetTag(value)
         setValue(value)
-        console.log('CHANGE', value)
     }
 
     const onClear = () => {

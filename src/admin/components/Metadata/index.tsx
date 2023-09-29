@@ -1,14 +1,15 @@
 import React, { useState, ChangeEvent, FC } from 'react'
-import { Table, Thead, Tbody, Tr, Td, Th } from '@strapi/design-system/Table'
+import { Table, Thead, Tbody, Tr, Td, Th, TFooter } from '@strapi/design-system/Table'
+import { ModalLayout, ModalBody, ModalHeader, ModalFooter } from '@strapi/design-system/ModalLayout'
+import { Box } from '@strapi/design-system/Box'
+import { Button } from '@strapi/design-system/Button'
 import { Typography } from '@strapi/design-system/Typography'
+import { TextInput } from '@strapi/design-system/TextInput'
 import { VisuallyHidden } from '@strapi/design-system/VisuallyHidden'
 import { Flex } from '@strapi/design-system/Flex'
 import { IconButton } from '@strapi/design-system/IconButton'
-import { Box } from '@strapi/design-system/Box'
 import Plus from '@strapi/icons/Plus'
 import Trash from '@strapi/icons/Trash'
-
-import { AddButton, FooterAction, FormKey, FormValue } from './style'
 import { CustomBadge, SubTitle, Title } from '../../styles/form'
 import { InputDataMetadata } from '../../../types'
 import { useTheme } from '../../utils/hooks'
@@ -28,24 +29,28 @@ const MetadataTable: FC<MetadataTableProps> = ({ metadata, handleSetMetadata, ha
         key: '',
         value: '',
     })
-
+    const [modalIsVisible, setModalIsVisible] = useState(false)
     const { key, value } = inputData
-
-    const COL_COUNT = 5
-    const ROW_COUNT = 2
     const theme = useTheme()
 
-    const addElement = () => {
-        handleSetMetadata({
-            key: key,
-            value: value,
-        })
-        setInputData({ key: '', value: '' })
-    }
+    const clearInputData = () => setInputData({ key: '', value: '' })
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target
         setInputData((prevInputData) => ({ ...prevInputData, [name]: value }))
+    }
+
+    const saveMetadata = () => {
+        handleSetMetadata({
+            key: key,
+            value: value,
+        })
+        closeModal()
+    }
+
+    const closeModal = () => {
+        setModalIsVisible(false)
+        clearInputData()
     }
 
     return (
@@ -57,7 +62,11 @@ const MetadataTable: FC<MetadataTableProps> = ({ metadata, handleSetMetadata, ha
             <SubTitle>
                 A list of key value pairs that you use to provide metadata for your video.
             </SubTitle>
-            <Table colCount={COL_COUNT} rowCount={ROW_COUNT}>
+            <Table 
+                colCount={5} 
+                rowCount={2} 
+                footer={<TFooter onClick={() => setModalIsVisible(true)} icon={<Plus />}>Add another metadata to this video</TFooter>}
+            >
                 <Thead>
                     <Tr>
                         <Th>
@@ -104,13 +113,35 @@ const MetadataTable: FC<MetadataTableProps> = ({ metadata, handleSetMetadata, ha
                     ))}
                 </Tbody>
             </Table>
-            {editable && (
-                <FooterAction>
-                    <FormKey name="key" value={key} placeholder="Add a key" onChange={handleChange}></FormKey>
 
-                    <FormValue name="value" value={value} placeholder="Add a value" onChange={handleChange}></FormValue>
-                    <AddButton onClick={addElement} label="add" noBorder icon={<Plus />} />
-                </FooterAction>
+            {modalIsVisible && (
+                <ModalLayout onClose={closeModal} labelledBy="title">
+                    <ModalHeader>
+                        <Typography fontWeight="bold" textColor="neutral800" as="h2" id="title">
+                            Video metadata
+                        </Typography>
+                    </ModalHeader>
+                    <ModalBody>
+                    <Flex gap={3}>
+                        <Box grow='1'>
+                            <TextInput placeholder="Metadata key" label="Key" name="key" onChange={handleChange} value={key} />
+                        </Box>
+                        <Box grow='1'>
+                            <TextInput placeholder="Metadata value" label="Value" name="value" onChange={handleChange} value={value} />
+                        </Box>
+                    </Flex>
+                    </ModalBody>
+                    <ModalFooter
+                        startActions={
+                            <Button onClick={closeModal} variant="tertiary">
+                                Cancel
+                            </Button>
+                        }
+                        endActions={
+                            <Button onClick={saveMetadata}>Save</Button>
+                        }
+                    />
+                </ModalLayout>
             )}
         </>
     )
