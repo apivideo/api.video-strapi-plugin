@@ -22,7 +22,7 @@ const DialogDelete: FC<IDialogDelete> = ({ title, isOpen, close, deleteVideo }) 
                 <Stack spacing={2}>
                     <Flex justifyContent="center">
                         <Typography id="confirm-description" textAlign={'center'}>
-                            Are you sure you want to delete the video named <Title>{title}</Title>.?
+                            Are you sure you want to delete the video named <Title>{title}</Title>?
                         </Typography>
                     </Flex>
                 </Stack>
