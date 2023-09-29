@@ -8,8 +8,8 @@ import { Box } from '@strapi/design-system/Box'
 import Plus from '@strapi/icons/Plus'
 import Trash from '@strapi/icons/Trash'
 
-import { AddButton, FooterAction, FormKey, FormValue, SubTitleMetadata } from './style'
-import { CustomBadge, Title } from '../../styles/form'
+import { AddButton, FooterAction, FormKey, FormValue } from './style'
+import { CustomBadge, SubTitle, Title } from '../../styles/form'
 import { InputDataMetadata } from '../../../types'
 import { useTheme } from '../../utils/hooks'
 
@@ -54,9 +54,9 @@ const MetadataTable: FC<MetadataTableProps> = ({ metadata, handleSetMetadata, ha
                 Metadata
                 <CustomBadge active={metadata?.length !== 0}>{metadata?.length}</CustomBadge>
             </Title>
-            <SubTitleMetadata>
+            <SubTitle>
                 A list of key value pairs that you use to provide metadata for your video.
-            </SubTitleMetadata>
+            </SubTitle>
             <Table colCount={COL_COUNT} rowCount={ROW_COUNT}>
                 <Thead>
                     <Tr>

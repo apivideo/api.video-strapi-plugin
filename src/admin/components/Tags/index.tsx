@@ -34,15 +34,14 @@ const Tags: FC<ITag> = ({ tags, handleSetTag, handleRemoveTag, editable }) => {
                 <CustomBadge active={tags.length > 0}>{tags.length}</CustomBadge>
             </Title>
             <SubTitle>A list of tags you want to use to describe your video.</SubTitle>
-            <Container>
-                <CreatableCombobox aria-label="Tags" value={value} onChange={setValue} onCreateOption={onCreateOption} onClear={onClear} disabled={!editable}>
-                    {tags.map((tag, i) => (
-                        <ComboboxOption key={i} value={tag}>
-                            {tag}
-                        </ComboboxOption>
-                    ))}
-                </CreatableCombobox>
-            </Container>
+            <CreatableCombobox aria-label="Tags" value={value} onChange={setValue} onCreateOption={onCreateOption} onClear={onClear} disabled={!editable}>
+                {tags.map((tag, i) => (
+                    <ComboboxOption key={i} value={tag}>
+                        {tag}
+                    </ComboboxOption>
+                ))}
+            </CreatableCombobox>
+            <br />
         </>
     )
 }
