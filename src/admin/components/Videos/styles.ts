@@ -8,11 +8,14 @@ export const GridBroadcastWrapper = styled.div`
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
+    border-radius: 4px;
+    background: #212134;
+    border: 1px solid #32324d;
 `
 
 export const GridBroadcast = styled.div`
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     grid-gap: 16px;
     width: 100%;
     padding: 20px 0;
@@ -20,12 +23,8 @@ export const GridBroadcast = styled.div`
 `
 
 export const Thumbnail = styled.img`
-    aspect-ratio: 16 / 9;
-    width: 100%;
-    object-fit: cover;
-    border-radius: 4px;
-    transition: 0.2s ease;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+    width: fit-content;
+    height: 100%;
 `
 
 export const DeleteIcon = styled(IconButton)`
@@ -36,17 +35,15 @@ export const DeleteIcon = styled(IconButton)`
 `
 
 export const WrapperVideo = styled.div`
+    display: flex;
+    justify-content: center;
     cursor: pointer;
     position: relative;
     width: 100%;
-    max-width: 600px;
+    height: 10.25rem;
     overflow: hidden;
     border-radius: 4px;
-
-    &:hover ${Thumbnail} {
-        filter: brightness(0.9);
-        transform: scale(1.1);
-    }
+    background: repeating-conic-gradient(#181826 0% 25%,transparent 0% 50%) 50% / 20px 20px;
 
     &:hover ${DeleteIcon} {
         display: block;
