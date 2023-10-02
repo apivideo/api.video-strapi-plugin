@@ -28,7 +28,7 @@ export = {
                 },
                 description: {
                     type: 'string',
-                    required: false,
+                    required: true,
                 },
                 _public:{
                     type: 'boolean',

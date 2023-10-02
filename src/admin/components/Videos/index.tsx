@@ -25,28 +25,22 @@ const VideoView: FC<IVideosProps> = ({ video, updateData, deletable, editable })
 
     useEffect(() => {
         const fetchThumbnail = async () => {
-            const fetchRes = await fetch(video.thumbnail);
-
+            const fetchRes = await fetch(video.thumbnail)
             if (fetchRes.status === 200) {
-                setThumbnail(URL.createObjectURL(await fetchRes.blob()));
-                return;
+                setThumbnail(URL.createObjectURL(await fetchRes.blob()))
+                return
             }
-
-            thumbnailTimout.current = setTimeout(() => fetchThumbnail(), 1000);
+            thumbnailTimout.current = setTimeout(() => fetchThumbnail(), 1000)
         }
-
-        setThumbnail(undefined);
-
-        fetchThumbnail();
+        setThumbnail(undefined)
+        fetchThumbnail()
 
         return () => {
             setTimeout(() => {
-                if (thumbnailTimout.current) clearTimeout(thumbnailTimout.current);
-            }, 1000);
+                if (thumbnailTimout.current) clearTimeout(thumbnailTimout.current)
+            }, 1000)
         }
     }, [video])
-
-
 
     const deleteVideo = async () => {
         await assetsRequests.delete(video.id, video.videoId)
@@ -60,13 +54,10 @@ const VideoView: FC<IVideosProps> = ({ video, updateData, deletable, editable })
     }
     const formatedCreatedAt = getDayMonthYearHourDate(video.createdAt)
 
-
     return (
         <Container>
             <WrapperVideo onClick={() => setIsModalOpen(true)}>
-                {thumbnail ? (
-                    <Thumbnail src={thumbnail} alt={'thumbnail'} />
-                ) : (<VideoCover />)}
+                {thumbnail ? <Thumbnail src={thumbnail} alt={'thumbnail'} /> : <VideoCover />}
                 {deletable && <DeleteIcon onClick={openDeleteDialog} aria-label="Delete" icon={<Trash />} />}
             </WrapperVideo>
 

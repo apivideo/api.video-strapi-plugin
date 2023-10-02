@@ -11,6 +11,7 @@ export const Title = styled.p<{ dark: boolean }>`
 export const SubTitle = styled.p`
     color: #666c8e;
     font-size: 12px;
+    padding-bottom: 10px;
 `
 
 export const FormInput = styled.input`

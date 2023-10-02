@@ -130,6 +130,7 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({ update, close }): JSX.Element 
                     value={description || ''}
                     placeholder="Enter a description"
                     onChange={handleChange}
+                    required
                 />
                 <br />
 
@@ -163,7 +164,7 @@ const AddVideoModal: FC<IAddVideoModalProps> = ({ update, close }): JSX.Element 
                         <UploadButton
                             currentFile={file}
                             title={title}
-                            description={description || ''}
+                            description={description}
                             _public={_public}
                             tags={tags || []}
                             metadata={metadata || []}

@@ -10,9 +10,8 @@ import { replacePrivateVideoTokens } from '../../../server/utils/private-videos'
 import { CustomAssets } from '../../../types'
 import assetsRequests from '../../api/assets'
 import { EnhancedCustomVideo } from '../../pages/HomePage'
-import { Title } from '../../styles/form'
+import { SubTitle, Title } from '../../styles/form'
 import { copyClipboard } from '../../utils'
-import { SubTitleMetadata } from '../Metadata/style'
 import { useTheme } from '../../utils/hooks'
 
 interface LinksProps {
@@ -49,10 +48,10 @@ const LinksTable: FC<LinksProps> = ({ video }) => {
             <Title dark={theme === 'dark'} style={{ marginTop: '20px' }}>Links</Title>
             {isPrivate
                 ? <>
-                    <SubTitleMetadata>The URLs for assets of private videos can only be used once. To obtain new URLs, you can click on the button below to generate fresh links. Each time you access a private video through the Strapi Content API, a new set of private asset URLs will be generated.</SubTitleMetadata>
+                    <SubTitle>The URLs for assets of private videos can only be used once. To obtain new URLs, you can click on the button below to generate fresh links. Each time you access a private video through the Strapi Content API, a new set of private asset URLs will be generated.</SubTitle>
                     <Button onClick={() => generateToken()}>Generate new urls</Button>
                 </>
-                : <SubTitleMetadata>A list of links you can copy by clicking on the copy button.</SubTitleMetadata>}
+                : <SubTitle>A list of links you can copy by clicking on the copy button.</SubTitle>}
 
             {assets && (
                 <Table colCount={COL_COUNT} rowCount={ROW_COUNT}>

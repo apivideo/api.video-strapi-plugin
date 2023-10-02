@@ -16,7 +16,7 @@ const SearchBar: FC<SearchBarProps> = ({ clearSearch, handleSearch, search }) =>
                 value={search}
                 onChange={(e: any) => handleSearch(e.target.value)}
                 clearLabel="Clearing the plugin search"
-                placeholder="filter by title"
+                placeholder="Filter by title"
             >
                 Searching for a plugin
             </Searchbar>

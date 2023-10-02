@@ -5,29 +5,6 @@ export const GridBroadcastWrapper = styled.div`
     padding: 10px;
 `
 
-export const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-`
-
-export const GridBroadcast = styled.div`
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    grid-gap: 16px;
-    width: 100%;
-    padding: 20px 0;
-    overflow: auto;
-`
-
-export const Thumbnail = styled.img`
-    aspect-ratio: 16 / 9;
-    width: 100%;
-    object-fit: cover;
-    border-radius: 4px;
-    transition: 0.2s ease;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
-`
-
 export const DeleteIcon = styled(IconButton)`
     position: absolute;
     bottom: 10px;
@@ -35,45 +12,64 @@ export const DeleteIcon = styled(IconButton)`
     display: none;
 `
 
-export const WrapperVideo = styled.div`
-    cursor: pointer;
-    position: relative;
-    width: 100%;
-    max-width: 600px;
-    overflow: hidden;
+export const Container = styled.div`
+    display: flex;
+    flex-direction: column;
     border-radius: 4px;
-
-    &:hover ${Thumbnail} {
-        filter: brightness(0.9);
-        transform: scale(1.1);
-    }
+    background: #212134;
+    border: 1px solid #32324d;
+    cursor: pointer;
+    box-shadow: 1px 1px 10px rgba(3,3,5,0.2);
 
     &:hover ${DeleteIcon} {
         display: block;
     }
 `
 
+export const GridBroadcast = styled.div`
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 16px;
+    width: 100%;
+    padding: 20px 0;
+    overflow: auto;
+`
+
+export const Thumbnail = styled.img`
+    width: fit-content;
+    height: 100%;
+`
+
+export const WrapperVideo = styled.div`
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    height: 10.25rem;
+    overflow: hidden;
+    background: repeating-conic-gradient(#181826 0% 25%,transparent 0% 50%) 50% / 20px 20px;
+`
+
 export const TitleWrapper = styled.div`
     display: flex;
     flex-direction: column;
+    padding: 8px 12px;
 `
 
 export const Title = styled.p<{ dark: boolean }>`
-    margin-top: 5px;
-    font-weight: 500;
+    font-size: .75rem;
+    line-height: 1.33;
+    font-weight: 600;
     color: ${p => p.dark ? '#ffffff' : '#32324d'};
-    font-size: 18px;
-    line-height: 2rem;
-    min-width: 250px;
-    max-width: 600px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-bottom: 4px;
 `
 
 export const SubTitle = styled.p`
     color: #606060;
-    font-size: 14px;
+    font-size: .70rem;
     font-style: italic;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -83,6 +79,6 @@ export const SubTitle = styled.p`
 `
 export const DateStyle = styled.p`
     color: #666687;
-    font-size: 12px;
+    font-size: .70rem;
     margin-top: 10px;
 `

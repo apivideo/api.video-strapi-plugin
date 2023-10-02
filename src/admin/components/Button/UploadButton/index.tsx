@@ -31,6 +31,7 @@ const UploadButton: FC<IUploadButtonProps> = ({
     const [isUploading, setIsUploading] = useState(false)
 
     const notification = useNotification()
+    const uploadIsDisabled = currentFile === undefined || title.trim().length < 1 || description.trim().length < 1
 
     const fileInputChange = async () => {
         const body = {
@@ -89,7 +90,7 @@ const UploadButton: FC<IUploadButtonProps> = ({
             endIcon={<CloudUpload />}
             loading={isUploading}
             onClick={fileInputChange}
-            disabled={currentFile === undefined}
+            disabled={uploadIsDisabled}
         >
             {isUploading ? `Uploading ${progress}%` : `Upload`}
         </Button>

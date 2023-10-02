@@ -31,7 +31,7 @@ export interface CustomSettings {
 
 export interface InputData {
     title: string
-    description?: string
+    description: string
     _public: boolean
     tags?: string[]
     metadata?: {
