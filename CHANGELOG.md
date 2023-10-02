@@ -2,6 +2,9 @@
 
 All changes to this project will be documented in this file.
 
+## [1.0.6] - 2023-10-02
+- Fix: various UI improvements
+
 ## [1.0.5] - 2023-08-30
 - Fix: issue when graphql dependencies are not installed
 
